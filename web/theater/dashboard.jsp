@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Đăng ký tài khoản | CineMagic</title>
+        <title>Dashboard | Tên rạp</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -10,16 +10,17 @@
             <%@include file="/general/sidebar.jsp" %>
 
             <div class="main-content">
-            <div class="header">
-                <button class="btn btn-primary sidebar-button">
-                    <span class="icon">
-                        <i class="fa-solid fa-bars"></i>
-                    </span>
-                </button>
-            </div>            
+                <div class="header">
+                    <button class="btn btn-primary sidebar-button">
+                        <span class="icon">
+                            <i class="fa-solid fa-bars"></i>
+                        </span>
+                    </button>
+                </div>            
+            </div>
         </div>
 
+
         <%@include file="/general/script.jsp" %>
-        <script src="/assets/js/cinema.js"></script>
     </body>
 </html>

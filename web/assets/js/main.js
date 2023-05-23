@@ -1,5 +1,9 @@
 window.onload = function () {
-    document.querySelector('.preloader').style.display = 'none';
+    var preloader = document.querySelector('.preloader');
+    if (preloader != null) {
+        preloader.style.display = 'none';
+    }
+    editPlainText();
 }
 
 var swiper = new Swiper(".in-theaters .swiper", {
@@ -88,12 +92,83 @@ var swiper = new Swiper(".showtimes .box-body .swiper", {
     })
 })()
 
-document.getElementById('confirm').addEventListener('input', function () {
-    var pass = document.getElementById('password').value;
-    if (this.value !== pass) {
-        this.classList.add('is-invalid');
+const confirmPass = document.getElementById('confirm');
+if (confirmPass != null) {
+    confirmPass.addEventListener('input', function () {
+        var pass = document.getElementById('password').value;
+        if (this.value !== pass) {
+            this.classList.add('is-invalid');
+        }
+        else {
+            this.classList.remove('is-invalid');
+        }
+    })
+}
+
+const sidebarBtn = document.querySelector('.sidebar-button');
+if (sidebarBtn != null) {
+    sidebarBtn.addEventListener('click', function () {
+        var sidebar = document.querySelector('.sidebar');
+        var main = document.querySelector('.main-content');
+        sidebar.classList.toggle('show');
+        main.classList.toggle('show');
+    })
+}
+
+function editPlainText() {
+    var canEdit = document.querySelectorAll('.can-edit');
+    if (canEdit != null) {
+        canEdit.forEach(e => {
+            e.addEventListener('click', function() {
+                e.removeAttribute('readonly');
+                e.classList.remove('form-control-plaintext');
+                e.classList.add('form-control');
+            })
+    
+            e.addEventListener('keypress', function(event) {
+                if (event.keyCode === 13) { // Kiểm tra nút Enter
+                    e.setAttribute('readonly', true); // Gán lại thuộc tính readonly
+                    e.classList.add('form-control-plaintext');
+                    e.classList.remove('form-control');
+                    // sendData(e.value); // ! Gửi dữ liệu vào server Ajax
+                }
+            })
+        })
     }
-    else {
-        this.classList.remove('is-invalid');
-    }
-})
+}
+
+$(function () {
+
+    // Start counting from the third row
+    var counter = 11;
+
+    $("#insertRow").on("click", function (event) {
+        event.preventDefault();
+
+        var newRow = $("<tr>");
+        var cols = '';
+
+        // Table columns
+        cols += '<td>' + counter + '</td>';
+        cols += '<td><input type="text" class="form-control can-edit" placeholder="Tên phòng"></td>';
+        cols += '<td class="text-center"><a href="#" class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></a></td>';
+        cols += '<td class="text-center"><a href="#" class="btn btn-danger" id="deleteRow"><span class="icon"><i class="fa-regular fa-trash-can"></i></span></a></td>';
+
+        // Insert the columns inside a row
+        newRow.append(cols);
+
+        // Insert the row inside a table
+        $("table").append(newRow);
+
+        editPlainText();
+
+        // Increase counter after each row insertion
+        counter++;
+    });
+
+    // Remove row when delete btn is clicked
+    $("table").on("click", "#deleteRow", function (event) {
+        $(this).closest("tr").remove();
+        counter -= 1
+    });
+});

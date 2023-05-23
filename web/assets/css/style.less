@@ -242,6 +242,28 @@ main {
             overflow: hidden;
         }
     }
+
+    &.showtimes-card {
+        display: flex;
+        gap: 1em;
+        padding: .75em 0;
+
+        &+.movie-card {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .poster {
+            flex: 1;
+        }
+
+        .content {
+            flex: 5;
+
+            .title {
+                color: var(--dark-color);
+            }
+        }
+    }
 }
 
 .cinema-system {
@@ -571,28 +593,6 @@ footer {
                 .list {
                     padding: 1em 1em;
                 }
-
-                .movie-card {
-                    display: flex;
-                    gap: 1em;
-                    padding: .75em 0;
-
-                    &+.movie-card {
-                        border-top: 1px solid var(--border-color);
-                    }
-
-                    .poster {
-                        flex: 1;
-                    }
-
-                    .content {
-                        flex: 5;
-
-                        .title {
-                            color: var(--dark-color);
-                        }
-                    }
-                }
             }
 
             .showtimes-cinema {
@@ -698,6 +698,7 @@ footer {
 .main-content {
     margin-left: 300px;
     transition: margin 0.25s;
+    background-color: var(--light-pink-color);
 
     &.show {
         margin-left: 60px;
@@ -709,6 +710,22 @@ footer {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
         height: 60px;
         padding: 0 1em;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+        background-color: var(--white-color);
+
+        +div {
+            margin-top: 60px;
+        }
+    }
+
+    .box-content {
+        background-color: var(--white-color);
+        border-radius: 7px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        padding: 1em;
     }
 }
 
@@ -717,7 +734,7 @@ footer {
     background-color: var(--dark-color);
 
     .col+.col {
-        > div {
+        >div {
             color: var(--white-color);
             position: relative;
 
@@ -732,7 +749,7 @@ footer {
                 transform: translate(-100%, -50%);
             }
         }
-        
+
     }
 }
 
