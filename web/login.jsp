@@ -4,7 +4,6 @@
     <head>
         <title>Đăng nhập | CineMagic</title>
         <%@include file="/general/head.jsp" %>
-
     </head>
     <body>
         <div id="page" class="site">

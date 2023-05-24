@@ -179,7 +179,7 @@ iframe {
 
 .btn {
     border: none;
-    outline: none;  
+    outline: none;
     padding: 0.75em 1.25em;
     transition: var(--trans-background-color);
     display: inline-flex;
@@ -226,19 +226,19 @@ iframe {
 }
 
 .text-primary {
-    color: var(--primary-color)!important;
+    color: var(--primary-color) !important;
 }
 
 .bg {
     &-primary {
-        background-color: var(--primary-color)!important;
+        background-color: var(--primary-color) !important;
         color: var(--white-color);
     }
 }
 
 .was-validated .form-control.is-invalid {
     border-color: #dc3545;
-    box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, .25);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right calc(.375em + .1875rem) center;
@@ -247,7 +247,7 @@ iframe {
 
 .was-validated .form-control.is-invalid:focus {
     border-color: #dc3545;
-    box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, .25);
 }
 
 .custom-select {
@@ -255,21 +255,21 @@ iframe {
         position: relative;
         margin-right: 1rem;
     }
-    
+
     details[open] {
         z-index: 2;
     }
-    
+
     summary {
         cursor: pointer;
         border-radius: 5px;
         list-style: none;
     }
-    
+
     summary::-webkit-details-marker {
         display: none;
     }
-    
+
     details[open] summary:before {
         content: '';
         display: block;
@@ -280,7 +280,7 @@ iframe {
         top: 0;
         left: 0;
     }
-    
+
     summary:after {
         content: '';
         display: inline-block;
@@ -294,15 +294,15 @@ iframe {
         transform-origin: center center;
         transition: transform ease-in-out 100ms
     }
-    
+
     summary:focus {
         outline: none;
     }
-    
+
     details[open] summary:after {
         transform: rotate(-45deg) translate(0%, 0%);
     }
-    
+
     ul {
         width: 100%;
         background: var(--white-color);
@@ -317,60 +317,60 @@ iframe {
         overflow-y: auto;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     }
-    
+
     li {
         margin: 0;
         padding: 1rem 0;
         border-bottom: 1px solid var(--border-color);
     }
-    
+
     li:first-child {
         padding-top: 0;
     }
-    
+
     li:last-child {
         padding-bottom: 0;
         border-bottom: none;
     }
-    
+
     /* FAKE SELECT */
-    
+
     summary.radios {
         counter-reset: radios;
     }
-    
+
     summary.radios:before {
         content: var(--selection);
     }
-    
+
     input[type=radio] {
         counter-increment: radios;
         appearance: none;
         display: none;
     }
-    
+
     input[type=radio]:checked {
         display: inline;
         --display: block;
         pointer-events: none;
     }
-    
+
     input[type=radio]:after {
         content: attr(title);
         display: inline;
         font-size: 1rem;
     }
-    
+
     ul.list {
         counter-reset: labels;
     }
-    
+
     label {
         width: 100%;
         display: flex;
         cursor: pointer;
     }
-    
+
     label span {
         --display: none;
         display: var(--display);
@@ -378,5 +378,43 @@ iframe {
         height: 1rem;
         border: 1px solid #727272;
         border-radius: 3px;
+    }
+}
+
+.m {
+    &t- {
+        &n5 {
+            margin-top: -2.25rem !important;
+        }
+    }
+}
+
+.avatar {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1rem;
+
+    &&-xl,
+    &&-xxl {
+        width: 5.125rem;
+        height: 5.125rem;
+        font-size: 1.70833rem;
+    }
+
+    @media (min-width: 768px) {
+        &&-xxl {
+            width: 8rem;
+            height: 8rem;
+            font-size: 2.66667rem;
+        }
+    }
+
+    &-img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
     }
 }

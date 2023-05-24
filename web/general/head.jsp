@@ -6,7 +6,7 @@
 <!-- Remix Icon -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.3.0/fonts/remixicon.min.css">
 <!-- Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Swiper -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <!-- Font Awesome -->
