@@ -16,9 +16,9 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <h1 class="text-center mb-4">Đăng nhập</h1>
-                                    <form action="#" method="post">
+                                    <form action="/login" method="post">
                                         <div class="mb-3 form-floating">
-                                            <input type="email" class="form-control" id="email" name="txtEmail"
+                                            <input type="email" class="form-control ${errorEmail}" id="email" name="txtEmail"
                                                    placeholder="name@example.com" required>
                                             <label for="email" class="form-label">Email</label>
                                             <div class="invalid-feedback">
@@ -27,7 +27,7 @@
                                         </div>
 
                                         <div class="mb-3 form-floating">
-                                            <input type="password" class="form-control" id="password" name="txtPassword"
+                                            <input type="password" class="form-control ${errorPass}" id="password" name="txtPassword"
                                                    placeholder="Password" required maxlength="32">
                                             <label for="password" class="form-label">Mật khẩu</label>
                                             <div class="invalid-feedback">
@@ -52,7 +52,7 @@
                                     <a href="#" class="btn btn-facebook w100 d-flex"><span class="icon"><i
                                                 class="ri-facebook-fill"></i></span>Đăng nhập bằng Facebook</a>
 
-                                    <p class="mini-text mt-3 text-center">Chưa có tài khoản? <strong><a href="#">Đăng ký
+                                    <p class="mini-text mt-3 text-center">Chưa có tài khoản? <strong><a href="/register">Đăng ký
                                                 ngay</a></strong></p>
                                 </div>
                                 <div class="col-md-7">

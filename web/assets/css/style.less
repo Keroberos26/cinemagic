@@ -188,6 +188,12 @@ main {
             top: .1em;
             left: .25em;
             color: var(--white-color);
+            
+            .badge {
+                &::after {
+                    content: '+';
+                }
+            }
 
             &.age-16 {
                 .badge {
@@ -669,7 +675,7 @@ footer {
     transition: all 0.25s;
     overflow: hidden;
 
-    &.show {
+    &.hide {
         width: 60px;
 
         img {
@@ -699,6 +705,8 @@ footer {
     margin-left: 300px;
     transition: margin 0.25s;
     background-color: var(--light-pink-color);
+    min-height: 100vh;
+    padding-top: 60px;
 
     &.show {
         margin-left: 60px;
@@ -715,10 +723,6 @@ footer {
         width: 100%;
         z-index: 1;
         background-color: var(--white-color);
-
-        +div {
-            margin-top: 60px;
-        }
     }
 
     .box-content {
@@ -760,5 +764,64 @@ footer {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
         border-radius: 7px;
         overflow: hidden;
+    }
+}
+
+.screen {
+    background: #dfdfdf;
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.seats {
+    text-align: center;
+    overflow: auto;
+
+    & &-map {
+        display: inline-block;
+    }
+
+    & &-row {
+        display: flex;
+        justify-content: center;
+
+        li {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: var(--white-color);
+            margin: 3px;
+            cursor: pointer;
+            position: relative;
+            box-sizing: border-box;
+            text-align: center;
+            padding: 7px 0;
+            vertical-align: middle;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 2px;
+        }
+    }
+
+    &-mng {
+        background-color: #262626;
+
+        .seats-row {
+            li {
+                opacity: 0.1;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+                
+                &.is-seat {
+                    opacity: 1;
+                }
+            }
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Movie {
     private String id;
@@ -10,7 +11,7 @@ public class Movie {
     private int duration;
     private Date releaseDate;
     private double rating;
-    private String[] genre;
+    private String genres;
     private String actors;
     private String directors;
     private String country;
@@ -21,7 +22,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String id, String title, String description, String poster, int duration, Date releaseDate, double rating, String[] genre, String actors, String directors, String country, String trailer, int age, String status) {
+    public Movie(String id, String title, String description, String poster, int duration, Date releaseDate, double rating, String genres, String actors, String directors, String country, String trailer, int age, String status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,7 +30,7 @@ public class Movie {
         this.duration = duration;
         this.releaseDate = releaseDate;
         this.rating = rating;
-        this.genre = genre;
+        this.genres = genres;
         this.actors = actors;
         this.directors = directors;
         this.country = country;
@@ -94,12 +95,12 @@ public class Movie {
         this.rating = rating;
     }
 
-    public String[] getGenre() {
-        return genre;
+    public String getGenres() {
+        return genres;
     }
 
-    public void setGenre(String[] genre) {
-        this.genre = genre;
+    public void setGenres(String genres) {
+        this.genres = genres;
     }
 
     public String getActors() {
@@ -148,6 +149,11 @@ public class Movie {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" + "id=" + id + ", title=" + title + ", description=" + description + ", poster=" + poster + ", duration=" + duration + ", releaseDate=" + releaseDate + ", rating=" + rating + ", genre=" + genres + ", actors=" + actors + ", directors=" + directors + ", country=" + country + ", trailer=" + trailer + ", age=" + age + ", status=" + status + '}';
     }
     
     

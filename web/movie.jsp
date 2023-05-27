@@ -1,8 +1,9 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Tên phim | CineMagic</title>
+        <title>${m.title} | CineMagic</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -14,10 +15,10 @@
                     <div class="container-lg">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb main-links">
-                                <li class="breadcrumb-item"><a href="#"><span class="icon"><i
+                                <li class="breadcrumb-item"><a href="/"><span class="icon"><i
                                                 class="ri-home-4-fill"></i></span></a></li>
                                 <li class="breadcrumb-item"><a href="#">Phim chiếu</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Tên phim</li>
+                                <li class="breadcrumb-item active" aria-current="page">${m.title}</li>
                             </ol>
                         </nav>
                     </div>
@@ -30,9 +31,9 @@
                                 <div class="row g-4">
                                     <div class="col-md-3 col-sm-5 col-12">
                                         <div class="poster">
-                                            <a data-fslightbox="1" href="https://www.youtube.com/watch?v=e7KHOQ-alqY">
+                                            <a data-fslightbox="${m.id}" href="${m.trailer}">
                                                 <div class="bg-img thumbnail"
-                                                     style="background-image: url(/assets/img/poster/connhot.jpg);">
+                                                     style="background-image: url(${m.poster});">
                                                 </div>
                                                 <div class="play-btn">
                                                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"
@@ -48,39 +49,33 @@
                                                     </g>
                                                     </svg>
                                                 </div>
-                                                <div class="age-restricted age-16"><span class="badge">16+</span></div>
+                                                <div class="age-restricted age-${m.age}"><span class="badge">${m.age}</span></div>
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-md col-sm-7 col-12">
                                         <div class="content main-links">
-                                            <h1 class="title">Con Nhót Mót Chồng</h1>
-                                            <p class="genre mini-text">Hài hước - 2023</p>
+                                            <h1 class="title">${m.title}</h1>
+                                            <p class="genre mini-text">${m.genres} - <fmt:formatDate value="${m.releaseDate}" pattern="yyyy" /></p>
                                             <div class="description">
                                                 <p><strong>Nội dung</strong></p>
-                                                <p class="mini-text">Bộ phim là câu chuyện của Nhót - người phụ nữ “chưa kịp
-                                                    già” đã
-                                                    sắp bị mãn kinh, vội vàng đi tìm chồng. Nhưng sâu thẳm trong cô, là khao
-                                                    khát
-                                                    muốn có một đứa con và luôn muốn hàn gắn với người cha suốt ngày say xỉn
-                                                    của
-                                                    mình.</p>
+                                                <p class="mini-text">${m.description}</p>
                                             </div>
                                             <div class="flexitem gap-3 gap-md-5">
                                                 <div>
                                                     <p class="mini-text mb-1 d-inline-flex"><span class="icon ps-0"><i
                                                                 class="ri-calendar-event-line"></i></span>Khởi chiếu</p>
-                                                    <p>28/04/2023</p>
+                                                    <p><fmt:formatDate value="${m.releaseDate}" pattern="dd/MM/yyyy" /></p>
                                                 </div>
                                                 <div>
                                                     <p class="mini-text mb-1 d-inline-flex"><span class="icon ps-0"><i
                                                                 class="ri-time-line"></i></span>Thời lượng</p>
-                                                    <p>112 phút</p>
+                                                    <p>${m.duration} phút</p>
                                                 </div>
                                                 <div>
                                                     <p class="mini-text mb-1 d-inline-flex"><span class="icon ps-0"><i
                                                                 class="ri-earth-line"></i></span>Quốc gia</p>
-                                                    <p>Việt Nam</p>
+                                                    <p>${m.country}</p>
                                                 </div>
                                             </div>
                                         </div>

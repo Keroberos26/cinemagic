@@ -5,15 +5,17 @@ public class CinemaSystem {
     private String name;
     private String logo;
     private String description;
+    private int numOfTheater;
 
     public CinemaSystem() {
     }
 
-    public CinemaSystem(String id, String name, String logo, String description) {
+    public CinemaSystem(String id, String name, String logo, String description, int numOfTheater) {
         this.id = id;
         this.name = name;
         this.logo = logo;
         this.description = description;
+        this.numOfTheater = numOfTheater;
     }
 
     public String getId() {
@@ -47,6 +49,16 @@ public class CinemaSystem {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getNumOfTheater() {
+        return numOfTheater;
+    }
+
+    public void setNumOfTheater(int numOfTheater) {
+        this.numOfTheater = numOfTheater;
+    }
+    
+    
     
     
 }

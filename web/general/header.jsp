@@ -18,10 +18,10 @@
                     <nav class="d-lg-block d-none">
                         <ul class="main-links flexitem">
                             <li><a href="#">Rạp chiếu</a></li>
-                            <li><a href="#">Lịch chiếu</a></li>
+                            <li><a href="/showtime.jsp">Lịch chiếu</a></li>
                             <li><a href="#">Phim chiếu</a></li>
                             <li><a href="#">Review phim</a></li>
-                            <li><a href="#">Đăng nhập</a></li>
+                            <li><a href="/login">Đăng nhập</a></li>
                         </ul>
                     </nav>
 

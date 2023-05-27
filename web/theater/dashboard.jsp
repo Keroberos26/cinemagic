@@ -10,13 +10,7 @@
             <%@include file="/general/sidebar.jsp" %>
 
             <div class="main-content">
-                <div class="header">
-                    <button class="btn btn-primary sidebar-button">
-                        <span class="icon">
-                            <i class="fa-solid fa-bars"></i>
-                        </span>
-                    </button>
-                </div>            
+                <%@include file="/general/theater-header.jsp" %>           
             </div>
         </div>
 

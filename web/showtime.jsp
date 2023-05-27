@@ -29,7 +29,7 @@
                                 <div class="col-md col-12 order-md-2">
                                     <div class="banner-img">
                                         <div class="bg-img"
-                                            style="background-image: url(https://static.mservice.io/img/momo-upload-api-210820191534-637650837346813468.jpg);">
+                                            style="background-image: url();">
                                         </div>
                                     </div>
                                 </div>

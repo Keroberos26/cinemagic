@@ -13,7 +13,7 @@
 
             <main>
                 <div class="top-img mb-5">
-                    <img src="/assets/img/tix-banner.png" alt="Banner" class="h-auto w-100">
+                    <img src="/assets/img/background/tix-banner.png" alt="Banner" class="h-auto w-100">
                     <div class="container">
                         <div class="wrapper mt-n5">
                             <div class="row align-items-end mb-3">

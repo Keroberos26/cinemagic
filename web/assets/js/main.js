@@ -110,7 +110,7 @@ if (sidebarBtn != null) {
     sidebarBtn.addEventListener('click', function () {
         var sidebar = document.querySelector('.sidebar');
         var main = document.querySelector('.main-content');
-        sidebar.classList.toggle('show');
+        sidebar.classList.toggle('hide');
         main.classList.toggle('show');
     })
 }
@@ -137,6 +137,7 @@ function editPlainText() {
     }
 }
 
+// Insert Room Row
 $(function () {
 
     // Start counting from the third row
@@ -172,3 +173,7 @@ $(function () {
         counter -= 1
     });
 });
+
+// * Enable tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

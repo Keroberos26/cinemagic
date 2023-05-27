@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="sidebar">
+<div class="sidebar hide">
     <div class="container-fluid p-3">
         <div class="row align-items-center g-2">
             <div class="col-3">
@@ -56,8 +56,7 @@
             </li>
             <li>
                 <a href="#" class="p-3">
-                    <span class="icon pe-4"><i class="fa-solid fa-building-user fa-lg"></i></span>Thông tin rạp
-                    phim
+                    <span class="icon pe-4"><i class="fa-solid fa-building-user fa-lg"></i></span>Thông tin rạp phim
                 </a>
             </li>
             <li>
