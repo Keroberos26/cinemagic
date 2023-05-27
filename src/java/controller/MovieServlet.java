@@ -14,7 +14,6 @@ public class MovieServlet extends HttpServlet {
         String id = req.getParameter("id");
         MovieDAO dao = new MovieDAO();
         Movie movie = dao.getMovieById(id);
-        System.out.println(movie);
         req.setAttribute("m", movie);
         req.getRequestDispatcher("movie.jsp").forward(req, resp);
     } 

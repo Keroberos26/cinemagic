@@ -114,7 +114,7 @@
                                                     </div>
                                                 </div>
         
-                                                <button type="submit" class="btn btn-primary w-100 mt-3">Tạo tài khoản</button>
+                                                <button type="submit" class="btn btn-primary w-100 mt-3">Cập nhật</button>
                                             </form>
                                         </div>
                                     </div>
