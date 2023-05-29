@@ -7,17 +7,19 @@ public class Account {
     private String role;
     private String name;
     private String city;
+    private String avatar;
 
     public Account() {
     }
 
-    public Account(String id, String email, String password, String role, String name, String city) {
+    public Account(String id, String email, String password, String role, String name, String city, String avatar) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
         this.name = name;
         this.city = city;
+        this.avatar = avatar;
     }
 
     public String getId() {
@@ -66,5 +68,13 @@ public class Account {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

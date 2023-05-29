@@ -424,3 +424,15 @@ iframe {
         content: '₫';
     }
 }
+
+.dropdown {
+    & &-toggle {
+        &::after {
+            display: none;
+        }
+    }
+
+    & &-item {
+        padding: 0.5rem 1rem;
+    }
+}

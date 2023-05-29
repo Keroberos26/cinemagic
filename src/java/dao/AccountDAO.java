@@ -101,7 +101,8 @@ public class AccountDAO {
                                     rs.getString("password"),
                                     rs.getString("role"),
                                     rs.getString("name"), 
-                                    rs.getString("city"));
+                                    rs.getString("city"),
+                                    rs.getString("avatar"));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {

@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <div class="preloader"></div>
 
@@ -21,7 +22,34 @@
                             <li><a href="/showtime.jsp">Lịch chiếu</a></li>
                             <li><a href="#">Phim chiếu</a></li>
                             <li><a href="#">Review phim</a></li>
-                            <li><a href="/login">Đăng nhập</a></li>
+                            <li>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="avatar">
+                                            <img src="${acc.avatar != null ? acc.avatar : "/assets/img/no-avatar.png"}" alt="Avatar"
+                                                 class="avatar-img rounded-circle border border-4 d-block">
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <c:if test="${acc == null}">
+                                            <li><a class="dropdown-item" href="/login">
+                                                <span class="icon"><i class="ri-login-box-line"></i></span>Đăng nhập
+                                            </a></li>
+                                            <li><a class="dropdown-item" href="/register">
+                                                <span class="icon"><i class="fa-brands fa-angellist"></i></span>Đăng ký
+                                            </a></li>
+                                        </c:if>
+                                        <c:if test="${acc != null}">
+                                            <li><a class="dropdown-item" href="/my-account">
+                                                <span class="icon"><i class="fa-regular fa-user"></i></span>Tài khoản của tôi
+                                            </a></li>
+                                            <li><a class="dropdown-item" href="/my-account">
+                                                <span class="icon"><i class="ri-logout-box-line"></i></span>Đăng xuất
+                                            </a></li>
+                                        </c:if>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </nav>
 
@@ -50,8 +78,14 @@
                                 <li><a href="#">Rạp chiếu</a></li>
                                 <li><a href="#">Lịch chiếu</a></li>
                                 <li><a href="#">Phim chiếu</a></li>
-                                <li><a href="#">Đăng nhập</a></li>
-                                <li><a href="#">Đăng ký</a></li>
+                                <c:if test="${acc == null}">
+                                    <li><a href="/login">Đăng nhập</a></li>
+                                    <li><a href="/register">Đăng ký</a></li>
+                                </c:if>
+                                <c:if test="${acc != null}">
+                                    <li><a href="/my-account">Tài khoản của tôi</a></li>
+                                    <li><a href="/">Đăng xuất</a></li>
+                                </c:if>
                             </ul>
                         </div>
                     </div>
