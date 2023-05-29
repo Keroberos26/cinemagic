@@ -24,26 +24,26 @@ public class RegisterServlet extends HttpServlet {
         String error = "";
         String errorMsg = "";
 
-        if (!dao.isExisted(email)) {
-            if (dao.validatePassword(password)) {
-                if (password.equals(confirm)) {
-                    dao.addAccount(email, password, "U");
-                    req.setAttribute("txtEmail", email);
-                    req.setAttribute("txtPassword", password);
-                    req.getRequestDispatcher("/login?doPost=true").forward(req, resp);
+            if (!dao.isExisted(email)) {
+                if (dao.validatePassword(password)) {
+                    if (password.equals(confirm)) {
+                        dao.addAccount(email, password, "U");
+                        req.setAttribute("txtEmail", email);
+                        req.setAttribute("txtPassword", password);
+                        req.getRequestDispatcher("/login?doPost=true").forward(req, resp);
 //                    resp.sendRedirect("login");
+                    } else {
+                        error = "errorConfirm";
+                        errorMsg = "Mật khẩu không khớp";
+                    }
                 } else {
-                    error = "errorConfirm";
-                    errorMsg = "Mật khẩu không khớp";
+                    error = "errorPass";
+                    errorMsg = "Mật khẩu phải chứa 8 - 32 ký tự, bao gồm ít nhất 1 chữ hoa [A - Z], 1 chữ thường [a - z], 1 chữ số và 1 ký tự đặc biệt (@ $ ! % * ? &).";
                 }
             } else {
-                error = "errorPass";
-                errorMsg = "Mật khẩu phải chứa 8 - 32 ký tự, bao gồm ít nhất 1 chữ hoa [A - Z], 1 chữ thường [a - z], 1 chữ số và 1 ký tự đặc biệt (@ $ ! % * ? &).";
+                error = "errorEmail";
+                errorMsg = "Email đã được đăng ký.";
             }
-        } else {
-            error = "errorEmail";
-            errorMsg = "Email đã được đăng ký.";
-        }
 
         if (!error.isBlank()) {
             req.setAttribute(error, "<div class=\"alert alert-warning\" role=\"alert\">\n"

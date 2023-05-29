@@ -33,6 +33,14 @@ public class AccountDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return existed;
     }
@@ -61,10 +69,10 @@ public class AccountDAO {
         // Tạo đối tượng Pattern từ pattern
         Pattern regexPattern = Pattern.compile(pattern);
         // Tạo đối tượng Matcher để so khớp password với pattern
-        Matcher matcher = regexPattern.matcher(password);    
+        Matcher matcher = regexPattern.matcher(password);
         return matcher.matches();
-    } 
-    
+    }
+
     public boolean addAccount(String email, String password, String role) {
         try {
             con = DbContext.getConnection();
@@ -79,14 +87,85 @@ public class AccountDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+
         return false;
     }
-    
+
+    public boolean addAccountByGoogleId(String googleid, String name, String role) {
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "insert into \"Account\"(googleid, name, role) values (?, ?, ?)";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, googleid);
+                stm.setString(2, name);
+                stm.setString(3, role);
+                stm.execute();
+                return true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return false;
+    }
+
+    public Account loginGmail(String googleid) {
+        Account acc = null;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Account\" where googleid = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, googleid);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    acc = new Account(rs.getString("accid"),
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getString("name"),
+                            rs.getString("city"));
+                    rs.getString("googleid");
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return acc;
+
+    }
+
     public Account login(String email, String password) {
         Account acc = null;
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -97,15 +176,23 @@ public class AccountDAO {
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     acc = new Account(rs.getString("accid"),
-                                    rs.getString("email"),
-                                    rs.getString("password"),
-                                    rs.getString("role"),
-                                    rs.getString("name"), 
-                                    rs.getString("city"));
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getString("name"),
+                            rs.getString("city"));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return acc;
     }
