@@ -31,11 +31,11 @@ public class LoginServlet extends HttpServlet {
 
         String error = "";
         if (dao.isExisted(email)) {
-            Account acc = dao.login(email, password);
+            Account acc = dao.login(email, password, false);
             if (acc != null) {
                 if (remember != null) {
-                    Cookie cEmail = new Cookie("cUser", email);
-                    Cookie cPass = new Cookie("cPass", password);
+                    Cookie cEmail = new Cookie("cEmail", email);
+                    Cookie cPass = new Cookie("cPass", dao.encrypPassword(password));
 
                     cEmail.setMaxAge(60 * 60 * 24 * 30);//30 days
                     cPass.setMaxAge(60 * 60 * 24 * 30);

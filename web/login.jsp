@@ -49,8 +49,14 @@
                                     </form>
 
                                     <p class="mt-3 mini-text text-center">hoặc</p>
+
                                     <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/google&response_type=code
-                                       &client_id=888385144954-a2i14sajvi08ich6pec4edhs4ndu1h9p.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                                       &client_id=888385144954-a2i14sajvi08ich6pec4edhs4ndu1h9p.apps.googleusercontent.com&approval_prompt=force" 
+                                       class="btn btn-google w-100 d-flex">
+                                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png" alt="Google" width="16" height="16"> 
+                                       <span class="ms-2">Đăng nhập bằng Google</span>
+                                    </a>
+
 
                                     <p class="mini-text mt-3 text-center">Chưa có tài khoản? <strong><a href="/register">Đăng ký
                                                 ngay</a></strong></p>

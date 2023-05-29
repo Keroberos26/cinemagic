@@ -43,7 +43,7 @@
                                             <li><a class="dropdown-item" href="/my-account">
                                                 <span class="icon"><i class="fa-regular fa-user"></i></span>Tài khoản của tôi
                                             </a></li>
-                                            <li><a class="dropdown-item" href="/my-account">
+                                            <li><a class="dropdown-item" href="/logout">
                                                 <span class="icon"><i class="ri-logout-box-line"></i></span>Đăng xuất
                                             </a></li>
                                         </c:if>
@@ -84,7 +84,7 @@
                                 </c:if>
                                 <c:if test="${acc != null}">
                                     <li><a href="/my-account">Tài khoản của tôi</a></li>
-                                    <li><a href="/">Đăng xuất</a></li>
+                                    <li><a href="/logout">Đăng xuất</a></li>
                                 </c:if>
                             </ul>
                         </div>

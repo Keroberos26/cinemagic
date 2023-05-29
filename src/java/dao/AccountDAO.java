@@ -100,16 +100,17 @@ public class AccountDAO {
         return false;
     }
 
-    public boolean addAccountByGoogleId(String googleid, String name, String role) {
+    public boolean addAccountByGoogleId(String googleid, String name, String avatar) {
 
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Account\"(googleid, name, role) values (?, ?, ?)";
+                String sql = "insert into \"Account\"(googleid, name, role, avatar) values (?, ?, ?, ?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, googleid);
                 stm.setString(2, name);
-                stm.setString(3, role);
+                stm.setString(3, "U");
+                stm.setString(4, avatar);
                 stm.execute();
                 return true;
             }
@@ -163,7 +164,7 @@ public class AccountDAO {
 
     }
 
-    public Account login(String email, String password) {
+    public Account login(String email, String password, boolean encrypted) {
         Account acc = null;
 
         try {
@@ -172,7 +173,11 @@ public class AccountDAO {
                 String sql = "select * from \"Account\" where email = ? and password = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
-                stm.setString(2, encrypPassword(password));
+                if (encrypted) {
+                    stm.setString(2, password);
+                } else {
+                    stm.setString(2, encrypPassword(password));
+                }
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     acc = new Account(rs.getString("accid"),
