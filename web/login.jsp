@@ -49,8 +49,8 @@
                                     </form>
 
                                     <p class="mt-3 mini-text text-center">hoặc</p>
-                                    <a href="#" class="btn btn-facebook w100 d-flex"><span class="icon"><i
-                                                class="ri-facebook-fill"></i></span>Đăng nhập bằng Facebook</a>
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/google&response_type=code
+                                       &client_id=888385144954-a2i14sajvi08ich6pec4edhs4ndu1h9p.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
 
                                     <p class="mini-text mt-3 text-center">Chưa có tài khoản? <strong><a href="/register">Đăng ký
                                                 ngay</a></strong></p>
