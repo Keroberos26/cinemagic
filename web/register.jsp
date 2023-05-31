@@ -16,7 +16,7 @@
                             <div class="row g-4">
                                 <div class="col-md">
                                     <h1 class="text-center mb-4">Đăng ký</h1>
-                                    <form action="/register" method="post" class="needs-validation" novalidate>
+                                    <form id="register"  name="register" class="needs-validation" action="" method="post">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="email" name="txtEmail" required>
@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                         ${errorConfirm}
-                                        <button type="submit" class="btn btn-primary w-100 mt-3">Tạo tài khoản</button>
+                                        <button type="submit" class="btn btn-primary w-100 mt-3" >Tạo tài khoản</button>
                                     </form>
 
                                     <p class="mt-3 mini-text text-center">hoặc</p>
@@ -61,13 +61,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </main>
 
             <%@include file="/general/footer.jsp" %>
         </div>
-
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        <script type="module" src='/scripts/register.js'>
+           </script>
+        
         <%@include file="/general/script.jsp" %>
     </body>
 </html>
