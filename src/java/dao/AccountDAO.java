@@ -74,6 +74,8 @@ public class AccountDAO {
     }
 
     public boolean addAccount(String email, String password, String role) {
+        boolean success = false;
+        
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -83,7 +85,7 @@ public class AccountDAO {
                 stm.setString(2, encrypPassword(password));
                 stm.setString(3, role);
                 stm.execute();
-                return true;
+                success = true;
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,16 +93,71 @@ public class AccountDAO {
             try {
                 con.close();
                 stm.close();
-                rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        return false;
+        return success;
+    }
+    
+    public boolean updateAccount(String id, String name, String phone, String city, String avatar) {
+        boolean success = false;
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Account\" set name = ?, phone = ?, city = ?, avatar = ? where accid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, phone);
+                stm.setString(3, city);
+                stm.setString(4, avatar);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return success;
+    }
+    
+    public boolean changePassword(String id, String password) {
+        boolean success = false;
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Account\" set password = ? where accid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, encrypPassword(password));
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return success;
     }
 
     public boolean addAccountByGoogleId(String googleid, String name, String avatar) {
+        boolean success = false;
 
         try {
             con = DbContext.getConnection();
@@ -112,7 +169,7 @@ public class AccountDAO {
                 stm.setString(3, "U");
                 stm.setString(4, avatar);
                 stm.execute();
-                return true;
+                success = true;
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,13 +177,12 @@ public class AccountDAO {
             try {
                 con.close();
                 stm.close();
-                rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        return false;
+        return success;
     }
 
     public Account loginGmail(String googleid) {
@@ -145,6 +201,7 @@ public class AccountDAO {
                             rs.getString("password"),
                             rs.getString("role"),
                             rs.getString("name"),
+                            rs.getString("phone"),
                             rs.getString("city"),
                             rs.getString("avatar"));
                 }
@@ -185,6 +242,7 @@ public class AccountDAO {
                             rs.getString("password"),
                             rs.getString("role"),
                             rs.getString("name"),
+                            rs.getString("phone"),
                             rs.getString("city"),
                             rs.getString("avatar"));
                 }

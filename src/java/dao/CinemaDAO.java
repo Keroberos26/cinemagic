@@ -38,6 +38,14 @@ public class CinemaDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return list;
     }

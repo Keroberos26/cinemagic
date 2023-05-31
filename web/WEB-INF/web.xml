@@ -32,6 +32,18 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChooseSeatServlet</servlet-name>
+        <servlet-class>controller.ChooseSeatServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyAccount</servlet-name>
+        <servlet-class>controller.MyAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChooseComboServlet</servlet-name>
+        <servlet-class>controller.ChooseComboServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -55,6 +67,18 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChooseSeatServlet</servlet-name>
+        <url-pattern>/choose-seat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccount</servlet-name>
+        <url-pattern>/my-account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChooseComboServlet</servlet-name>
+        <url-pattern>/choose-combo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

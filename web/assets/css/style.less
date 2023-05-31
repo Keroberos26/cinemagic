@@ -49,13 +49,13 @@ header {
                 font-family: 'Nunito', sans-serif;
                 font-weight: 600;
 
-                > li > a {
+                >li>a {
                     line-height: 80px;
                 }
             }
         }
 
-        a[data-bs-toggle = offcanvas] {
+        a[data-bs-toggle=offcanvas] {
             line-height: 80px;
         }
 
@@ -192,7 +192,7 @@ main {
             top: .1em;
             left: .25em;
             color: var(--white-color);
-            
+
             .badge {
                 &::after {
                     content: '+';
@@ -740,10 +740,10 @@ footer {
 .ticketing-steps {
     padding: 0.75em 0;
     background-color: var(--dark-color);
+    color: var(--white-color);
 
     .col+.col {
         >div {
-            color: var(--white-color);
             position: relative;
 
             &::before {
@@ -761,42 +761,53 @@ footer {
     }
 }
 
-.seat-form {
-    padding: 3em 0;
-
-    .ticket-info {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-        border-radius: 7px;
-        overflow: hidden;
-    }
-}
-
-.screen {
-    background: #dfdfdf;
-    padding: 5px;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
 .seats {
-    text-align: center;
-    overflow: auto;
+    &-selection {
+        background-color: #262626;
+        color: var(--white-color);
+        padding: 1em 0;
+    }
+
+    .front {
+        text-align: center;
+
+        .screen {
+            display: inline-block;
+            height: 0.25em;
+            width: 25em;
+            max-width: 95%;
+            background-color: var(--white-color);
+            border-radius: 3em;
+            margin: 0 auto 0.25em;
+        }
+
+        span {
+            font-family: 'Nunito';
+            font-weight: 500;
+            display: block;
+            font-size: 1.25em;
+            text-transform: uppercase;
+        }
+    }
+
+    & &-wrapper {
+        text-align: center;
+        overflow: auto;
+        margin-top: 1em;
+    }
 
     & &-map {
         display: inline-block;
     }
 
-    & &-row {
+    & &-row, &-selection .legend {
         display: flex;
         justify-content: center;
 
-        li {
+        label {
             display: inline-block;
-            width: 25px;
-            height: 25px;
-            background: var(--white-color);
+            width: 2.8em;
+            height: 2.8em;
             margin: 3px;
             cursor: pointer;
             position: relative;
@@ -807,60 +818,74 @@ footer {
             font-size: 11px;
             font-weight: 700;
             border-radius: 2px;
-        }
-    }
+            opacity: 1;
+            font-family: 'Nunito', sans-serif;
+            transition: opacity 0.25s;
 
-    &-mng {
-        background-color: #262626;
-
-        .seats-row {
-            li {
-                opacity: 0.1;
-
-                &:hover {
-                    opacity: 0.7;
-                }
-                
-                &.is-seat {
-                    opacity: 1;
-                }
+            &:hover {
+                opacity: 0.7;
             }
 
+            &.selected {
+                background-color: var(--primary-color)!important;
+                outline: 2px solid var(--white-color);
+            }
+
+            &.taken {
+                background: repeating-linear-gradient(45deg,hsla(0,0%,60%,.4),hsla(0,0%,60%,.4) 10px,hsla(0,0%,60%,.6) 0,hsla(0,0%,60%,.6) 20px)!important;
+                pointer-events: none;
+            }
+            
+            &.space {
+                background-color: transparent;
+                pointer-events: none;
+            }
+            
+            &.seat {
+                &-normal {
+                    background-color: #ff3387;
+                }
+
+                &-vip {
+                    background-color: #f5222d;
+                }
+            }
         }
     }
 }
 
-.verification{
-    background-color:var(--primary-color);
-    
+.verification {
+    background-color: var(--primary-color);
+
     .height-100 {
-        height:100vh;
+        height: 100vh;
     }
-    
-    .card{
-        width:400px;
+
+    .card {
+        width: 400px;
         max-width: 100%;
-        border:none;
-        height:300px;
+        border: none;
+        height: 300px;
         box-shadow: 0px 5px 20px 0px #d2dae3;
-        z-index:1;
-        display:flex;
-        justify-content:center;
-        align-items:center
-        
-        h6{
-            color:var(--primary-color);
-            font-size:20px;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+
+        align-items:center h6 {
+            color: var(--primary-color);
+            font-size: 20px;
         }
     }
-    
+
     .inputs {
         input {
-            width:40px;
-            height:40px;
+            width: 40px;
+            height: 40px;
 
             &[type=number] {
-                &::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+
+                &::-webkit-inner-spin-button,
+                ::-webkit-outer-spin-button {
                     -webkit-appearance: none;
                     -moz-appearance: none;
                     appearance: none;
@@ -869,36 +894,36 @@ footer {
             }
         }
     }
-    
+
     .card-2 {
-        background-color:#fff;
-        padding:10px;
-        width:350px;
-        height:100px;
-        bottom:-50px;
-        left:20px;
-        position:absolute;
-        border-radius:5px;
-        
-        .content{
-            margin-top:50px;
+        background-color: #fff;
+        padding: 10px;
+        width: 350px;
+        height: 100px;
+        bottom: -50px;
+        left: 20px;
+        position: absolute;
+        border-radius: 5px;
+
+        .content {
+            margin-top: 50px;
 
             a {
                 color: var(--primary-color);
             }
         }
     }
-    
+
     .form-control:focus {
-        box-shadow:none;
-        border:2px solid var(--primary-color);
+        box-shadow: none;
+        border: 2px solid var(--primary-color);
     }
-    
+
     .validate {
-        border-radius:20px;
-        height:40px;
-        background-color:var(--primary-color);
-        border:1px solid var(--primary-color);
-        width:140px;
+        border-radius: 20px;
+        height: 40px;
+        background-color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        width: 140px;
     }
 }

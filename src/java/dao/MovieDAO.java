@@ -46,6 +46,14 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return movie;
     }
@@ -80,6 +88,14 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return list;
     }
@@ -115,6 +131,14 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return list;
     }

@@ -6,18 +6,20 @@ public class Account {
     private String password;
     private String role;
     private String name;
+    private String phone;
     private String city;
     private String avatar;
 
     public Account() {
     }
 
-    public Account(String id, String email, String password, String role, String name, String city, String avatar) {
+    public Account(String id, String email, String password, String role, String name, String phone, String city, String avatar) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
         this.name = name;
+        this.phone = phone;
         this.city = city;
         this.avatar = avatar;
     }
@@ -77,5 +79,20 @@ public class Account {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + ", name=" + name + ", phone=" + phone + ", city=" + city + ", avatar=" + avatar + '}';
+    }
+    
+    
     
 }
