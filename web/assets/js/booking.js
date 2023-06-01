@@ -26,3 +26,28 @@ $('form.invisible input').change(function () {
     });
     $('.booking-detail .card-text span').text(seatTotal);
 });
+
+$('.btn-plus').click(function (e) {
+    e.preventDefault();
+    var inputField = $(this).prev('input[name="quantity"]');
+    var currentValue = parseInt(inputField.val());
+    inputField.val(currentValue + 1);
+
+    if (currentValue === 0) {
+        $(this).prev().prev('.btn-minus').removeClass('disabled');
+    }
+});
+
+$('.btn-minus').click(function (e) {
+    e.preventDefault();
+    var inputField = $(this).next('input[name="quantity"]');
+    var currentValue = parseInt(inputField.val());
+    if (currentValue > 0) {
+        inputField.val(currentValue - 1);
+    }
+
+    if (currentValue - 1 === 0) {
+        $(this).addClass('disabled');
+    }
+});
+

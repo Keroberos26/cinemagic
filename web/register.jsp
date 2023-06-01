@@ -67,7 +67,7 @@
             <%@include file="/general/footer.jsp" %>
         </div>
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-        <script type="module" src='/scripts/register.js'>
+        <script type="module" src="/assets/js/register.js">
            </script>
         
         <%@include file="/general/script.jsp" %>

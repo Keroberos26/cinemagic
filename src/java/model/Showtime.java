@@ -10,21 +10,19 @@ public class Showtime {
     private Time endtime;
     private int basePrice;
     private Movie movie;
-    private String roomId;
-    private String roomName;
+    private Room room;
 
     public Showtime() {
     }
 
-    public Showtime(String id, Date showdate, Time starttime, Time endtime, int basePrice, Movie movie, String roomId, String roomName) {
+    public Showtime(String id, Date showdate, Time starttime, Time endtime, int basePrice, Movie movie, Room room) {
         this.id = id;
         this.showdate = showdate;
         this.starttime = starttime;
         this.endtime = endtime;
         this.basePrice = basePrice;
         this.movie = movie;
-        this.roomId = roomId;
-        this.roomName = roomName;
+        this.room = room;
     }
 
     public String getId() {
@@ -75,22 +73,13 @@ public class Showtime {
         this.movie = movie;
     }
 
-    public String getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    
+   
     
 }

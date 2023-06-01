@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="card booking-detail">
-                                <h5 class="card-header bg-primary text-white">${st.roomName}</h5>
+                                <h5 class="card-header bg-primary text-white">${st.room.name}</h5>
                                 <div class="card-body">
                                     <h5 class="card-title">${st.movie.title}</h5>
                                     <p class="card-subtitle subtitle-text"><fmt:formatDate value="${st.starttime}" pattern="HH:mm"/> 
@@ -135,6 +135,6 @@
         </div>
 
         <%@include file="/general/script.jsp" %>
-        <script src="/assets/js/choose-seat.js"></script>
+        <script src="/assets/js/booking.js"></script>
     </body>
 </html>

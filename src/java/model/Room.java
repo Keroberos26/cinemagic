@@ -3,15 +3,15 @@ package model;
 public class Room {
     private String id;
     private String name;
-    private Seat[][] seatMap;
+    private String theaterid;
 
     public Room() {
     }
 
-    public Room(String id, String name, Seat[][] seatMap) {
+    public Room(String id, String name, String theaterid) {
         this.id = id;
         this.name = name;
-        this.seatMap = seatMap;
+        this.theaterid = theaterid;
     }
 
     public String getId() {
@@ -30,13 +30,13 @@ public class Room {
         this.name = name;
     }
 
-    public Seat[][] getSeatMap() {
-        return seatMap;
+    public String getTheaterid() {
+        return theaterid;
     }
 
-    public void setSeatMap(Seat[][] seatMap) {
-        this.seatMap = seatMap;
+    public void setTheaterid(String theaterid) {
+        this.theaterid = theaterid;
     }
-    
+
     
 }

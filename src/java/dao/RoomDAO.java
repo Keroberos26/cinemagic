@@ -5,11 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Combo;
 import model.Seat;
 
-public class SeatDAO {
+public class RoomDAO {
     
     Connection con = null;
     PreparedStatement stm = null;
@@ -32,14 +35,14 @@ public class SeatDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return map;
@@ -59,14 +62,14 @@ public class SeatDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return row;
@@ -86,16 +89,47 @@ public class SeatDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return col;
+    }
+    
+    public List<Combo> getCombosByRoomId(String id) {
+        List<Combo> list = new LinkedList<>();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Combo\" c join \"Room\" r on c.theaterid = r.theaterid where roomid = '"+ id +"'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Combo(rs.getString("comboid"),
+                                        rs.getString("name"), 
+                                        rs.getString("description"),
+                                        rs.getInt("price"),
+                                        rs.getString("image")));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
     }
 }

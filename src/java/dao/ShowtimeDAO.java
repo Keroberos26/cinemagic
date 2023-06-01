@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Movie;
+import model.Room;
 import model.Showtime;
 
 public class ShowtimeDAO {
@@ -39,14 +40,16 @@ public class ShowtimeDAO {
                                             rs.getString("trailer"), 
                                             rs.getInt("ageRestricted"), 
                                             rs.getString("status"));
+                    Room room = new Room(rs.getString("roomid"),
+                                        rs.getString("name"),
+                                        rs.getString("theaterid"));
                     showtime = new Showtime(rs.getString("showid"), 
                                             rs.getDate("showdate"), 
                                             rs.getTime("starttime"), 
                                             rs.getTime("endtime"), 
                                             rs.getInt("basePrice"),
                                             movie,
-                                            rs.getString("roomid"),
-                                            rs.getString("name"));
+                                            room);
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {

@@ -1,6 +1,6 @@
 package controller;
 
-import dao.SeatDAO;
+import dao.RoomDAO;
 import dao.ShowtimeDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -14,19 +14,22 @@ public class ChooseSeatServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        SeatDAO seatDao = new SeatDAO();
+        RoomDAO roomDao = new RoomDAO();
         ShowtimeDAO showDao = new ShowtimeDAO();
         
         Showtime st = showDao.getShowtimeById(id);
         req.setAttribute("st", st);
-        req.setAttribute("seatMap", seatDao.getSeatsByRoomId(st.getRoomId()));
+        req.setAttribute("seatMap", roomDao.getSeatsByRoomId(st.getRoom().getId()));
         req.getRequestDispatcher("seats-selection.jsp").forward(req, resp);
     } 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] seats = req.getParameterValues("chkSeats");
+        String id = req.getParameter("id");
+        System.out.println(id);
         System.out.println(Arrays.toString(seats));
+//        resp.sendRedirect("choose-combo?id=");
     }
     
 }
