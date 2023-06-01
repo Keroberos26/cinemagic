@@ -25,11 +25,9 @@ public class ChooseSeatServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] seats = req.getParameterValues("chkSeats");
         String id = req.getParameter("id");
-        System.out.println(id);
-        System.out.println(Arrays.toString(seats));
-//        resp.sendRedirect("choose-combo?id=");
+        String[] seats = req.getParameterValues("chkSeats");
+        resp.sendRedirect("choose-combo?id="+id);
     }
     
 }

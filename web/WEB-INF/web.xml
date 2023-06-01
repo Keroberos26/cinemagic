@@ -41,10 +41,12 @@
         <servlet-class>controller.MyAccount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ChooseComboServlet</servlet-name>
-        <servlet-class>controller.ChooseComboServlet</servlet-class>
         <servlet-name>MngMovieServlet</servlet-name>
         <servlet-class>controller.admin.MngMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChooseComboServlet</servlet-name>
+        <servlet-class>controller.ChooseComboServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MngShowtimeServlet</servlet-name>
@@ -89,6 +91,8 @@
     <servlet-mapping>
         <servlet-name>ChooseComboServlet</servlet-name>
         <url-pattern>/choose-combo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MngMovieServlet</servlet-name>
         <url-pattern>/admin/mng-movie</url-pattern>
     </servlet-mapping>

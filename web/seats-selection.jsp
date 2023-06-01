@@ -101,10 +101,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="/choose-seat" method="post" class="invisible">
+                                <form action="choose-seat?id=${st.id}" method="post" class="invisible">
                                     <c:forEach items="${seatMap}" var="row">
                                         <c:forEach items="${row}" var="seat">
-                                            <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}">
+                                            <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}" required>
                                         </c:forEach>
                                     </c:forEach>
                                 </form>

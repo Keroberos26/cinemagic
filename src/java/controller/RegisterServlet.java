@@ -40,8 +40,6 @@ public class RegisterServlet extends HttpServlet {
                 req.setAttribute("txtEmail", email);
                 req.setAttribute("txtPassword", password);
                 req.getRequestDispatcher("/login?doPost=true").forward(req, resp);
-//                    resp.sendRedirect("login");
-
             } else {
                 error = "errorPass";
                 errorMsg = "Mật khẩu phải chứa 8 - 32 ký tự, bao gồm ít nhất 1 chữ hoa [A - Z], 1 chữ thường [a - z], 1 chữ số và 1 ký tự đặc biệt (@ $ ! % * ? &).";
