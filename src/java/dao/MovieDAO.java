@@ -54,7 +54,7 @@ public class MovieDAO {
                 stm.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return movie;
@@ -96,7 +96,7 @@ public class MovieDAO {
                 stm.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return list;
@@ -139,7 +139,7 @@ public class MovieDAO {
                 stm.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return list;
@@ -160,7 +160,7 @@ public class MovieDAO {
                 con.close();
                 stm.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -189,13 +189,13 @@ public class MovieDAO {
                
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return id;
@@ -211,13 +211,13 @@ public class MovieDAO {
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -243,13 +243,13 @@ public class MovieDAO {
                 stm.executeUpdate();
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
             } catch (SQLException ex) {
-                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

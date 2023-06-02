@@ -49,10 +49,6 @@
         <servlet-class>controller.ChooseComboServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MngShowtimeServlet</servlet-name>
-        <servlet-class>controller.admin.MngShowtimeServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PaymentServlet</servlet-name>
         <servlet-class>controller.PaymentServlet</servlet-class>
     </servlet>
@@ -107,10 +103,6 @@
     <servlet-mapping>
         <servlet-name>MngMovieServlet</servlet-name>
         <url-pattern>/admin/mng-movie</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MngShowtimeServlet</servlet-name>
-        <url-pattern>/admin/mng-showtime</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
