@@ -31,10 +31,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach begin="1" end="10" varStatus="c">
+                                    <c:forEach items="${roomList}" var="r" varStatus="c">
                                         <tr>
                                             <td>${c.count}</td>
-                                            <td><input type="text" class="form-control-plaintext can-edit" value="Phòng ${c.count}" readonly></td>
+                                            <td><input type="text" class="form-control-plaintext can-edit" value="${r.name}" readonly></td>
                                             <td class="text-center"><a href="#" class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></a></td>
                                             <td class="text-center"><a href="#" class="btn btn-danger" id="deleteRow"><span class="icon"><i class="fa-regular fa-trash-can"></i></span></a></td>
                                         </tr>

@@ -1,18 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="sidebar hide">
+<div class="sidebar">
     <div class="container-fluid p-3">
-        <div class="row align-items-center g-2">
-            <div class="col-3">
-                <div class="sidebar-brand-icon">
-                    <img src="/assets/img/favicon.png" alt="CineMagic">
+        <a href="/cinema">
+            <div class="row align-items-center g-2">
+                <div class="col-3">
+                    <div class="sidebar-brand-icon">
+                        <img src="/assets/img/favicon.png" alt="CineMagic">
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="sidebar-brand-name">
+                        <img src="/assets/img/logo.png" alt="CineMagic">
+                    </div>
                 </div>
             </div>
-            <div class="col-9">
-                <div class="sidebar-brand-name">
-                    <img src="/assets/img/logo.png" alt="CineMagic">
-                </div>
-            </div>
-        </div>
+        </a>
     </div>
 
     <nav>

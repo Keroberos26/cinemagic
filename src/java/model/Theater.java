@@ -7,17 +7,19 @@ public class Theater {
     private String ward;
     private String district;
     private String city;
+    private String image;
 
     public Theater() {
     }
 
-    public Theater(String id, String name, String street, String ward, String district, String city) {
+    public Theater(String id, String name, String street, String ward, String district, String city, String image) {
         this.id = id;
         this.name = name;
         this.street = street;
         this.ward = ward;
         this.district = district;
         this.city = city;
+        this.image = image;
     }
 
     public String getId() {
@@ -66,6 +68,14 @@ public class Theater {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
     

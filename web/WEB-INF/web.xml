@@ -56,6 +56,18 @@
         <servlet-name>PaymentServlet</servlet-name>
         <servlet-class>controller.PaymentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CinemaServlet</servlet-name>
+        <servlet-class>controller.cinema.CinemaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimeServlet</servlet-name>
+        <servlet-class>controller.cinema.ShowtimeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RoomServlet</servlet-name>
+        <servlet-class>controller.cinema.RoomServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -103,6 +115,18 @@
     <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
         <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CinemaServlet</servlet-name>
+        <url-pattern>/cinema</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowtimeServlet</servlet-name>
+        <url-pattern>/cinema/showtime</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomServlet</servlet-name>
+        <url-pattern>/cinema/room</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

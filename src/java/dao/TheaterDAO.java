@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Theater;
@@ -29,7 +31,8 @@ public class TheaterDAO {
                                             rs.getString("street"),
                                             rs.getString("ward"),
                                             rs.getString("district"),
-                                                rs.getString("city"));
+                                            rs.getString("city"),
+                                            rs.getString("image"));
                 }
                 
             }
@@ -45,5 +48,39 @@ public class TheaterDAO {
             }
         }
         return theater;
+    }
+    
+    public List<Theater> getTheatersByCinemaId(String id) {
+        List<Theater> list = new ArrayList<>();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Theater\" where cineid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Theater(rs.getString("theaterid"),
+                                            rs.getString("name"),
+                                            rs.getString("street"),
+                                            rs.getString("ward"),
+                                            rs.getString("district"),
+                                            rs.getString("city"),
+                                            rs.getString("image")));
+                }
+                
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
     }
 }
