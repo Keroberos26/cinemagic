@@ -56,6 +56,14 @@
         <servlet-name>PaymentServlet</servlet-name>
         <servlet-class>controller.PaymentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MngRoomServlet</servlet-name>
+        <servlet-class>controller.admin.MngRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MngSeatServlet</servlet-name>
+        <servlet-class>controller.admin.MngSeatServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
         <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MngRoomServlet</servlet-name>
+        <url-pattern>/admin/mng-room</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MngSeatServlet</servlet-name>
+        <url-pattern>/admin/mng-seat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

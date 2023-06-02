@@ -35,6 +35,7 @@ public class MngMovieServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = req.getParameter("action");
 
+        //todo: lay movieId to delete
         String movieId = req.getParameter("movieId");
         String title = req.getParameter("txtTitle");
         String des = req.getParameter("txtDescription");
@@ -60,7 +61,7 @@ public class MngMovieServlet extends HttpServlet {
         int age = Integer.parseInt(ageRestricted);
 
         MovieDAO dao = new MovieDAO();
-
+        
         if (action.equals("deleteMovie")) {
             dao.deleteMoviesById(movieId);
         }

@@ -2,11 +2,13 @@ package dao;
 
 import context.DbContext;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Combo;
@@ -131,5 +133,71 @@ public class RoomDAO {
             }
         }
         return list;
+    }
+    
+    public boolean addRoom(String name, String theaterid) {
+        boolean success = false;
+        String id = UUID.randomUUID().toString();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "insert into \"Room\"(roomid, name, theaterid) values ('"+id +"', ?, '" + theaterid + "')";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+    
+    public void deleteRoomById(String roomid) {
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "delete from \"Room\" where roomid = '" + roomid + "'";
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void updateRoom(String roomid, String name, String theaterid){
+        try {
+            con = DbContext.getConnection();
+            if(con!=null){
+                String sql = "update \"Room\" set theaterid = '" + theaterid +"', name = ? where roomid ='"+ roomid +"'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.executeUpdate();
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
