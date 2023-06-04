@@ -1,7 +1,7 @@
 package model;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Objects;
 
 public class Movie {
     private String id;
@@ -153,8 +153,29 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" + "id=" + id + ", title=" + title + ", description=" + description + ", poster=" + poster + ", duration=" + duration + ", releaseDate=" + releaseDate + ", rating=" + rating + ", genre=" + genres + ", actors=" + actors + ", directors=" + directors + ", country=" + country + ", trailer=" + trailer + ", age=" + age + ", status=" + status + '}';
+        return "Movie: " + title; 
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Movie other = (Movie) obj;
+        return Objects.equals(this.id, other.id);
+    }
     
 }

@@ -43,7 +43,7 @@ public class TheaterDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -77,7 +77,46 @@ public class TheaterDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    public List<Theater> getTheatersByCinemaIdAndCity(String id, String city) {
+        List<Theater> list = new ArrayList<>();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Theater\" t join \"CinemaSystem\" c on c.cineid = t.cineid where city = ?";
+                if (!(id == null || id.isBlank())) {
+                    sql += " and c.cineid = '" + id + "'";
+                }
+                sql += " order by t.name";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, city);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Theater(rs.getString("theaterid"),
+                                            rs.getString("name"),
+                                            rs.getString("street"),
+                                            rs.getString("ward"),
+                                            rs.getString("district"),
+                                            rs.getString("city"),
+                                            rs.getString("logo")));
+                }
+                
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

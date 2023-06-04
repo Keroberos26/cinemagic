@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Quản lý lịch chiếu | Tên rạp</title>
+        <title>Quản lý lịch chiếu | ${theater.id}</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>

@@ -64,6 +64,18 @@
         <servlet-name>RoomServlet</servlet-name>
         <servlet-class>controller.cinema.RoomServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ComboServlet</servlet-name>
+        <servlet-class>controller.cinema.ComboServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.cinema.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimesServlet</servlet-name>
+        <servlet-class>controller.ShowtimeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -114,11 +126,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShowtimeServlet</servlet-name>
-        <url-pattern>/cinema/showtime</url-pattern>
+        <url-pattern>/cinema/showtimes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RoomServlet</servlet-name>
         <url-pattern>/cinema/room</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComboServlet</servlet-name>
+        <url-pattern>/cinema/combo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/cinema/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowtimesServlet</servlet-name>
+        <url-pattern>/showtimes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

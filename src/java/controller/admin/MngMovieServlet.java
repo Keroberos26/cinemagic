@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.admin;
 
 import dao.MovieDAO;
@@ -18,10 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Movie;
 
-/**
- *
- * @author nguye
- */
 public class MngMovieServlet extends HttpServlet {
 
     @Override

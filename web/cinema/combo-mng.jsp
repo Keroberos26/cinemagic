@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Quản lý bắp nước | Tên rạp</title>
+        <title>Quản lý bắp nước | ${theater.name}</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -32,12 +32,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach begin="1" end="10" varStatus="c">
+                                    <c:forEach items="${comboList}" var="combo" varStatus="c">
                                         <tr>
                                             <td>${c.count}</td>
-                                            <td><img src="/assets/img/popcorn.png" alt="Popcorn" style="width: 100px; height: 100px; min-width: 100px;"></td>
-                                            <td class="text-start">Nấm Caramel 60oz</td>
-                                            <td><span class="price">44000</span></td>
+                                            <td><img src='${combo.image != null ? combo.image : "/assets/img/popcorn.png"}' alt="Popcorn" style="width: 100px; height: 100px; min-width: 100px;"></td>
+                                            <td class="text-start">${combo.name}</td>
+                                            <td><span class="price">${combo.price}</span></td>
                                             <td>
                                                 <a href="#" class="btn btn-warning text-white"><span class="icon"><i class="fa-solid fa-pen-to-square"></i></span></a>
                                                 <a href="#" class="btn btn-danger"><span class="icon"><i class="fa-solid fa-trash-can"></i></span></a>

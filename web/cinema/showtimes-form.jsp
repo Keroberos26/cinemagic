@@ -4,7 +4,7 @@
 <html>
 
     <head>
-        <title>Dashboard | Tên rạp</title>
+        <title>Dashboard | ${theater.jsp}</title>
         <%@include file="/general/head.jsp" %>
     </head>
 

@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +16,7 @@
                     <div class="container-lg">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb main-links">
-                                <li class="breadcrumb-item"><a href="#"><span class="icon"><i
+                                <li class="breadcrumb-item"><a href="/"><span class="icon"><i
                                                 class="ri-home-4-fill"></i></span></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Lịch chiếu</li>
                             </ol>
@@ -29,7 +31,7 @@
                                 <div class="col-md col-12 order-md-2">
                                     <div class="banner-img">
                                         <div class="bg-img"
-                                            style="background-image: url();">
+                                             style="background-image: url(/assets/img/banner.png);">
                                         </div>
                                     </div>
                                 </div>
@@ -65,106 +67,37 @@
                                     <div class="position flexitem">
                                         <h4 class="m-0">Vị trí</h4>
 
-                                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal"
                                                 data-bs-target="#positionModal">
-                                            <span class="icon"><i class="ri-road-map-line"></i></span>Đà Nẵng
+                                            <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">Đà Nẵng</span>
                                         </button>
 
-                                        <a href="#" class="btn btn-outline-primary btn-sm"><span class="icon"><i
+                                        <a href="#" class="btn btn-outline-primary btn-sm fw-bold"><span class="icon"><i
                                                     class="ri-map-pin-user-line"></i></span>Gần bạn</a>
 
-                                        <div class="modal fade" id="positionModal" tabindex="-1"
-                                             aria-labelledby="positionModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="positionModalLabel">Chọn vị trí
-                                                        </h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <ul class="row row-cols-md-4 row-cols-2">
-                                                            <li class="col"><a href="#" class="active">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                            <li class="col"><a href="#">TP. HCM</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary btn-sm"
-                                                                data-bs-dismiss="modal">Đóng</button>
-                                                    </div>
+                                    </div>
+                                    <div class="modal fade" id="positionModal" tabindex="-1"
+                                         aria-labelledby="positionModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="positionModalLabel">Chọn vị trí
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="row row-cols-md-4 row-cols-2">
+                                                        <li class="col"><a href="#">TP.HCM</a></li>
+                                                        <li class="col"><a href="#">Hà Nội</a></li>
+                                                        <li class="col"><a href="#">Huế</a></li>
+                                                        <li class="col"><a href="#" class="active">Đà Nẵng</a></li>
+                                                        <li class="col"><a href="#">Quảng Nam</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                            data-bs-dismiss="modal">Đóng</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,76 +108,21 @@
                                             <div class="swiper-slide">
                                                 <div class="cinema active">
                                                     <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/next-js/_next/static/public/cinema/dexuat-icon.svg"
-                                                             alt="Đề xuất">
+                                                        <img src="https://static.mservice.io/next-js/_next/static/public/cinema/dexuat-icon.svg" alt="Tất cả">
                                                     </div>
                                                     <div class="mini-text">Tất cả</div>
                                                 </div>
                                             </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg"
-                                                             alt="Đề xuất">
+                                            <c:forEach items="${cinema}" var="c">
+                                                <div class="swiper-slide">
+                                                    <div class="cinema" cinema-id="${c.id}">
+                                                        <div class="cinema-avt">
+                                                            <img src="${c.logo}" alt="${c.name}">
+                                                        </div>
+                                                        <div class="mini-text">${c.name}</div>
                                                     </div>
-                                                    <div class="mini-text">CGV</div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/blogscontents/momo-upload-api-210604170617-637584231772974269.png"
-                                                             alt="Đề xuất">
-                                                    </div>
-                                                    <div class="mini-text">Lotte Cinema</div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/cinema/momo-upload-api-211123095138-637732578984425272.png"
-                                                             alt="Đề xuất">
-                                                    </div>
-                                                    <div class="mini-text">Galaxy Cinema</div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/next-js/_next/static/public/cinema/dexuat-icon.svg"
-                                                             alt="Đề xuất">
-                                                    </div>
-                                                    <div class="mini-text">Tất cả</div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/next-js/_next/static/public/cinema/dexuat-icon.svg"
-                                                             alt="Đề xuất">
-                                                    </div>
-                                                    <div class="mini-text">Tất cả</div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/next-js/_next/static/public/cinema/dexuat-icon.svg"
-                                                             alt="Đề xuất">
-                                                    </div>
-                                                    <div class="mini-text">Tất cả</div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="cinema">
-                                                    <div class="cinema-avt">
-                                                        <img src="https://static.mservice.io/next-js/_next/static/public/cinema/dexuat-icon.svg"
-                                                             alt="Đề xuất">
-                                                    </div>
-                                                    <div class="mini-text">Tất cả</div>
-                                                </div>
-                                            </div>
-
+                                                </div>     
+                                            </c:forEach>
                                         </div>
                                         <div class="swiper-button-next"></div>
                                         <div class="swiper-button-prev"></div>
@@ -255,317 +133,55 @@
                                     <div class="row g-md-0">
                                         <div class="col-md-3 col-12">
                                             <div class="theater">
-                                                <a href="#" class="active">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="theater-avt">
-                                                        <img
-                                                            src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg">
-                                                    </div>
-                                                    <div class="theater-name">CGV Vincom Đà Nẵng</div>
-                                                </a>
+                                                <c:forEach items="${theaterList}" var="t" varStatus="no">
+                                                    <a href="#" theater-id="${t.id}" onclick="theaterEvent(this, event)" ${no.count == 1?"class='active'":""}>
+                                                        <div class="theater-avt">
+                                                            <img src="${t.image}">
+                                                        </div>
+                                                        <div class="theater-name">${t.name}</div>
+                                                    </a>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="col-md-9 col-12">
                                             <div class="showtimes-movie">
+                                                <c:set var="theater" value="${theaterList.get(0)}" />
                                                 <div class="address">
                                                     <div class="left">
-                                                        <img src="https://static.mservice.io/placebrand/s/momo-upload-api-190709165424-636982880641515855.jpg"
-                                                             alt="CGV">
+                                                        <img src="${theater.image}">
                                                     </div>
 
                                                     <div class="right">
-                                                        <h4>Lịch chiếu phim CGV Vincom Đà Nẵng</h4>
-                                                        <span class="mini-text">Tầng 4, TTTM Vincom Đà Nẵng, đường Ngô
-                                                            Quyền, P.An Hải Bắc, Q.Sơn Trà, TP. Đà Nẵng<a href="#">[ Bản đồ
-                                                                ]</a></span>
+                                                        <h4>Lịch chiếu phim ${theater.name}</h4>
+                                                        <span class="mini-text">${theater.street}, ${theater.ward}, 
+                                                            ${theater.district}, ${theater.city}<a href="#">[ Bản đồ]</a></span>
                                                     </div>
                                                 </div>
 
                                                 <div class="swiper">
                                                     <div class="swiper-wrapper">
-                                                        <div class="swiper-slide">
-                                                            <div class="day active">
-                                                                <h4>15</h4>
-                                                                <span class="mini-text">Hôm nay</span>
+                                                        <c:forEach items="${dateList}" var="d" varStatus="today">
+                                                            <div class="swiper-slide">
+                                                                <div class="day${today.count == 1?" active":""}" date="<fmt:formatDate value="${d}" pattern="yyyy-MM-dd"/>">
+                                                                    <h4><fmt:formatDate value="${d}" pattern="dd" /></h4>
+                                                                    <span class="mini-text">
+                                                                        <c:if test="${today.count == 1}">
+                                                                            Hôm nay
+                                                                        </c:if>
+                                                                        <c:if test="${today.count != 1}">
+                                                                            <fmt:formatDate value="${d}" pattern="EEEE" />
+                                                                        </c:if>
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="day">
-                                                                <h4>16</h4>
-                                                                <span class="mini-text">Thứ 3</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="day">
-                                                                <h4>17</h4>
-                                                                <span class="mini-text">Thứ 4</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="day">
-                                                                <h4>18</h4>
-                                                                <span class="mini-text">Thứ 5</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="day">
-                                                                <h4>19</h4>
-                                                                <span class="mini-text">Thứ 6</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="swiper-slide">
-                                                            <div class="day">
-                                                                <h4>20</h4>
-                                                                <span class="mini-text">Thứ 7</span>
-                                                            </div>
-                                                        </div>
+                                                        </c:forEach>
                                                     </div>
                                                     <div class="swiper-button-next"></div>
                                                     <div class="swiper-button-prev"></div>
                                                 </div>
 
                                                 <div class="list">
-                                                    <div class="movie-card showtimes-card">
-                                                        <div class="poster">
-                                                            <a href="#">
-                                                                <div class="bg-img thumbnail"
-                                                                     style="background-image: url(/assets/img/poster/connhot.jpg);">
-                                                                </div>
-                                                                <div class="age-restricted age-16"><span class="badge">16+</span></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="content">
-                                                            <a href="#">
-                                                                <h4 class="title">Con Nhót Mót Chồng</h4>
-                                                                <p class="mini-text">Hài hước</p>
-                                                            </a>
-
-                                                            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 g-3">
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="movie-card showtimes-card">
-                                                        <div class="poster">
-                                                            <a href="#">
-                                                                <div class="bg-img thumbnail"
-                                                                     style="background-image: url(/assets/img/poster/connhot.jpg);">
-                                                                </div>
-                                                                <div class="age-restricted age-16"><span class="badge">16+</span></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="content">
-                                                            <a href="#">
-                                                                <h4 class="title">Con Nhót Mót Chồng</h4>
-                                                                <p class="mini-text">Hài hước</p>
-                                                            </a>
-
-                                                            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 g-3">
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="movie-card showtimes-card">
-                                                        <div class="poster">
-                                                            <a href="#">
-                                                                <div class="bg-img thumbnail"
-                                                                     style="background-image: url(/assets/img/poster/connhot.jpg);">
-                                                                </div>
-                                                                <div class="age-restricted age-16"><span class="badge">16+</span></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="content">
-                                                            <a href="#">
-                                                                <h4 class="title">Con Nhót Mót Chồng</h4>
-                                                                <p class="mini-text">Hài hước</p>
-                                                            </a>
-
-                                                            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 g-3">
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="movie-card showtimes-card">
-                                                        <div class="poster">
-                                                            <a href="#">
-                                                                <div class="bg-img thumbnail"
-                                                                     style="background-image: url(/assets/img/poster/connhot.jpg);">
-                                                                </div>
-                                                                <div class="age-restricted age-16"><span class="badge">16+</span></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="content">
-                                                            <a href="#">
-                                                                <h4 class="title">Con Nhót Mót Chồng</h4>
-                                                                <p class="mini-text">Hài hước</p>
-                                                            </a>
-
-                                                            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 g-3">
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm d-block"><strong>15:00</strong> ~ 17:29</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -977,5 +593,6 @@
         </div>
 
         <%@include file="/general/script.jsp" %>
+        <script src="/assets/js/showtime.js"></script>
     </body>
 </html>

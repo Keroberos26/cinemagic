@@ -20,29 +20,24 @@
     <nav>
         <ul class="main-links">
             <li>
-                <a href="#" class="p-3">
+                <a href="/cinema/dashboard" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-gauge-high fa-lg"></i></span>Dashboard
                 </a>
 
                 <hr>
             </li>
             <li>
-                <a href="#" class="p-3">
+                <a href="/cinema/showtimes" class="p-3">
                     <span class="icon pe-4"><i class="fas fa-film fa-lg"></i></span>Quản lý lịch chiếu
                 </a>
             </li>
             <li>
-                <a href="#" class="p-3">
+                <a href="/cinema/room" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-video fa-lg"></i></span>Quản lý phòng chiếu
                 </a>
             </li>
             <li>
-                <a href="#" class="p-3">
-                    <span class="icon pe-4"><i class="fa-solid fa-couch fa-lg"></i></span>Quản lý ghế ngồi
-                </a>
-            </li>
-            <li>
-                <a href="#" class="p-3">
+                <a href="/cinema/combo" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-burger fa-lg"></i></span>Quản lý món ăn
                 </a>
 
@@ -62,7 +57,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="p-3">
+                <a href="/logout" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>Đăng xuất
                 </a>
             </li>

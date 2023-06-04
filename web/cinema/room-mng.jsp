@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Quản lý phòng chiếu | Tên rạp</title>
+        <title>Quản lý phòng chiếu | ${theater.name}</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>

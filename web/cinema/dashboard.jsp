@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Dashboard | Tên rạp</title>
+        <title>Dashboard | ${theater.name}</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>

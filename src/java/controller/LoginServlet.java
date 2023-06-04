@@ -1,6 +1,7 @@
 package controller;
 
 import dao.AccountDAO;
+import dao.CinemaDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.CinemaSystem;
 
 public class LoginServlet extends HttpServlet {
 
@@ -43,8 +45,21 @@ public class LoginServlet extends HttpServlet {
                     resp.addCookie(cEmail);
                     resp.addCookie(cPass);
                 }
+                switch (acc.getRole()) {
+                    case "C":
+                        CinemaDAO cineDao = new CinemaDAO();
+                        CinemaSystem cinema = cineDao.getCinemaByAccountId(acc.getId());
+                        session.setAttribute("cinema", cinema);
+                        resp.sendRedirect("/cinema");
+                        break;
+                    case "U":
+                        resp.sendRedirect("/");
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
                 session.setAttribute("acc", acc);
-                resp.sendRedirect("/");
+                
             } else {
                 error = "errorPass";
             }

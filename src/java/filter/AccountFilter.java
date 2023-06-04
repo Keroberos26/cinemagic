@@ -1,6 +1,7 @@
 package filter;
 
 import dao.AccountDAO;
+import dao.CinemaDAO;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.CinemaSystem;
 
 public class AccountFilter implements Filter {
 
@@ -37,6 +39,8 @@ public class AccountFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
+        HttpSession session = req.getSession();
+
         String url = req.getServletPath();
 
         Account acc = (Account) req.getSession().getAttribute("acc");
@@ -60,7 +64,20 @@ public class AccountFilter implements Filter {
                 if (!email.isEmpty() && !password.isEmpty()) {
                     AccountDAO dao = new AccountDAO();
                     acc = dao.login(email, password, true);
-                    req.getSession().setAttribute("acc", acc);
+                    session.setAttribute("acc", acc);
+                    switch (acc.getRole()) {
+                        case "C":
+                            CinemaDAO cineDao = new CinemaDAO();
+                            CinemaSystem cinema = cineDao.getCinemaByAccountId(acc.getId());
+                            session.setAttribute("cinema", cinema);
+                            resp.sendRedirect("/cinema");
+                            break;
+                        case "U":
+                            resp.sendRedirect("/");
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
                 }
             }
         } else {
@@ -68,7 +85,7 @@ public class AccountFilter implements Filter {
                 resp.sendRedirect("/");
             }
         }
-        
+
 //        if (url.endsWith("jsp")) {
 //            resp.sendRedirect("/");
 //        }

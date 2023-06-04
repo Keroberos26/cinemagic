@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Dashboard | Tên hệ thống</title>
+        <title>Dashboard | ${cinema.name}</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -14,13 +14,15 @@
                 <div class="row gx-4 gy-5 my-2">
                     <c:forEach items="${theaterList}" var="t">
                         <div class="col-12 col-md-6 col-lg-4">
-                            <div class="position-relative">
-                                <div class="bg-img bg-cover" style="background-image: url('${t.image}');"></div>
-                                <div class="text-center bg-blacken p-2 text-white">
-                                    <h5 class="text-uppercase">${t.name}</h5>
-                                    <span class="text-capitalize text-2-line">${t.street}, ${t.ward}, ${t.district}, ${t.city}</span>
+                            <a href="/cinema?post=true&id=${t.id}">
+                                <div class="position-relative">
+                                    <div class="bg-img bg-cover" style="background-image: url('${t.image}');"></div>
+                                    <div class="text-center bg-blacken p-2 text-white">
+                                        <h5 class="text-uppercase">${t.name}</h5>
+                                        <span class="text-capitalize text-2-line">${t.street}, ${t.ward}, ${t.district}, ${t.city}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </c:forEach>
                 </div>

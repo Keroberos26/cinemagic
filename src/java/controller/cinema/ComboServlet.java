@@ -1,6 +1,6 @@
 package controller.cinema;
 
-import dao.ShowtimeDAO;
+import dao.ComboDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -9,22 +9,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Theater;
 
-public class ShowtimeServlet extends HttpServlet {
+public class ComboServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Theater theater =  (Theater)session.getAttribute("theater");
-        
-        ShowtimeDAO showDao = new ShowtimeDAO();
-        
-        req.setAttribute("showList", showDao.getShowtimesByTheaterId(theater.getId()));
-        req.getRequestDispatcher("/cinema/showtimes-mng.jsp").forward(req, resp);
-        
-    } 
+        ComboDAO comDao = new ComboDAO();
+
+        req.setAttribute("comboList", comDao.getCombosByTheaterId(theater.getId()));
+        req.getRequestDispatcher("/cinema/combo-mng.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
     }
-    
+
 }

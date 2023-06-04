@@ -4,14 +4,16 @@ public class Seat {
     private String id;
     private String seatNum;
     private String type;
+    private boolean taken;
 
     public Seat() {
     }
 
-    public Seat(String id, String seatNum, String type) {
+    public Seat(String id, String seatNum, String type, boolean taken) {
         this.id = id;
         this.seatNum = seatNum;
         this.type = type;
+        this.taken = taken;
     }
 
     public String getId() {
@@ -36,6 +38,14 @@ public class Seat {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isTaken() {
+        return taken;
+    }
+
+    public void setTaken(boolean taken) {
+        this.taken = taken;
     }
     
     

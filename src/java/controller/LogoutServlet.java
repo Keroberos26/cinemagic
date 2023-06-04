@@ -14,14 +14,17 @@ public class LogoutServlet extends HttpServlet {
         req.getSession().removeAttribute("acc");
         Cookie cookieEmail = new Cookie("cEmail", null);
         Cookie cookiePass = new Cookie("cPass", null);
+        Cookie cookieTheater = new Cookie("cTheater", null);
 
         // Đặt thời gian sống của cookie thành 0
         cookieEmail.setMaxAge(0);
         cookiePass.setMaxAge(0);
+        cookieTheater.setMaxAge(0);
 
         // Đặt lại cookie trong phản hồi
         resp.addCookie(cookieEmail);
         resp.addCookie(cookiePass);
+        resp.addCookie(cookieTheater);
         resp.sendRedirect("/");
     }
 

@@ -18,7 +18,7 @@
                                 <div class="col-md col-12 order-md-2">
                                     <div class="banner-img">
                                         <div class="bg-img"
-                                             style="background-image: url();">
+                                             style="background-image: url(/assets/img/banner.png);">
                                         </div>
                                     </div>
                                 </div>

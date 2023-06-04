@@ -2,7 +2,6 @@ package dao;
 
 import context.DbContext;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,27 +12,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Room;
 import model.Seat;
+import model.Showtime;
 
 public class RoomDAO {
-    
+
     Connection con = null;
     PreparedStatement stm = null;
     ResultSet rs = null;
-    
+
     public Seat[][] getSeatsByRoomId(String id) {
         Seat[][] map = new Seat[maxRowByRoomId(id)][maxColByRoomId(id)];
 
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"Seat\" where roomid = '"+ id +"' order by row, col";
+                String sql = "select * from \"Seat\" where roomid = '" + id + "' order by row, col";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    map[rs.getInt("row") - 1][rs.getInt("col") - 1] 
-                        = new Seat(rs.getString("seatid"),
+                    map[rs.getInt("row") - 1][rs.getInt("col") - 1]
+                            = new Seat(rs.getString("seatid"),
                                     rs.getString("seatnum"),
-                                    rs.getString("type"));
+                                    rs.getString("type"),
+                                    false);
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -49,14 +50,49 @@ public class RoomDAO {
         }
         return map;
     }
-    
-    public int maxRowByRoomId(String id) {
-        int row = 0;
-        
+
+    public Seat[][] getSeatsByShowtime(Showtime st) {
+        Seat[][] map = new Seat[maxRowByRoomId(st.getRoom().getId())][maxColByRoomId(st.getRoom().getId())];
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select max(row) from \"Seat\" where roomid = '"+ id +"'";
+                String sql = "select s.*, b.ticketid from \"Showtime\" st \n"
+                        + "join \"Room\" r on st.roomid = r.roomid\n"
+                        + "join \"Seat\" s on r.roomid = s.roomid\n"
+                        + "left join \"Booking\" b on b.seatid = s.seatid\n"
+                        + "where st.showid = '"+ st.getId() +"'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    map[rs.getInt("row") - 1][rs.getInt("col") - 1]
+                            = new Seat(rs.getString("seatid"),
+                                    rs.getString("seatnum"),
+                                    rs.getString("type"),
+                                    rs.getString("ticketid") != null);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return map;
+    }
+
+    public int maxRowByRoomId(String id) {
+        int row = 0;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select max(row) from \"Seat\" where roomid = '" + id + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -76,14 +112,14 @@ public class RoomDAO {
         }
         return row;
     }
-    
+
     public int maxColByRoomId(String id) {
         int col = 0;
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select max(col) from \"Seat\" where roomid = '"+ id +"'";
+                String sql = "select max(col) from \"Seat\" where roomid = '" + id + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -106,17 +142,17 @@ public class RoomDAO {
 
     public List<Room> getRoomsByTheaterId(String id) {
         List<Room> list = new ArrayList<>();
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"Room\" where theaterid = '"+ id +"' order by name";
+                String sql = "select * from \"Room\" where theaterid = '" + id + "' order by name";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    list.add(new Room(rs.getString("roomid"), 
-                                        rs.getString("name"),
-                                        id));
+                    list.add(new Room(rs.getString("roomid"),
+                            rs.getString("name"),
+                            id));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -132,14 +168,14 @@ public class RoomDAO {
         }
         return list;
     }
-    
+
     public boolean addRoom(String name, String theaterid) {
         boolean success = false;
         String id = UUID.randomUUID().toString();
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Room\"(roomid, name, theaterid) values ('"+id +"', ?, '" + theaterid + "')";
+                String sql = "insert into \"Room\"(roomid, name, theaterid) values ('" + id + "', ?, '" + theaterid + "')";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.execute();
@@ -157,7 +193,7 @@ public class RoomDAO {
         }
         return success;
     }
-    
+
     public void deleteRoomById(String roomid) {
         try {
             con = DbContext.getConnection();
@@ -168,7 +204,7 @@ public class RoomDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 con.close();
                 stm.close();
@@ -177,12 +213,12 @@ public class RoomDAO {
             }
         }
     }
-    
-    public void updateRoom(String roomid, String name, String theaterid){
+
+    public void updateRoom(String roomid, String name, String theaterid) {
         try {
             con = DbContext.getConnection();
-            if(con!=null){
-                String sql = "update \"Room\" set theaterid = '" + theaterid +"', name = ? where roomid ='"+ roomid +"'";
+            if (con != null) {
+                String sql = "update \"Room\" set theaterid = '" + theaterid + "', name = ? where roomid ='" + roomid + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.executeUpdate();

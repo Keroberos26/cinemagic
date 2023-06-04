@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import model.Showtime;
 
 public class ChooseSeatServlet extends HttpServlet {
@@ -19,7 +18,7 @@ public class ChooseSeatServlet extends HttpServlet {
         
         Showtime st = showDao.getShowtimeById(id);
         req.setAttribute("st", st);
-        req.setAttribute("seatMap", roomDao.getSeatsByRoomId(st.getRoom().getId()));
+        req.setAttribute("seatMap", roomDao.getSeatsByShowtime(st));
         req.getRequestDispatcher("seats-selection.jsp").forward(req, resp);
     } 
 

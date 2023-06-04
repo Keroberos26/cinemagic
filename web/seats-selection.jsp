@@ -48,6 +48,13 @@
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <div class="seats">
+                                <form action="choose-seat?id=${st.id}" method="post" class="invisible">
+                                    <c:forEach items="${seatMap}" var="row">
+                                        <c:forEach items="${row}" var="seat">
+                                            <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}" required>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </form>
                                 <div class="seats-selection">
                                     <div class="front">
                                         <div class="screen"></div>
@@ -59,10 +66,10 @@
                                                 <div class="seats-row">
                                                     <c:forEach items="${row}" var="seat">
                                                         <c:if test="${seat.type == 'N'}">
-                                                            <label class="seat seat-normal" for="${seat.id}">${seat.seatNum}</label>
+                                                            <label class="seat seat-normal ${seat.taken?"taken":""}" for="${seat.id}">${seat.seatNum}</label>
                                                         </c:if>
                                                         <c:if test="${seat.type == 'V'}">
-                                                            <label class="seat seat-vip" for="${seat.id}">${seat.seatNum}</label>
+                                                            <label class="seat seat-vip ${seat.taken?"taken":""}" for="${seat.id}">${seat.seatNum}</label>
                                                         </c:if>
                                                         <c:if test="${seat == null}">
                                                             <label class="space"></label>
@@ -101,13 +108,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="choose-seat?id=${st.id}" method="post" class="invisible">
-                                    <c:forEach items="${seatMap}" var="row">
-                                        <c:forEach items="${row}" var="seat">
-                                            <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}" required>
-                                        </c:forEach>
-                                    </c:forEach>
-                                </form>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">

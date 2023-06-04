@@ -43,10 +43,78 @@ public class CinemaDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return list;
+    }
+    
+    public CinemaSystem getCinemaByAccountId(String id) {
+        CinemaSystem cinema = null;
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "SELECT c.*, count(t.theaterid) as numOfTheater\n"
+                        + "FROM \"CinemaSystem\" AS c \n"
+                        + "LEFT JOIN \"Theater\" AS t ON c.cineid = t.cineid\n"
+                        + "WHERE accid = '" + id + "'GROUP BY c.cineid";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if(rs.next()) {
+                    cinema = new CinemaSystem(rs.getString("cineid"),
+                                            rs.getString("name"),
+                                            rs.getString("logo"),
+                                            rs.getString("description"),
+                                            rs.getInt("numOfTheater"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cinema;
+    }
+    
+    public CinemaSystem getCinemaById(String id) {
+        CinemaSystem cinema = null;
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "SELECT c.*, count(t.theaterid) as numOfTheater\n"
+                        + "FROM \"CinemaSystem\" AS c \n"
+                        + "LEFT JOIN \"Theater\" AS t ON c.cineid = t.cineid\n"
+                        + "WHERE c.cineid = '" + id + "'GROUP BY c.cineid";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if(rs.next()) {
+                    cinema = new CinemaSystem(rs.getString("cineid"),
+                                            rs.getString("name"),
+                                            rs.getString("logo"),
+                                            rs.getString("description"),
+                                            rs.getInt("numOfTheater"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cinema;
     }
 }
