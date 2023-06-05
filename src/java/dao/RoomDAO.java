@@ -57,11 +57,13 @@ public class RoomDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select s.*, b.ticketid from \"Showtime\" st \n"
-                        + "join \"Room\" r on st.roomid = r.roomid\n"
-                        + "join \"Seat\" s on r.roomid = s.roomid\n"
-                        + "left join \"Booking\" b on b.seatid = s.seatid\n"
-                        + "where st.showid = '"+ st.getId() +"'";
+                String sql = "select s.*, b.ticketid from \"Seat\" s\n"
+                        + "join \"Room\" r on s.roomid = r.roomid\n"
+                        + "join \"Showtime\" st on r.roomid = st.roomid\n"
+                        + "join \"Ticket\" t on st.showid = t.showid\n"
+                        + "left join \"Booking\" b on b.ticketid = t.ticketid and b.seatid = s.seatid\n"
+                        + "where st.showid = '"+ st.getId() +"'\n"
+                        + "order by row, col";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
