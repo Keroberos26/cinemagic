@@ -95,7 +95,7 @@ public class MovieDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -111,6 +111,62 @@ public class MovieDAO {
                 String sql = "select * from \"MovieWithGenres\" where status = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, status);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Movie(
+                            rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status")
+                    ));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    public List<Movie> getMoviesByStatus(String status, String title) {
+        List<Movie> list = new ArrayList<>();
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"MovieWithGenres\"";
+                if (!(status.isBlank() && title.isBlank())) {
+                    sql += "where ";
+                    
+                    if (!status.isBlank()) {
+                        sql += "status = '"+status+"',";
+                    }
+                    
+                    if (!title.isBlank()) {
+                        title = "%" + title + "%";
+                        sql += "lower(title) like '"+title+"',";
+                    }
+                    
+                    sql = sql.substring(0, sql.length() - 1);
+                }
+                stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     list.add(new Movie(
@@ -201,7 +257,7 @@ public class MovieDAO {
         return id;
     }
     
-    public void addGenreToMovie(String genid, String movieid) {
+    public void addGenresToMovie(String genid, String movieid) {
         try {
             con = DbContext.getConnection();
             if (con != null) {

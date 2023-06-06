@@ -137,6 +137,10 @@ function editPlainText() {
     }
 }
 
+$('button[value="delete"]').click(function() {
+    alert("Bạn đã chắc chắn xóa đối tượng này?");
+})
+
 // Insert Room Row
 $(function () {
 

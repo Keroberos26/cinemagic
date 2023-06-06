@@ -62,7 +62,7 @@ public class MngMovieServlet extends HttpServlet {
             String lastMovieId = dao.addMovie("tamminh777", null, null, 0, null, 0, null, null, null, null, null, 0);
             String[] genre = req.getParameterValues("chkGenre");
             for (int i = 0; i < genre.length; i++) {
-                dao.addGenreToMovie(genre[i], lastMovieId);
+                dao.addGenresToMovie(genre[i], lastMovieId);
             }
         }
         if (action.equals("updateMovie")) {

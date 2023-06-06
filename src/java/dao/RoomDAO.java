@@ -44,7 +44,7 @@ public class RoomDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -81,7 +81,7 @@ public class RoomDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -108,7 +108,7 @@ public class RoomDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -135,7 +135,7 @@ public class RoomDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -164,7 +164,7 @@ public class RoomDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -189,7 +189,7 @@ public class RoomDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -210,7 +210,7 @@ public class RoomDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -231,7 +231,7 @@ public class RoomDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

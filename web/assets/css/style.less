@@ -224,7 +224,7 @@ main {
         }
     }
 
-    &.showtimes-card {
+    &.showtimes-card, &.custom-option {
         display: flex;
         gap: 1em;
         padding: .75em 0;
@@ -243,6 +243,15 @@ main {
             .title {
                 color: var(--dark-color);
             }
+        }
+    }
+
+    &.custom-option {
+        transition: var(--trans-background);
+        cursor: pointer;
+
+        &.selected, &:hover {
+            background-color: var(--light-bg-color);
         }
     }
 }
