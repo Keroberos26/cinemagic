@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Objects;
 
 public class Showtime {
     private String id;
@@ -80,6 +81,27 @@ public class Showtime {
     public void setRoom(Room room) {
         this.room = room;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Showtime other = (Showtime) obj;
+        return Objects.equals(this.id, other.id);
+    }
    
-    
 }

@@ -1,25 +1,22 @@
 package controller;
 
-import dao.ShowtimeDAO;
 import dao.TheaterDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Showtime;
+import jakarta.servlet.http.HttpSession;
+import model.Ticket;
 
 public class PaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        ShowtimeDAO showDao = new ShowtimeDAO();
+        HttpSession session = req.getSession();
+        Ticket ticket = (Ticket) session.getAttribute("ticket");
+        
         TheaterDAO theDao = new TheaterDAO();
-        
-        Showtime st = showDao.getShowtimeById(id);
-        
-        req.setAttribute("st", st);
-        req.setAttribute("theater", theDao.getTheaterById(st.getRoom().getTheaterid()));
+        req.setAttribute("theater", theDao.getTheaterById(ticket.getShowtime().getRoom().getTheaterid()));
         req.getRequestDispatcher("payment.jsp").forward(req, resp);
     } 
 

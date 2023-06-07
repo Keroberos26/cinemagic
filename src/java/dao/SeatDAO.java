@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Seat;
 
 public class SeatDAO {
     
@@ -87,4 +88,33 @@ public class SeatDAO {
         }
     }
     
+    public Seat getSeatById(String id) {
+        Seat seat = null;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Seat\" where seatid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    seat = new Seat(rs.getString("seatid"),
+                                    rs.getString("seatnum"),
+                                    rs.getString("type"),
+                                    false);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return seat;
+    }
 }

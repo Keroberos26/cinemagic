@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Chọn ghế - Tên rạp - Phim - Suất chiếu</title>
+        <title>Chọn ghế - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -48,15 +48,6 @@
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <div class="seats">
-                                <form action="choose-seat?id=${st.id}" method="post" class="d-none">
-                                    <c:forEach items="${seatMap}" var="row">
-                                        <c:forEach items="${row}" var="seat">
-                                            <c:if test="${seat != null}">
-                                                <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}" required>
-                                            </c:if>
-                                        </c:forEach>
-                                    </c:forEach>
-                                </form>
                                 <div class="seats-selection">
                                     <div class="front">
                                         <div class="screen"></div>
@@ -65,19 +56,19 @@
                                     <div class="seats-wrapper">
                                         <div class="seats-map">
                                             <c:forEach items="${seatMap}" var="row">
-                                                <div class="seats-row">
+                                                <ul class="seats-row">
                                                     <c:forEach items="${row}" var="seat">
                                                         <c:if test="${seat.type == 'N'}">
-                                                            <label class="seat seat-normal ${seat.taken?"taken":""}" for="${seat.id}">${seat.seatNum}</label>
+                                                            <li class="seat seat-normal ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}">${seat.seatNum}</li>
                                                         </c:if>
                                                         <c:if test="${seat.type == 'V'}">
-                                                            <label class="seat seat-vip ${seat.taken?"taken":""}" for="${seat.id}">${seat.seatNum}</label>
+                                                            <li class="seat seat-vip ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}">${seat.seatNum}</li>
                                                         </c:if>
                                                         <c:if test="${seat == null}">
-                                                            <label class="space"></label>
+                                                            <li class="space"></li>
                                                         </c:if>
                                                     </c:forEach>
-                                                </div>
+                                                </ul>
                                             </c:forEach>
                                         </div>
                                     </div>
@@ -114,16 +105,18 @@
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="card booking-detail">
-                                <h5 class="card-header bg-primary text-white">${st.room.name}</h5>
+                                <h5 class="card-header bg-primary text-white">${ticket.showtime.room.name}</h5>
                                 <div class="card-body">
-                                    <h5 class="card-title">${st.movie.title}</h5>
-                                    <p class="card-subtitle subtitle-text"><fmt:formatDate value="${st.starttime}" pattern="HH:mm"/> 
-                                        ~ <fmt:formatDate value="${st.endtime}" pattern="HH:mm"/> · 
-                                    <fmt:formatDate value="${st.showdate}" pattern="EEEE, dd/MM" /></p>
-                                    <p class="card-text mt-3">Chỗ ngồi <span class="fw-semibold"></span></p>
-                                    <hr>
-                                    <h4>Tạm tính <span class="price float-end">124124</span></h4>
-                                    <a href="#" id="submitSeats" class="btn btn-primary d-block">Mua vé</a>
+                                    <h5 class="card-title">${ticket.showtime.movie.title}</h5>
+                                    <p class="card-subtitle subtitle-text"><fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> 
+                                        ~ <fmt:formatDate value="${ticket.showtime.endtime}" pattern="HH:mm"/> · 
+                                    <fmt:formatDate value="${ticket.showtime.showdate}" pattern="EEEE, dd/MM" /></p>
+                                    <div class="card-text mt-3">
+                                        <p>Chỗ ngồi <span class="fw-semibold">${ticket.getSeatNum()}</span></p>
+                                        <hr>
+                                        <h4>Tạm tính <span class="price float-end"><fmt:formatNumber value="${ticket.getSeatPrice()}" pattern="#.###" /></span></h4>
+                                    </div>
+                                    <a href="choose-combo" id="submitSeats" class="btn btn-primary d-block ${ticket.getSeatNum()==""?"disabled":""}">Mua vé</a>
                                 </div>
                             </div>
                         </div>

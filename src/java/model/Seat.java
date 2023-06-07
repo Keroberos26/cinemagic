@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Seat {
     private String id;
     private String seatNum;
@@ -46,6 +48,28 @@ public class Seat {
 
     public void setTaken(boolean taken) {
         this.taken = taken;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Seat other = (Seat) obj;
+        return Objects.equals(this.id, other.id);
     }
     
     
