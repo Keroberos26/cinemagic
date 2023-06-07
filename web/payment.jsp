@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Chọn combo - Tên rạp - Phim - Suất chiếu</title>
+        <title>Thanh toán - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -48,27 +48,27 @@
                     <div class="payment">
                         <div class="row g-0">
                             <div class="col-12 col-md-5">
-                                <div class="qr-code h-100" style="background-color: var(--primary-color);">
+                                <div class="qr-code h-100 bg-secondary">
                                     Test
                                 </div>
                             </div>
                             <div class="col-12 col-md-7 order-md-first">
                                 <div class="ticket-detail p-3">    
                                     <div class="flexitem">
-                                        <div class="age-restricted age-${st.movie.age}">
-                                            <span class="badge rounded-pill">${st.movie.age == "0" ? "P" : st.movie.age}</span>
+                                        <div class="age-restricted age-${ticket.showtime.movie.age}">
+                                            <span class="badge rounded-pill">${ticket.showtime.movie.age == "0" ? "P" : ticket.showtime.movie.age}</span>
                                         </div>
-                                        <h5 class="mb-0 ms-2">${st.movie.title}</h5>
+                                        <h5 class="mb-0 ms-2">${ticket.showtime.movie.title}</h5>
                                     </div>
                                     <div class="row g-3 py-4 mt-4 b-dashed bt-1 b">
                                         <div class="col-8">
                                             <div class="mini-text text-uppercase fw-medium">Thời gian</div>
-                                            <div class="fw-bold"><fmt:formatDate value="${st.starttime}" pattern="HH:mm"/> 
-                                                ~ <fmt:formatDate value="${st.endtime}" pattern="HH:mm"/></div>
+                                            <div class="fw-bold"><fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> 
+                                                ~ <fmt:formatDate value="${ticket.showtime.endtime}" pattern="HH:mm"/></div>
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="mini-text text-uppercase fw-medium">Ngày chiếu</div>
-                                            <div class="fw-bold"><fmt:formatDate value="${st.showdate}" pattern="dd/MM/yyyy"/></div>
+                                            <div class="fw-bold"><fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy"/></div>
                                         </div>
                                         <div class="col-8">
                                             <div class="mini-text text-uppercase fw-medium">Rạp</div>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="mini-text text-uppercase fw-medium">Phòng chiếu</div>
-                                            <div class="fw-bold">${st.room.name}</div>
+                                            <div class="fw-bold">${ticket.showtime.room.name}</div>
                                         </div>
                                     </div>
 
@@ -85,32 +85,26 @@
                                         <div class="flexbetween align-items-end">
                                             <div>
                                                 <div class="mini-text text-uppercase fw-medium">Ghế</div>
-                                                <div class="fw-bold">A01, B02, C03</div>
+                                                <div class="fw-bold">${ticket.getSeatNum()}</div>
                                             </div>
-                                            <span class="price fw-bold">50000</span>
+                                            <span class="price fw-bold"><fmt:formatNumber value="${ticket.getSeatPrice()}" pattern="#,###" /></span>
                                         </div>
                                         <div class="my-2">
                                             <div class="mini-text text-uppercase fw-medium">Bắp nước</div>
                                             <ul>
-                                                <li class="flexbetween align-items-end py-1">
-                                                    <div class="fw-bold">2 x Tên Combo</div>
-                                                    <span class="price fw-bold">68000</span>
-                                                </li>
-                                                <li class="flexbetween align-items-end py-1">
-                                                    <div class="fw-bold">2 x Tên Combo</div>
-                                                    <span class="price fw-bold">68000</span>
-                                                </li>
-                                                <li class="flexbetween align-items-end py-1">
-                                                    <div class="fw-bold">2 x Tên Combo</div>
-                                                    <span class="price fw-bold">68000</span>
-                                                </li>
+                                                <c:forEach items="${ticket.combos}" var="e">
+                                                    <li class="flexbetween align-items-end py-1">
+                                                        <div class="fw-bold">${e.value} x ${e.key.name}</div>
+                                                        <span class="price fw-bold"><fmt:formatNumber value="${e.value * e.key.price}" pattern="#,###" /></span>
+                                                    </li>
+                                                </c:forEach>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="py-4 b-dashed bt-1 b">
                                         <div class="flexbetween align-items-end">
                                             <div class="fw-bold">Tổng tiền</div>
-                                            <span class="price fw-bold">68000</span>
+                                            <span class="price fw-bold"><fmt:formatNumber value="${ticket.getSeatPrice() + ticket.getCombosPrice()}" pattern="#,###" /></span>
                                         </div>
                                     </div>
                                 </div>

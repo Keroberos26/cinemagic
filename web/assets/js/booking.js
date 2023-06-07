@@ -1,33 +1,30 @@
 $('.seat').click(function () {
     $(this).toggleClass('selected');
-})
 
-$('#submitSeats').click(function (e) {
-    e.preventDefault();
+    var seats = $('.seat.selected').map(function () {
+        return $(this).attr('seat-id');
+    }).get();
+    
+    $.ajax({
+        url: "/choose-seat",
+        data: {
+            chkSeats: seats,
+        },
+        type: "post",
+        success: function (response) {
+            $('.card.booking-detail .card-text').html(response);
+        },
+        error: function (xhr) {
+            console.log("ERROR Ajax");
+        }
+    });
 
-    $('form.d-none').submit();
-})
-
-$('form input[name="chkSeats"]').change(function () {
-    if ($('input:checked').length > 0) {
+    if (seats.length > 0) {
         $('#submitSeats').removeClass('disabled');
     } else {
         $('#submitSeats').addClass('disabled');
     }
-
-    var num = $('input:checked').map(function () {
-        return $(this).attr('num');
-    }).get();
-
-    var seatTotal = '';
-    num.forEach(n => {
-        if (seatTotal == '')
-            seatTotal += n;
-        else
-            seatTotal += ', ' + n;
-    });
-    $('.booking-detail .card-text span').text(seatTotal);
-});
+})
 
 $('.btn-plus').click(function (e) {
     e.preventDefault();
@@ -38,6 +35,8 @@ $('.btn-plus').click(function (e) {
     if (currentValue === 0) {
         $(this).prev().prev('.btn-minus').removeClass('disabled');
     }
+
+    chooseCombo();
 });
 
 $('.btn-minus').click(function (e) {
@@ -51,5 +50,32 @@ $('.btn-minus').click(function (e) {
     if (currentValue - 1 === 0) {
         $(this).addClass('disabled');
     }
+
+    chooseCombo();
 });
+
+function chooseCombo() {
+    var combos = $('input[name="combo"]').map(function () {
+        return $(this).val();
+    }).get();
+
+    var quan = $('input[name="quantity"]').map(function () {
+        return $(this).val();
+    }).get();
+    
+    $.ajax({
+        url: "/choose-combo",
+        data: {
+            combos: combos,
+            quantity: quan,
+        },
+        type: "post",
+        success: function (response) {
+            $('.card.booking-detail .card-text h4 span').html(response);
+        },
+        error: function (xhr) {
+            console.log("ERROR Ajax");
+        }
+    });
+}
 

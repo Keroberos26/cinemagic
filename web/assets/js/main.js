@@ -130,11 +130,18 @@ function editPlainText() {
                     e.setAttribute('readonly', true); // Gán lại thuộc tính readonly
                     e.classList.add('form-control-plaintext');
                     e.classList.remove('form-control');
-                    // sendData(e.value); // ! Gửi dữ liệu vào server Ajax
+
+                    var roomid = $(e).attr('room-id');
+                    var roomname = e.value;
+                    update(roomid, roomname); // ! Gửi dữ liệu vào server Ajax
                 }
             })
         })
     }
+}
+
+function update(id, name) {
+    
 }
 
 $('button[value="delete"]').click(function() {

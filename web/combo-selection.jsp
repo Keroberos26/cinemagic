@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Chọn combo - Tên rạp - Phim - Suất chiếu</title>
+        <title>Chọn combo - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -59,33 +59,36 @@
                                                     </div>
                                                     <div class="combo-content">
                                                         <h5>${combo.name}</h5>
+                                                        <h5 class="price text-secondary"><fmt:formatNumber value="${combo.price}" pattern="#,###" /></h5>
                                                         <p>${combo.description}</p>
                                                         <p class="combo-qty">
                                                             <input type="hidden" name="combo" value="${combo.id}">
-                                                            <a href="#" class="btn btn-minus btn-lg disabled"><i class="fa-solid fa-circle-minus"></i></a>
+                                                            <a href="#" class="btn btn-minus disabled"><i class="fa-solid fa-circle-minus fa-lg"></i></a>
                                                             <input type="number" step="1" min="0" name="quantity" value="0" readonly>
-                                                            <a href="#" class="btn btn-plus btn-lg"><i class="fa-solid fa-circle-plus"></i></a>
+                                                            <a href="#" class="btn btn-plus"><i class="fa-solid fa-circle-plus fa-lg"></i></a>
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </c:forEach>s
+                                        </c:forEach>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="card booking-detail">
-                                <h5 class="card-header bg-primary text-white">${st.room.name}</h5>
+                                <h5 class="card-header bg-primary text-white">${ticket.showtime.room.name}</h5>
                                 <div class="card-body">
-                                    <h5 class="card-title">${st.movie.title}</h5>
-                                    <p class="card-subtitle subtitle-text"><fmt:formatDate value="${st.starttime}" pattern="HH:mm"/> 
-                                        ~ <fmt:formatDate value="${st.endtime}" pattern="HH:mm"/> · 
-                                    <fmt:formatDate value="${st.showdate}" pattern="EEEE, dd/MM" /></p>
-                                    <p class="card-text mt-3">Chỗ ngồi <span class="fw-semibold"></span></p>
-                                    <hr>
-                                    <h4>Tạm tính <span class="price float-end">124124</span></h4>
-                                    <a href="#" id="submitSeats" class="btn btn-primary d-block">Tiếp tục</a>
+                                    <h5 class="card-title">${ticket.showtime.movie.title}</h5>
+                                    <p class="card-subtitle subtitle-text"><fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> 
+                                        ~ <fmt:formatDate value="${ticket.showtime.endtime}" pattern="HH:mm"/> · 
+                                    <fmt:formatDate value="${ticket.showtime.showdate}" pattern="EEEE, dd/MM" /></p>
+                                    <div class="card-text mt-3">
+                                        <p>Chỗ ngồi <span class="fw-semibold">${ticket.getSeatNum()}</span></p>
+                                        <hr>
+                                        <h4>Tạm tính <span class="price float-end"><fmt:formatNumber value="${ticket.getSeatPrice() + ticket.getCombosPrice()}" pattern="#,###" /></span></h4>
+                                    </div>
+                                    <a href="payment" id="submitSeats" class="btn btn-primary d-block">Tiếp tục</a>
                                 </div>
                             </div>
                         </div>

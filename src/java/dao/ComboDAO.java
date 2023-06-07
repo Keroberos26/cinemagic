@@ -12,25 +12,26 @@ import java.util.logging.Logger;
 import model.Combo;
 
 public class ComboDAO {
+
     Connection con = null;
     PreparedStatement stm = null;
     ResultSet rs = null;
-    
+
     public List<Combo> getCombosByTheaterId(String id) {
         List<Combo> list = new LinkedList<>();
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"Combo\" where theaterid = '"+ id +"'";
+                String sql = "select * from \"Combo\" where theaterid = '" + id + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     list.add(new Combo(rs.getString("comboid"),
-                                        rs.getString("name"), 
-                                        rs.getString("description"),
-                                        rs.getInt("price"),
-                                        rs.getString("image")));
+                            rs.getString("name"),
+                            rs.getString("description"),
+                            rs.getInt("price"),
+                            rs.getString("image")));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -45,5 +46,36 @@ public class ComboDAO {
             }
         }
         return list;
+    }
+
+    public Combo getComboById(String id) {
+        Combo combo = null;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Combo\" where comboid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    combo = new Combo(rs.getString("comboid"),
+                                    rs.getString("name"),
+                                    rs.getString("description"),
+                                    rs.getInt("price"),
+                                    rs.getString("image"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return combo;
     }
 }
