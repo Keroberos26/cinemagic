@@ -60,7 +60,7 @@ public class RoomDAO {
                 String sql = "select s.*, b.ticketid from \"Seat\" s\n"
                         + "join \"Room\" r on s.roomid = r.roomid\n"
                         + "join \"Showtime\" st on r.roomid = st.roomid\n"
-                        + "join \"Ticket\" t on st.showid = t.showid\n"
+                        + "left join \"Ticket\" t on st.showid = t.showid\n"
                         + "left join \"Booking\" b on b.ticketid = t.ticketid and b.seatid = s.seatid\n"
                         + "where st.showid = '"+ st.getId() +"'\n"
                         + "order by row, col";

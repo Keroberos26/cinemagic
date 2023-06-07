@@ -50,24 +50,27 @@
                             <div class="card">
                                 <h2 class="card-header bg-primary text-white">Combo - Bắp nước</h2>
                                 <div class="card-body">
-                                    <c:forEach items="${comboList}" var="combo">
-                                        <div class="combo">
-                                            <div class="flexitem gap-4">
-                                                <div class="combo-img">
-                                                    <img src="${combo.image}" alt="COMBO">
-                                                </div>
-                                                <div class="combo-content">
-                                                    <h5>${combo.name}</h5>
-                                                    <p>${combo.description}</p>
-                                                    <p class="combo-qty">
-                                                        <a href="#" class="btn btn-minus btn-lg disabled"><i class="fa-solid fa-circle-minus"></i></a>
-                                                        <input type="number" step="1" min="0" name="quantity" value="0" readonly>
-                                                        <a href="#" class="btn btn-plus btn-lg"><i class="fa-solid fa-circle-plus"></i></a>
-                                                    </p>
+                                    <form action="">
+                                        <c:forEach items="${comboList}" var="combo">
+                                            <div class="combo">
+                                                <div class="flexitem gap-4">
+                                                    <div class="combo-img">
+                                                        <img src="${combo.image}" alt="COMBO">
+                                                    </div>
+                                                    <div class="combo-content">
+                                                        <h5>${combo.name}</h5>
+                                                        <p>${combo.description}</p>
+                                                        <p class="combo-qty">
+                                                            <input type="hidden" name="combo" value="${combo.id}">
+                                                            <a href="#" class="btn btn-minus btn-lg disabled"><i class="fa-solid fa-circle-minus"></i></a>
+                                                            <input type="number" step="1" min="0" name="quantity" value="0" readonly>
+                                                            <a href="#" class="btn btn-plus btn-lg"><i class="fa-solid fa-circle-plus"></i></a>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </c:forEach>
+                                        </c:forEach>s
+                                    </form>
                                 </div>
                             </div>
                         </div>

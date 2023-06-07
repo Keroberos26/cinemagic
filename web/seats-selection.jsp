@@ -48,10 +48,12 @@
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <div class="seats">
-                                <form action="choose-seat?id=${st.id}" method="post" class="invisible">
+                                <form action="choose-seat?id=${st.id}" method="post" class="d-none">
                                     <c:forEach items="${seatMap}" var="row">
                                         <c:forEach items="${row}" var="seat">
-                                            <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}" required>
+                                            <c:if test="${seat != null}">
+                                                <input type="checkbox" name="chkSeats" id="${seat.id}" value="${seat.id}" num="${seat.seatNum}" required>
+                                            </c:if>
                                         </c:forEach>
                                     </c:forEach>
                                 </form>
