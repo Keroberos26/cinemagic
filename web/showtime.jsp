@@ -88,11 +88,11 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="row row-cols-md-4 row-cols-2">
-                                                        <li class="col"><a href="#">TP.HCM</a></li>
-                                                        <li class="col"><a href="#">Hà Nội</a></li>
-                                                        <li class="col"><a href="#">Huế</a></li>
-                                                        <li class="col"><a href="#" class="active">Đà Nẵng</a></li>
-                                                        <li class="col"><a href="#">Quảng Nam</a></li>
+                                                        <li class="col"><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
+                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
+                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Huế</a></li>
+                                                        <li class="col"><a href="#" data-bs-dismiss="modal" class="active">Đà Nẵng</a></li>
+                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -134,7 +134,7 @@
                                         <div class="col-md-3 col-12">
                                             <div class="theater">
                                                 <c:forEach items="${theaterList}" var="t" varStatus="no">
-                                                    <a href="#" theater-id="${t.id}" onclick="theaterEvent(this, event)" ${no.count == 1?"class='active'":""}>
+                                                    <a href="#" theater-id="${t.id}" ${no.count == 1?"class='active'":""}>
                                                         <div class="theater-avt">
                                                             <img src="${t.image}">
                                                         </div>

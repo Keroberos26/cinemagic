@@ -22,7 +22,7 @@ public class TheaterDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"Theater\" where theaterid = '" + id + "'";
+                String sql = "select * from \"Theater\" t join \"CinemaSystem\" c on c.cineid = t.cineid where theaterid = '" + id + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if(rs.next()) {
@@ -32,7 +32,7 @@ public class TheaterDAO {
                                             rs.getString("ward"),
                                             rs.getString("district"),
                                             rs.getString("city"),
-                                            rs.getString("image"));
+                                            rs.getString("logo"));
                 }
                 
             }

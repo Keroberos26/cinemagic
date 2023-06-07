@@ -2,11 +2,13 @@ $('.seat').click(function () {
     $(this).toggleClass('selected');
 })
 
-$('#submitSeats').click(function () {
-    $('form.invisible').submit();
+$('#submitSeats').click(function (e) {
+    e.preventDefault();
+
+    $('form.d-none').submit();
 })
 
-$('form.invisible input').change(function () {
+$('form input[name="chkSeats"]').change(function () {
     if ($('input:checked').length > 0) {
         $('#submitSeats').removeClass('disabled');
     } else {

@@ -75,7 +75,7 @@ public class ShowtimeServlet extends HttpServlet {
                 if (!(theaterList == null || theaterList.isEmpty())) {
                     String active = " class=\"active\"";
                     for (Theater t : theaterList) {
-                        out.write("<a href=\"#\" theater-id=\"" + t.getId() + "\" onclick=\"theaterEvent(this, event)\"" + active + ">\n"
+                        out.write("<a href=\"#\" theater-id=\"" + t.getId() + "\"" + active + ">\n"
                                 + "     <div class=\"theater-avt\">\n"
                                 + "         <img src=\"" + t.getImage() + "\">\n"
                                 + "     </div>\n"
@@ -96,6 +96,7 @@ public class ShowtimeServlet extends HttpServlet {
                 String id = req.getParameter("theater");
                 Theater theater = theDao.getTheaterById(id);
                 out.write("<div class=\"left\">\n"
+                        + "     <img src=\"" + theater.getImage() + "\">"
                         + "</div>\n"
                         + "<div class=\"right\">\n"
                         + "     <h4>Lịch chiếu phim " + theater.getName() + "</h4>\n"
