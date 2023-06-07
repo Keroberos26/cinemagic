@@ -1,3 +1,4 @@
+// Click Địa điểm
 $('#positionModal .modal-body a').click(function(e) {
     e.preventDefault();
     $('#positionModal .modal-body a').removeClass('active');
@@ -7,13 +8,9 @@ $('#positionModal .modal-body a').click(function(e) {
     $('.btn[data-bs-target="#positionModal"] .city').text(city);
     
     getTheaters();
-    
-    setTimeout(() => {
-        getTheaterInfo();
-        getShowtimes();
-    }, 500);
 });
 
+// Click Cinema
 $('.cinema').click(function(e) {
     e.preventDefault();
 
@@ -21,13 +18,9 @@ $('.cinema').click(function(e) {
     $(this).addClass('active');
 
     getTheaters();
-    
-    setTimeout(() => {
-        getTheaterInfo();
-        getShowtimes();
-    }, 500);
 });
 
+// Click ngày
 $('.day').click(function(e) {
     e.preventDefault();
 
@@ -37,6 +30,7 @@ $('.day').click(function(e) {
     getShowtimes();
 });
 
+// Lấy rạp chiếu phim
 function getTheaters() {
     var city = $('#positionModal .modal-body a.active').text();
     var cinema = $('.cinema.active').attr('cinema-id');
@@ -51,6 +45,9 @@ function getTheaters() {
         type: "post",
         success: function (response) {
             $('.box-body .theater').html(response);
+            getShowtimes();
+            getTheaterInfo();
+            theaterEvents();
         },
         error: function (xhr) {
             console.log("ERROR Ajax");
@@ -58,16 +55,19 @@ function getTheaters() {
     });
 }
 
-function theaterEvent(theater, e) {
-    e.preventDefault();
+// Click rạp chiếu phim
+function theaterEvent() {
+    $('.theater a').click(function(e) {
+        e.preventDefault();
+        $('.theater a').removeClass('active');
+        $(this).addClass('active');
 
-    $('.theater a').removeClass('active');
-    $(theater).addClass('active');
-
-    getTheaterInfo();
-    getShowtimes();
+        getTheaterInfo();
+        getShowtimes();
+    })
 }
 
+// Lấy thông tin rạp phim
 function getTheaterInfo() {
     var id = $('.theater a.active').attr('theater-id'); 
     
@@ -87,6 +87,7 @@ function getTheaterInfo() {
     });
 }
 
+// Lấy lịch chiếu
 function getShowtimes() {
     var id = $('.theater a.active').attr('theater-id');
     var date = $('.day.active').attr('date');
@@ -108,4 +109,7 @@ function getShowtimes() {
     });
 }
 
-getShowtimes();
+$(document).ready(function() {
+    getShowtimes();
+    theaterEvent();
+})

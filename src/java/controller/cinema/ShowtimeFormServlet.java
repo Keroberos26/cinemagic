@@ -82,7 +82,7 @@ public class ShowtimeFormServlet extends HttpServlet {
                 PrintWriter out = resp.getWriter();
 
                 for (Movie m : movieList) {
-                    out.write("<div class=\"movie-card custom-option " + (st != null && st.getMovie().equals(m) ? "selected" : "") + "\" movie-id=\"" + m.getId() + "\" onclick=\"chooseMovie(this)\" data-bs-dismiss=\"modal\">\n"
+                    out.write("<div class=\"movie-card custom-option " + (st != null && st.getMovie().equals(m) ? "selected" : "") + "\" movie-id=\"" + m.getId() + "\" data-bs-dismiss=\"modal\">\n"
                             + "     <div class=\"poster\">\n"
                             + "         <div class=\"bg-img thumbnail\" style=\"background-image: url('" + m.getPoster() + "');\">\n"
                             + "         </div>\n"

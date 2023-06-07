@@ -61,7 +61,7 @@
                                                 </div>
                                                 <div class="list">
                                                     <c:forEach items="${movieList}" var="m">           
-                                                        <div class="movie-card custom-option ${st.movie.id==m.id?"selected":""}" movie-id="${m.id}" onclick="chooseMovie(this)" data-bs-dismiss="modal">
+                                                        <div class="movie-card custom-option ${st.movie.id==m.id?"selected":""}" movie-id="${m.id}" data-bs-dismiss="modal">
                                                             <div class="poster">
                                                                 <div class="bg-img thumbnail" style="background-image: url(${m.poster});">
                                                                 </div>

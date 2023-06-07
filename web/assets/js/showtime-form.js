@@ -1,12 +1,16 @@
-function chooseMovie(movie) {   
-    $('.custom-option').removeClass('selected');
-    $(movie).addClass('selected');
+function chooseMovie() {   
+    $('.custom-option').click(function(e) {
+        e.preventDefault();
 
-    var id = $(movie).attr('movie-id');
-    var title = $(movie).find('.title').text();
-
-    $('button[data-bs-target="#movieModal"]').text(title);
-    $('input[name="sltMovie"]').val(id);
+        $('.custom-option').removeClass('selected');
+        $(this).addClass('selected');
+    
+        var id = $(this).attr('movie-id');
+        var title = $(this).find('.title').text();
+    
+        $('button[data-bs-target="#movieModal"]').text(title);
+        $('input[name="sltMovie"]').val(id);
+    })
 }
 
 $('#searchMovie').on('input', function(e) {
@@ -40,9 +44,14 @@ function findMovie() {
         type: "post",
         success: function (response) {
             $('#movieModal .list').html(response);
+            chooseMovie();
         },
         error: function (xhr) {
             console.log("ERROR Ajax");
         }
     });
 }
+
+$(document).ready(function() {
+    chooseMovie();
+})
