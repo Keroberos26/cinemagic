@@ -13,7 +13,7 @@ public class Ticket {
     public Ticket(Seat[] seat, Map<Combo, Integer> combo) {
         this.seat = seat;
         this.combo = combo;
-    }
+    }  
     
     
     
