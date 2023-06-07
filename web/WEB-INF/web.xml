@@ -76,6 +76,18 @@
         <servlet-name>ShowtimesServlet</servlet-name>
         <servlet-class>controller.ShowtimeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VNPAYAjaxServlet</servlet-name>
+        <servlet-class>controller.VNPAYAjaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPAYQueryServlet</servlet-name>
+        <servlet-class>controller.VNPAYQueryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimeForm</servlet-name>
+        <servlet-class>controller.cinema.ShowtimeFormServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -143,6 +155,18 @@
     <servlet-mapping>
         <servlet-name>ShowtimesServlet</servlet-name>
         <url-pattern>/showtimes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPAYAjaxServlet</servlet-name>
+        <url-pattern>/vnpayajax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPAYQueryServlet</servlet-name>
+        <url-pattern>/vnpayquery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowtimeForm</servlet-name>
+        <url-pattern>/cinema/showtime-form</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
