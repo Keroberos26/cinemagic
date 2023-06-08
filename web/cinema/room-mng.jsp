@@ -36,7 +36,7 @@
                                             <td>${c.count}</td>
                                             <td><input type="text" class="form-control-plaintext can-edit" room-id="${r.id}" value="${r.name}" readonly></td>
                                             <td class="text-center"><a href="#" class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></a></td>
-                                            <td class="text-center"><a href="#" class="btn btn-danger" id="deleteRow"><span class="icon"><i class="fa-regular fa-trash-can"></i></span></a></td>
+                                            <td class="text-center"><a href="#" class="btn btn-danger deleteRow" ><span class="icon"><i class="fa-regular fa-trash-can"></i></span></a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -49,5 +49,6 @@
 
 
         <%@include file="/general/script.jsp" %>
+        <script src="/assets/js/room.js"></script>
     </body>
 </html>

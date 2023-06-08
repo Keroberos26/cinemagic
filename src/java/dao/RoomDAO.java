@@ -171,15 +171,13 @@ public class RoomDAO {
         return list;
     }
 
-    public boolean addRoom(String name, String theaterid) {
+    public boolean addRoom(String theaterid) {
         boolean success = false;
-        String id = UUID.randomUUID().toString();
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Room\"(roomid, name, theaterid) values ('" + id + "', ?, '" + theaterid + "')";
+                String sql = "insert into \"Room\"(name, theaterid) values ('', '" + theaterid + "')";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, name);
                 stm.execute();
                 success = true;
             }

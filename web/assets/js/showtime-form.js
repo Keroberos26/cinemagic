@@ -39,7 +39,7 @@ function findMovie() {
             id: showid,
             action: "search",
             title: title,
-            status: status,
+            status: status
         },
         type: "post",
         success: function (response) {
