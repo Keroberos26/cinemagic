@@ -33,7 +33,6 @@ public class RoomServlet extends HttpServlet {
         String action = req.getParameter("action");
         String id = req.getParameter("id");
         String roomName = req.getParameter("name");
-        
 
         RoomDAO dao = new RoomDAO();
         switch (action) {
@@ -52,13 +51,13 @@ public class RoomServlet extends HttpServlet {
 
         List<Room> roomList = dao.getRoomsByTheaterId(theater.getId());
         PrintWriter out = resp.getWriter();
-        int count=0;
+        int count = 0;
         for (Room m : roomList) {
             out.write("<tr>\n"
-                    + "<td>" + ++count +" </td>\n"
-                    + "<td><input type=\"text\" class=\"form-control-plaintext can-edit\" room-id=\""+ m.getId() +"\" value=\""+m.getName()+"\" readonly></td>\n"
-                    + "<td class=\"text-center\"><a href=\"#\" class=\"btn btn-primary\"><span class=\"icon\"><i class=\"fa-solid fa-couch\"></i></span></a></td>\n"
-                    + "<td class=\"text-center\"><a href=\"#\" class=\"btn btn-danger\" id=\"deleteRow\"><span class=\"icon\"><i class=\"fa-regular fa-trash-can\"></i></span></a></td>\n"
+                    + "<td>" + ++count + " </td>\n"
+                    + "     <td><input type=\"text\" class=\"form-control" + (m.getName().isBlank() ? "" : "-plaintext") + " can-edit\" room-id=\"" + m.getId() + "\" value=\"" + m.getName() + "\" " + (m.getName().isBlank() ? "" : "readonly") + "></td>\n"
+                    + "     <td class=\"text-center\"><button class=\"btn btn-primary\"><span class=\"icon\"><i class=\"fa-solid fa-couch\"></i></span></button></td>\n"
+                    + "     <td class=\"text-center\"><button class=\"btn btn-danger deleteRoom\" value=\"delete\"><span class=\"icon\"><i class=\"fa-regular fa-trash-can\"></i></span></button></td>"
                     + "</tr>");
         }
     }

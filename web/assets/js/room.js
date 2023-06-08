@@ -1,8 +1,3 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
-
 function editPlainText() {
     var canEdit = document.querySelectorAll('.can-edit');
     if (canEdit != null) {
@@ -21,14 +16,14 @@ function editPlainText() {
 
                     var roomid = $(e).attr('room-id');
                     var roomname = e.value;
-                    update(roomid, roomname, "update"); // ! Gửi dữ liệu vào server Ajax
+                    roomCrud(roomid, roomname, "update");
                 }
             })
         })
     }
 }
 
-function update(id, name, action) {
+function roomCrud(id, name, action) {
     $.ajax({
         url: "/cinema/room",
         data: {
@@ -39,11 +34,8 @@ function update(id, name, action) {
         type: "post",
         success: function (response) {
             $('tbody').html(response);
-            $('#deleteRow').click(function () {
-                var id = $(this).prev().prev().attr('room-id');
-                update(id, null, "delete");
-            })
-             editPlainText();
+            deleteRoom();
+            editPlainText();
         },
         error: function (xhr) {
             console.log("ERROR Ajax");
@@ -52,14 +44,23 @@ function update(id, name, action) {
 }
 
 
-$('#insertRow').click(function () {
-    update(null, null, "add");
+$('#insertRoom').click(function(e) {
+    e.preventDefault();
+    roomCrud(null, null, "add");
 })
 
-$('.deleteRow').click(function () {
-    var id = $(this).closest('tr').find('.form-control-plaintext.can-edit').attr('room-id');
-    update(id, null, "delete");
-   
-})
+function deleteRoom() {
+    $('.deleteRoom').click(function (e) {
+        e.preventDefault();
+        if (confirm('Bạn có chắc chắn muốn xóa phòng này?')) {
+            var id = $(this).closest('tr').find('.can-edit').attr('room-id');
+            roomCrud(id, null, "delete");
+        }
+    })
+}
 
+$(document).ready(function() {
+    deleteRoom();
+    editPlainText();
+})
 

@@ -57,16 +57,30 @@
                                         <div class="seats-map">
                                             <c:forEach items="${seatMap}" var="row">
                                                 <ul class="seats-row">
+                                                    <c:set var="isCouple" value="${false}"/>
                                                     <c:forEach items="${row}" var="seat">
-                                                        <c:if test="${seat.type == 'N'}">
-                                                            <li class="seat seat-normal ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}">${seat.seatNum}</li>
-                                                        </c:if>
-                                                        <c:if test="${seat.type == 'V'}">
-                                                            <li class="seat seat-vip ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}">${seat.seatNum}</li>
-                                                        </c:if>
-                                                        <c:if test="${seat == null}">
-                                                            <li class="space"></li>
-                                                        </c:if>
+                                                        <c:choose>
+                                                            <c:when test="${!isCouple}">
+                                                                <c:choose>
+                                                                    <c:when test="${seat.type == 'N'}">
+                                                                        <li class="seat seat-normal ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}" seat-type="${seat.type}">${seat.seatNum}</li>
+                                                                    </c:when>
+                                                                    <c:when test="${seat.type == 'V'}">
+                                                                        <li class="seat seat-vip ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}" seat-type="${seat.type}">${seat.seatNum}</li>
+                                                                    </c:when>
+                                                                    <c:when test="${seat.type == 'C'}">
+                                                                        <li class="seat seat-couple ${seat.taken?"taken":""} ${ticket.seats.contains(seat)?"selected":""}" seat-id="${seat.id}" seat-type="${seat.type}">${seat.seatNum}</li>
+                                                                        <c:set var="isCouple" value="${true}"/>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <li class="space"></li>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="isCouple" value="${false}"/>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:forEach>
                                                 </ul>
                                             </c:forEach>
@@ -76,26 +90,32 @@
                                         <div class="row">
                                             <div class="col-auto">
                                                 <div class="flexitem">
-                                                    <label class="taken"></label>
+                                                    <li class="taken"></li>
                                                     <span>Đã đặt</span>
                                                 </div>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="flexitem">
-                                                    <label class="selected"></label>
+                                                    <li class="selected"></li>
                                                     <span>Ghế bạn chọn</span>
                                                 </div>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="flexitem">
-                                                    <label class="seat-normal"></label>
+                                                    <li class="seat-normal"></li>
                                                     <span>Ghế thường</span>
                                                 </div>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="flexitem">
-                                                    <label class="seat-vip"></label>
+                                                    <li class="seat-vip"></li>
                                                     <span>Ghế VIP</span>
+                                                </div>
+                                            </div>  
+                                            <div class="col-auto">
+                                                <div class="flexitem">
+                                                    <li class="seat-couple"></li>
+                                                    <span>Ghế Sweetbox</span>
                                                 </div>
                                             </div>  
                                         </div>
@@ -110,7 +130,7 @@
                                     <h5 class="card-title">${ticket.showtime.movie.title}</h5>
                                     <p class="card-subtitle subtitle-text"><fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> 
                                         ~ <fmt:formatDate value="${ticket.showtime.endtime}" pattern="HH:mm"/> · 
-                                    <fmt:formatDate value="${ticket.showtime.showdate}" pattern="EEEE, dd/MM" /></p>
+                                        <fmt:formatDate value="${ticket.showtime.showdate}" pattern="EEEE, dd/MM" /></p>
                                     <div class="card-text mt-3">
                                         <p>Chỗ ngồi <span class="fw-semibold">${ticket.getSeatNum()}</span></p>
                                         <hr>

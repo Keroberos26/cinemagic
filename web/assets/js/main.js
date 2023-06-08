@@ -3,7 +3,7 @@ window.onload = function () {
     if (preloader != null) {
         preloader.style.display = 'none';
     }
-    editPlainText();
+    deleteObject();
 }
 
 var swiper = new Swiper(".in-theaters .swiper", {
@@ -114,11 +114,6 @@ if (sidebarBtn != null) {
         main.classList.toggle('show');
     })
 }
-
-$('button[value="delete"]').click(function() {
-    alert("Bạn đã chắc chắn xóa đối tượng này?");
-})
-
 
 // * Enable tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

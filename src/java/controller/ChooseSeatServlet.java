@@ -46,15 +46,17 @@ public class ChooseSeatServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Ticket ticket = (Ticket) session.getAttribute("ticket");
         
-        String[] seats = req.getParameterValues("chkSeats[]");
+        String[] seatId = req.getParameterValues("seatId[]");
+        String[] seatNum = req.getParameterValues("seatNum[]");
+        String[] seatType = req.getParameterValues("seatType[]");
         SeatDAO seatDao = new SeatDAO();
 
         List<Seat> list = null;
-        if (seats != null) {
+        if (seatId != null) {
             list = new LinkedList<>();
             
-            for (String seat : seats) {
-                Seat s = seatDao.getSeatById(seat);
+            for (int i = 0; i < seatId.length; i++) {
+                Seat s = new Seat(seatId[i], seatNum[i], seatType[i], false);
                 list.add(s);
             }
         }

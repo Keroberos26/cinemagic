@@ -16,7 +16,7 @@
                 <div class="container-md py-4">
                     <div class="flexitem flexbetween mb-4">
                         <h1>Danh sách phòng chiếu</h1>
-                        <a href="#" class="btn btn-success" id="insertRow"><span class="icon"><i class="fa-solid fa-circle-plus"></i></span>Thêm phòng chiếu</a>
+                        <a href="#" class="btn btn-success" id="insertRoom"><span class="icon"><i class="fa-solid fa-circle-plus"></i></span>Thêm phòng chiếu</a>
                     </div>
 
                     <div class="box-content">
@@ -35,8 +35,8 @@
                                         <tr>
                                             <td>${c.count}</td>
                                             <td><input type="text" class="form-control-plaintext can-edit" room-id="${r.id}" value="${r.name}" readonly></td>
-                                            <td class="text-center"><a href="#" class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></a></td>
-                                            <td class="text-center"><a href="#" class="btn btn-danger deleteRow" ><span class="icon"><i class="fa-regular fa-trash-can"></i></span></a></td>
+                                            <td class="text-center"><button class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></button></td>
+                                            <td class="text-center"><button class="btn btn-danger deleteRoom"><span class="icon"><i class="fa-regular fa-trash-can"></i></span></button></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

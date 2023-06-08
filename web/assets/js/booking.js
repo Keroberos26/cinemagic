@@ -1,14 +1,22 @@
 $('.seat').click(function () {
     $(this).toggleClass('selected');
 
-    var seats = $('.seat.selected').map(function () {
+    var seatId = $('.seat.selected').map(function () {
         return $(this).attr('seat-id');
+    }).get();
+    var seatNum = $('.seat.selected').map(function () {
+        return $(this).text();
+    }).get();
+    var seatType = $('.seat.selected').map(function () {
+        return $(this).attr('seat-type');
     }).get();
     
     $.ajax({
         url: "/choose-seat",
         data: {
-            chkSeats: seats,
+            seatId: seatId,
+            seatNum: seatNum,
+            seatType: seatType,
         },
         type: "post",
         success: function (response) {
@@ -19,7 +27,7 @@ $('.seat').click(function () {
         }
     });
 
-    if (seats.length > 0) {
+    if (seatId.length > 0) {
         $('#submitSeats').removeClass('disabled');
     } else {
         $('#submitSeats').addClass('disabled');
