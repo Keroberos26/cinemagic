@@ -26,7 +26,7 @@ public class ChooseSeatServlet extends HttpServlet {
         HttpSession session = req.getSession();
         RoomDAO roomDao = new RoomDAO();
         ShowtimeDAO showDao = new ShowtimeDAO();
-
+        
         Showtime st = showDao.getShowtimeById(id);
         Ticket ticket = (Ticket) session.getAttribute("ticket");
 

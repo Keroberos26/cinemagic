@@ -134,7 +134,7 @@
                                     <div class="card-text mt-3">
                                         <p>Chỗ ngồi <span class="fw-semibold">${ticket.getSeatNum()}</span></p>
                                         <hr>
-                                        <h4>Tạm tính <span class="price float-end"><fmt:formatNumber value="${ticket.getSeatPrice()}" pattern="#.###" /></span></h4>
+                                        <h4>Tạm tính <span class="price float-end"><fmt:formatNumber value="${ticket.getSeatPrice()}" pattern="#,###" /></span></h4>
                                     </div>
                                     <a href="choose-combo" id="submitSeats" class="btn btn-primary d-block ${ticket.getSeatNum()==""?"disabled":""}">Mua vé</a>
                                 </div>

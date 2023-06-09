@@ -47,7 +47,7 @@ function getTheaters() {
             $('.box-body .theater').html(response);
             getShowtimes();
             getTheaterInfo();
-            theaterEvents();
+            theaterEvent();
         },
         error: function (xhr) {
             console.log("ERROR Ajax");

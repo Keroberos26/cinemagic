@@ -8,6 +8,9 @@ public class Ticket {
     private Showtime showtime;
     private List<Seat> seats;
     private Map<Combo, Integer> combos;
+    private String name;
+    private String email;
+    private String phone;
 
     public Ticket() {
     }
@@ -45,6 +48,30 @@ public class Ticket {
 
     public void setCombos(Map<Combo, Integer> combos) {
         this.combos = combos;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getSeatNum() {

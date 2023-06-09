@@ -88,6 +88,10 @@
         <servlet-name>ShowtimeForm</servlet-name>
         <servlet-class>controller.cinema.ShowtimeFormServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TicketServlet</servlet-name>
+        <servlet-class>controller.TicketServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>ShowtimeForm</servlet-name>
         <url-pattern>/cinema/showtime-form</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketServlet</servlet-name>
+        <url-pattern>/ticket</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
+import dao.TicketDAO;
 import model.Config;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -22,11 +18,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import model.Account;
+import model.Combo;
+import model.Seat;
+import model.Ticket;
 
-/**
- *
- * @author CTT VNPAY
- */
 public class VNPAYAjaxServlet extends HttpServlet {
 
     @Override
@@ -36,14 +32,35 @@ public class VNPAYAjaxServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        Ticket t = (Ticket)req.getSession().getAttribute("ticket");
+        Account acc = (Account)req.getSession().getAttribute("acc");
+        
+        String name = req.getParameter("txtName");
+        String email = req.getParameter("txtEmail");
+        if (email == null && acc != null) {
+            email = acc.getEmail();
+        }
+        String phone = req.getParameter("txtPhone");
+        
+        TicketDAO dao = new TicketDAO();
+        String id = dao.addTicket(t.getShowtime().getId(), acc != null ? acc.getId() : null, name, email, phone);
+        
+        for (Seat s : t.getSeats()) {
+            dao.addSeatBooking(id, s.getId());
+        }
+        for (Map.Entry<Combo, Integer> entry : t.getCombos().entrySet()) {
+            Combo combo = entry.getKey();
+            int quantity = entry.getValue();
+            dao.addComboOrder(id, combo.getId(), quantity);
+        }
+        
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
 //        String orderType = req.getParameter("ordertype");
-        String orderType = "oder type";
+        String orderType = "ordertype";
         long amount = Integer.parseInt(req.getParameter("amount")) * 100;
 //        long amount = 200000 * 100;
-        String bankCode = req.getParameter("bankCode");
+        String bankCode = req.getParameter("bankCode"); // Cách giao dịch
 //        String bankCode = "NCB";
 
         String vnp_TxnRef = Config.getRandomNumber(8);

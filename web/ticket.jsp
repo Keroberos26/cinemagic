@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Thanh toán - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
+        <title>Thông tin - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -29,13 +29,13 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="text-center  text-primary">
+                                <div class="text-center">
                                     <span class="icon"><i class="ri-bank-card-fill ri-lg"></i></span>
                                     <div>Thanh toán</div>
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="text-center">
+                                <div class="text-center text-primary">
                                     <span class="icon"><i class="ri-article-fill ri-lg"></i></span>
                                     <div>Thông tin vé</div>
                                 </div>
@@ -45,30 +45,10 @@
                 </div>
 
                 <div class="container-lg py-3">
-                    <div class="payment">
-                        <div class="row g-0">
-                            <div class="col-12 col-md-5">
-                                <div class="qr-code h-100 border p-3 bg-special text-white flexitem">
-                                    <form action="/vnpayajax" id="frmCreateOrder" method="post" class="w-100">        
-                                        <input type="hidden" name="amount" value="${ticket.getSeatPrice() + ticket.getCombosPrice()}">
-                                        <div class="form-group mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="txtEmail" value="${acc.email}" ${acc != null ? "readonly disabled" : ""} required>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label for="name" class="form-label">Họ tên</label>
-                                            <input type="text" class="form-control" id="name" name="txtName" value="${acc.name}" required>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label for="phone" class="form-label">Số điện thoại</label>
-                                            <input type="tel" class="form-control" id="phone" name="txtPhone" value="${acc.phone}">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary w-100 mt-3">Thanh toán</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-7 order-first">
-                                <div class="ticket-detail p-3">    
+                    <div class="ticket">
+                        <div class="row g-0 justify-content-center">
+                            <div class="col-10 col-md-6">
+                                <div class="ticket-detail p-3 bg-lightpink box-shadow">    
                                     <div class="flexitem">
                                         <div class="age-restricted age-${ticket.showtime.movie.age}">
                                             <span class="badge rounded-pill">${ticket.showtime.movie.age == "0" ? "P" : ticket.showtime.movie.age}</span>
@@ -102,7 +82,6 @@
                                                 <div class="mini-text text-uppercase fw-medium">Ghế</div>
                                                 <div class="fw-bold">${ticket.getSeatNum()}</div>
                                             </div>
-                                            <span class="price fw-bold"><fmt:formatNumber value="${ticket.getSeatPrice()}" pattern="#,###" /></span>
                                         </div>
                                         <div class="my-2">
                                             <c:if test="${ticket.combos != null}">
@@ -111,7 +90,6 @@
                                                     <c:forEach items="${ticket.combos}" var="e">
                                                         <li class="flexbetween align-items-end py-1">
                                                             <div class="fw-bold">${e.value} x ${e.key.name}</div>
-                                                            <span class="price fw-bold"><fmt:formatNumber value="${e.value * e.key.price}" pattern="#,###" /></span>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>

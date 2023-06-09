@@ -21,13 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-
 /**
  *
  * @author CTT VNPAY
  */
 public class VNPAYQueryServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -48,15 +47,15 @@ public class VNPAYQueryServlet extends HttpServlet {
         //String vnp_TransactionNo = req.getParameter("transactionNo");
 //        String vnp_TransDate = req.getParameter("trans_date");
         String vnp_TransDate = "date cinemagic";
-        
+
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
-        
+
         String vnp_IpAddr = Config.getIpAddress(req);
-        
-        JsonObject  vnp_Params = new JsonObject ();
-        
+
+        JsonObject vnp_Params = new JsonObject();
+
         vnp_Params.addProperty("vnp_RequestId", vnp_RequestId);
         vnp_Params.addProperty("vnp_Version", vnp_Version);
         vnp_Params.addProperty("vnp_Command", vnp_Command);
@@ -67,15 +66,15 @@ public class VNPAYQueryServlet extends HttpServlet {
         vnp_Params.addProperty("vnp_TransactionDate", vnp_TransDate);
         vnp_Params.addProperty("vnp_CreateDate", vnp_CreateDate);
         vnp_Params.addProperty("vnp_IpAddr", vnp_IpAddr);
-        
+
         String hash_Data = vnp_RequestId + "|" + vnp_Version + "|" + vnp_Command + "|" + vnp_TmnCode + "|" + vnp_TxnRef + "|" + vnp_TransDate + "|" + vnp_CreateDate + "|" + vnp_IpAddr + "|" + vnp_OrderInfo;
-       
+
         String vnp_SecureHash = Config.hmacSHA512(Config.vnp_HashSecret, hash_Data.toString());
-        
+
         vnp_Params.addProperty("vnp_SecureHash", vnp_SecureHash);
-        
-        URL url = new URL (Config.vnp_apiUrl);
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+
+        URL url = new URL(Config.vnp_apiUrl);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json");
         con.setDoOutput(true);
@@ -88,11 +87,11 @@ public class VNPAYQueryServlet extends HttpServlet {
         System.out.println("Post Data : " + vnp_Params);
         System.out.println("Response Code : " + responseCode);
         BufferedReader in = new BufferedReader(
-        new InputStreamReader(con.getInputStream()));
+                new InputStreamReader(con.getInputStream()));
         String output;
         StringBuffer response = new StringBuffer();
         while ((output = in.readLine()) != null) {
-        response.append(output);
+            response.append(output);
         }
         in.close();
         System.out.println(response.toString());
