@@ -109,7 +109,16 @@ function getShowtimes() {
     });
 }
 
+function citySelected() {
+    var city = $('.city').text();
+    $('#positionModal .modal-body a').each(function() {
+        if($(this).text() === city)
+            $(this).addClass('active');
+    })
+}
+
 $(document).ready(function() {
     getShowtimes();
     theaterEvent();
+    citySelected();
 })

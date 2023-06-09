@@ -57,12 +57,13 @@ public class RoomDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select s.*, b.ticketid from \"Seat\" s\n"
+                String sql = "select s.*, count(b.ticketid) as taken from \"Seat\" s\n"
                         + "join \"Room\" r on s.roomid = r.roomid\n"
                         + "join \"Showtime\" st on r.roomid = st.roomid\n"
                         + "left join \"Ticket\" t on st.showid = t.showid\n"
                         + "left join \"Booking\" b on b.ticketid = t.ticketid and b.seatid = s.seatid\n"
-                        + "where st.showid = '"+ st.getId() +"'\n"
+                        + "where st.showid = '" + st.getId() + "'\n"
+                        + "group by s.seatid\n"
                         + "order by row, col";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -71,7 +72,7 @@ public class RoomDAO {
                             = new Seat(rs.getString("seatid"),
                                     rs.getString("seatnum"),
                                     rs.getString("type"),
-                                    rs.getString("ticketid") != null);
+                                    rs.getInt("taken") > 0);
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {

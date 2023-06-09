@@ -42,17 +42,9 @@ public class VNPAYAjaxServlet extends HttpServlet {
         }
         String phone = req.getParameter("txtPhone");
         
-        TicketDAO dao = new TicketDAO();
-        String id = dao.addTicket(t.getShowtime().getId(), acc != null ? acc.getId() : null, name, email, phone);
-        
-        for (Seat s : t.getSeats()) {
-            dao.addSeatBooking(id, s.getId());
-        }
-        for (Map.Entry<Combo, Integer> entry : t.getCombos().entrySet()) {
-            Combo combo = entry.getKey();
-            int quantity = entry.getValue();
-            dao.addComboOrder(id, combo.getId(), quantity);
-        }
+        t.setName(name);
+        t.setEmail(email);
+        t.setPhone(phone);
         
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -78,7 +70,7 @@ public class VNPAYAjaxServlet extends HttpServlet {
             vnp_Params.put("vnp_BankCode", bankCode);
         }
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", orderType);
 
         String locate = req.getParameter("language");

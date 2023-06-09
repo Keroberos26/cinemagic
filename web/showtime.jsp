@@ -69,7 +69,7 @@
 
                                         <button type="button" class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal"
                                                 data-bs-target="#positionModal">
-                                            <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">Đà Nẵng</span>
+                                            <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">${acc.city != null ? acc.city : "Đà Nẵng"}</span>
                                         </button>
 
                                         <a href="#" class="btn btn-outline-primary btn-sm fw-bold"><span class="icon"><i
@@ -91,7 +91,7 @@
                                                         <li class="col"><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
                                                         <li class="col"><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
                                                         <li class="col"><a href="#" data-bs-dismiss="modal">Huế</a></li>
-                                                        <li class="col"><a href="#" data-bs-dismiss="modal" class="active">Đà Nẵng</a></li>
+                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Đà Nẵng</a></li>
                                                         <li class="col"><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
                                                     </ul>
                                                 </div>

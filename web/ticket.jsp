@@ -48,7 +48,7 @@
                     <div class="ticket">
                         <div class="row g-0 justify-content-center">
                             <div class="col-10 col-md-6">
-                                <div class="ticket-detail p-3 bg-lightpink box-shadow">    
+                                <div class="ticket-detail p-3 bg-lightpink box-shadow rounded-1">
                                     <div class="flexitem">
                                         <div class="age-restricted age-${ticket.showtime.movie.age}">
                                             <span class="badge rounded-pill">${ticket.showtime.movie.age == "0" ? "P" : ticket.showtime.movie.age}</span>
@@ -66,9 +66,8 @@
                                             <div class="fw-bold"><fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy"/></div>
                                         </div>
                                         <div class="col-8">
-                                            <div class="mini-text text-uppercase fw-medium">Rạp</div>
-                                            <div class="fw-bold">${theater.name}</div>
-                                            <div class="mini-text text-capitalize">${theater.street}, ${theater.ward}, ${theater.district}, ${theater.city}</div>
+                                            <div class="mini-text text-uppercase fw-medium">Ghế</div>
+                                            <div class="fw-bold">${ticket.getSeatNum()}</div>
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="mini-text text-uppercase fw-medium">Phòng chiếu</div>
@@ -77,29 +76,44 @@
                                     </div>
 
                                     <div class="py-4 b-dashed bt-1 b">
-                                        <div class="flexbetween align-items-end">
-                                            <div>
-                                                <div class="mini-text text-uppercase fw-medium">Ghế</div>
-                                                <div class="fw-bold">${ticket.getSeatNum()}</div>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="flexbetween align-items-end">
+                                                    <div>
+                                                        <div class="mini-text text-uppercase fw-medium">Rạp</div>
+                                                        <div class="fw-bold">${theater.name}</div>
+                                                        <div class="mini-text text-capitalize">${theater.street}, ${theater.ward}, ${theater.district}, ${theater.city}</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="my-2">
-                                            <c:if test="${ticket.combos != null}">
-                                                <div class="mini-text text-uppercase fw-medium">Bắp nước</div>
-                                                <ul>
-                                                    <c:forEach items="${ticket.combos}" var="e">
-                                                        <li class="flexbetween align-items-end py-1">
-                                                            <div class="fw-bold">${e.value} x ${e.key.name}</div>
-                                                        </li>
-                                                    </c:forEach>
-                                                </ul>
-                                            </c:if>
+                                            <div class="col-7">
+                                                <div class="text-end">
+                                                    <c:if test="${ticket.combos != null}">
+                                                        <div class="mini-text text-uppercase fw-medium">Bắp nước</div>
+                                                        <ul>
+                                                            <c:forEach items="${ticket.combos}" var="e">
+                                                                <li class="py-1">
+                                                                    <div class="fw-bold">${e.value} x ${e.key.name}</div>
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </c:if>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="py-4 b-dashed bt-1 b">
-                                        <div class="flexbetween align-items-end">
+                                        <div class="flexbetween align-items-end my-1">
                                             <div class="fw-bold">Tổng tiền</div>
                                             <span class="price fw-bold"><fmt:formatNumber value="${ticket.getSeatPrice() + ticket.getCombosPrice()}" pattern="#,###" /></span>
+                                        </div>
+                                        <div class="flexbetween align-items-end my-1">
+                                            <div class="mini-text">Mã giao dịch</div>
+                                            <span class="mini-text">${orderInfo}</span>
+                                        </div>
+                                        <div class="flexbetween align-items-end my-1">
+                                            <div class="mini-text">Thời gian giao dịch</div>
+                                            <span class="mini-text"><fmt:formatDate value="${payDate}" pattern="HH:mm - dd/MM/yyyy" /></span>
                                         </div>
                                     </div>
                                 </div>

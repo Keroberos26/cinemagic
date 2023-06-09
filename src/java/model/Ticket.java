@@ -2,9 +2,10 @@ package model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class Ticket {
-
+    private String id;
     private Showtime showtime;
     private List<Seat> seats;
     private Map<Combo, Integer> combos;
@@ -15,8 +16,8 @@ public class Ticket {
     public Ticket() {
     }
 
-
     public Ticket(Showtime showtime) {
+        id = UUID.randomUUID().toString();
         this.showtime = showtime;
     }
 
@@ -26,6 +27,14 @@ public class Ticket {
         this.combos = combos;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public Showtime getShowtime() {
         return showtime;
     }

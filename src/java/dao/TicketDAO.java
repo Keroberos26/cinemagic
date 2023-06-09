@@ -15,8 +15,8 @@ public class TicketDAO {
     PreparedStatement stm = null;
     ResultSet rs = null;
 
-    public String addTicket(String showid, String accid, String name, String email, String phone) {
-        String id = UUID.randomUUID().toString();
+    public boolean addTicket(String id, String showid, String accid, String name, String email, String phone) {
+        boolean check = false;
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -27,6 +27,7 @@ public class TicketDAO {
                 stm.setString(2, email);
                 stm.setString(3, phone);
                 stm.execute();
+                check = true;
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -38,7 +39,7 @@ public class TicketDAO {
                 Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return id;
+        return check;
     }
 
     public void addSeatBooking(String ticketid, String seatid) {
