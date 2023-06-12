@@ -3,7 +3,6 @@ window.onload = function () {
     if (preloader != null) {
         preloader.style.display = 'none';
     }
-    deleteObject();
 }
 
 var swiper = new Swiper(".in-theaters .swiper", {

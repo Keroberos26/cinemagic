@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Room;
@@ -21,7 +20,7 @@ public class RoomDAO {
     ResultSet rs = null;
 
     public Seat[][] getSeatsByRoomId(String id) {
-        Seat[][] map = new Seat[maxRowByRoomId(id)][maxColByRoomId(id)];
+        Seat[][] map = new Seat[Integer.max(10, maxRowByRoomId(id))][Integer.max(10, maxColByRoomId(id))];
 
         try {
             con = DbContext.getConnection();
@@ -234,5 +233,34 @@ public class RoomDAO {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public Room getRoomById(String id) {
+        Room room = null;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Room\" where roomid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    room = new Room(id,
+                            rs.getString("name"),
+                            rs.getString("theaterid"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return room;
     }
 }

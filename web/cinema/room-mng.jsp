@@ -35,7 +35,7 @@
                                         <tr>
                                             <td>${c.count}</td>
                                             <td><input type="text" class="form-control-plaintext can-edit" room-id="${r.id}" value="${r.name}" readonly></td>
-                                            <td class="text-center"><button class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></button></td>
+                                            <td class="text-center"><a href="/cinema/seats?id=${r.id}" class="btn btn-primary"><span class="icon"><i class="fa-solid fa-couch"></i></span></a></td>
                                             <td class="text-center"><button class="btn btn-danger deleteRoom"><span class="icon"><i class="fa-regular fa-trash-can"></i></span></button></td>
                                         </tr>
                                     </c:forEach>

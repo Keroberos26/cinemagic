@@ -21,7 +21,7 @@ public class TicketDAO {
             con = DbContext.getConnection();
             if (con != null) {
                 String sql = "insert into \"Ticket\"(ticketid, showid, accid, name, email, phone) "
-                        + "values ('" + id + "', '" + showid + "', '" + accid + "', ?, ?, ?)";
+                        + "values ('" + id + "', '" + showid + "', "+(accid == null ? "null" : "'" + accid + "'")+", ?, ?, ?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, email);

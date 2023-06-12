@@ -783,7 +783,7 @@ footer {
     &-selection {
         background-color: #262626;
         color: var(--white-color);
-        padding: 1em 0;
+        padding: 1em 1em;
     }
 
     .front {
@@ -874,6 +874,22 @@ footer {
                     background-color: #d82d8b;
                     width: calc(6em + 8px);
                     border-radius: 6em;
+                }
+            }
+        }
+    }
+
+    &&-mng {
+        .seats-row {
+            li {
+                &.space {
+                    background-color: var(--white-color);
+                    opacity: 0.1;
+                    pointer-events: all;
+                }
+
+                &.selected {
+                    opacity: 0.9;
                 }
             }
         }

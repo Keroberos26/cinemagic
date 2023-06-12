@@ -53,7 +53,7 @@ public class MovieDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -138,7 +138,7 @@ public class MovieDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -194,7 +194,7 @@ public class MovieDAO {
                 con.close();
                 stm.close();
                 rs.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -215,7 +215,7 @@ public class MovieDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -250,7 +250,7 @@ public class MovieDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -272,7 +272,7 @@ public class MovieDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -304,7 +304,7 @@ public class MovieDAO {
             try {
                 con.close();
                 stm.close();
-            } catch (SQLException ex) {
+            } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

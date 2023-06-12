@@ -52,11 +52,11 @@ public class RoomServlet extends HttpServlet {
         List<Room> roomList = dao.getRoomsByTheaterId(theater.getId());
         PrintWriter out = resp.getWriter();
         int count = 0;
-        for (Room m : roomList) {
+        for (Room r : roomList) {
             out.write("<tr>\n"
                     + "<td>" + ++count + " </td>\n"
-                    + "     <td><input type=\"text\" class=\"form-control" + (m.getName().isBlank() ? "" : "-plaintext") + " can-edit\" room-id=\"" + m.getId() + "\" value=\"" + m.getName() + "\" " + (m.getName().isBlank() ? "" : "readonly") + "></td>\n"
-                    + "     <td class=\"text-center\"><button class=\"btn btn-primary\"><span class=\"icon\"><i class=\"fa-solid fa-couch\"></i></span></button></td>\n"
+                    + "     <td><input type=\"text\" class=\"form-control" + (r.getName().isBlank() ? "" : "-plaintext") + " can-edit\" room-id=\"" + r.getId() + "\" value=\"" + r.getName() + "\" " + (r.getName().isBlank() ? "" : "readonly") + "></td>\n"
+                    + "     <td class=\"text-center\"><a href=\""+ r.getId() +"\" class=\"btn btn-primary\"><span class=\"icon\"><i class=\"fa-solid fa-couch\"></i></span></a></td>\n"
                     + "     <td class=\"text-center\"><button class=\"btn btn-danger deleteRoom\" value=\"delete\"><span class=\"icon\"><i class=\"fa-regular fa-trash-can\"></i></span></button></td>"
                     + "</tr>");
         }
