@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import model.Movie;
+import model.Room;
 import model.Showtime;
 import model.Theater;
 
@@ -42,14 +43,14 @@ public class ShowtimeFormServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        String id = req.getParameter("showId");
         String action = req.getParameter("action");
         String movieid = req.getParameter("sltMovie");
         String date = req.getParameter("txtDate");
         String time = req.getParameter("txtTime");
         String price = req.getParameter("txtPrice");
         String roomid = req.getParameter("sltRoom");
-        
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
@@ -66,7 +67,10 @@ public class ShowtimeFormServlet extends HttpServlet {
             }
         }
 
+        
+        Showtime st = null;
         ShowtimeDAO showDao = new ShowtimeDAO();
+        String error = "";
 
         switch (action) {
             case "search":
@@ -74,9 +78,9 @@ public class ShowtimeFormServlet extends HttpServlet {
                 String title = req.getParameter("title");
 
                 MovieDAO movDao = new MovieDAO();
-                Showtime st = null;
-                if (!id.isBlank())
+                if (!id.isBlank()) {
                     st = showDao.getShowtimeById(id);
+                }
 
                 List<Movie> movieList = movDao.getMoviesByStatus(status, title);
                 PrintWriter out = resp.getWriter();
@@ -95,21 +99,33 @@ public class ShowtimeFormServlet extends HttpServlet {
                             + "</div>");
                 }
                 break;
-
             case "add":
-                showDao.addShowtime(movieid, showdate, starttime, basePrice, roomid);
-                resp.sendRedirect("showtimes");
+                error = showDao.addShowtime(movieid, showdate, starttime, basePrice, roomid);
                 break;
             case "update":
-                showDao.updateShowtime(id, movieid, showdate, starttime, basePrice, roomid);
-                resp.sendRedirect("showtimes");
+                error = showDao.updateShowtime(id, movieid, showdate, starttime, basePrice, roomid);
                 break;
             case "delete":
                 showDao.deleteShowtime(id);
-                resp.sendRedirect("showtimes");
                 break;
             default:
                 throw new AssertionError();
+        }
+
+        if (!error.equals("none")) {
+            req.setAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">\n"
+                    + "                         <span class=\"icon\"><i class=\"fa-solid fa-circle-exclamation\"></i></span>\n"
+                    + "                          " + error + "\n"
+                    + "                      </div>");
+            RoomDAO roomDao = new RoomDAO();
+            MovieDAO movDao = new MovieDAO();
+            Movie m = movDao.getMovieById(movieid);
+            Room r = roomDao.getRoomById(roomid);
+            st = new Showtime(null, showdate, starttime, null, basePrice, m, r);
+            req.setAttribute("st", st);
+            doGet(req, resp);
+        } else {
+            resp.sendRedirect("showtimes");
         }
     }
 

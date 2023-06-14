@@ -22,7 +22,8 @@
                     </div>
 
                     <div class="box-content">
-                        <form action="/cinema/showtime-form?id=${param.id}" method="post" class="needs-validation" novalidate>
+                        <form action="/cinema/showtime-form" method="post" class="needs-validation" novalidate>
+                            <input type="hidden" name="showId" value="${param.id}">
                             <div class="mb-3">
                                 <label for="date" class="form-label">Chọn phim</label>
                                 <button type="button" class="form-control text-start" data-bs-toggle="modal" data-bs-target="#movieModal">
@@ -109,6 +110,8 @@
                                     </select>
                                 </div>
                             </div>
+
+                            ${error}
 
                             <div class="text-center">
                                 <c:if test="${param.id == null}">

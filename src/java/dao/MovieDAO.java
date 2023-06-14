@@ -7,11 +7,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Movie;
+import model.Review;
 
 public class MovieDAO {
 
@@ -48,7 +51,7 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 con.close();
                 stm.close();
@@ -90,7 +93,7 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 con.close();
                 stm.close();
@@ -133,7 +136,7 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 con.close();
                 stm.close();
@@ -144,7 +147,7 @@ public class MovieDAO {
         }
         return list;
     }
-    
+
     public List<Movie> getMoviesByStatus(String status, String title) {
         List<Movie> list = new ArrayList<>();
 
@@ -154,16 +157,16 @@ public class MovieDAO {
                 String sql = "select * from \"MovieWithGenres\"";
                 if (!(status.isBlank() && title.isBlank())) {
                     sql += "where ";
-                    
+
                     if (!status.isBlank()) {
-                        sql += "status = '"+status+"',";
+                        sql += "status = '" + status + "',";
                     }
-                    
+
                     if (!title.isBlank()) {
                         title = "%" + title + "%";
-                        sql += "lower(title) like '"+title+"',";
+                        sql += "lower(title) like '" + title + "',";
                     }
-                    
+
                     sql = sql.substring(0, sql.length() - 1);
                 }
                 stm = con.prepareStatement(sql);
@@ -189,7 +192,7 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 con.close();
                 stm.close();
@@ -199,6 +202,113 @@ public class MovieDAO {
             }
         }
         return list;
+    }
+
+    public List<Review> getReviewsOfMovie(String movieId, int offset) {
+        List<Review> list = new LinkedList<>();
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Review\" r join \"Account\" a on r.accid = a.accid\n"
+                        + "where movieid = '" + movieId + "'\n"
+                        + "order by date offset ? limit 3";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, offset);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Account acc = new Account(rs.getString("accid"),
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getString("name"),
+                            rs.getString("phone"),
+                            rs.getString("city"),
+                            rs.getString("avatar"));
+                    list.add(new Review(acc,
+                            rs.getDate("date"),
+                            rs.getInt("rating"),
+                            rs.getString("comment")));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    public Review getReviewOfAccount(String movieId, String accId) {
+        Review review = null;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Review\" r join \"Account\" a on r.accid = a.accid\n"
+                        + "where movieid = '" + movieId + "' and a.accid = '" + accId + "'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    Account acc = new Account(rs.getString("accid"),
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getString("name"),
+                            rs.getString("phone"),
+                            rs.getString("city"),
+                            rs.getString("avatar"));
+                    review = new Review(acc,
+                            rs.getDate("date"),
+                            rs.getInt("rating"),
+                            rs.getString("comment"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return review;
+    }
+
+    public boolean boughtTicket(String movieId, String accId) {
+        boolean check = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Ticket\" t join \"Account\" a on t.accid = a.accid\n"
+                        + "join \"Showtime\" st on t.showid = st.showid\n"
+                        + "where movieid = '" + movieId + "' and a.accid = '" + accId + "'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                check = rs.next();
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return check;
     }
 
     public void deleteMoviesById(String movieid) {
@@ -211,7 +321,7 @@ public class MovieDAO {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 con.close();
                 stm.close();
@@ -226,7 +336,7 @@ public class MovieDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Movie\"(movieid, title, description, poster, duration, releasedate, rating, actors, directors, country, trailer, status, ageRestricted) values ('"+id +"', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "insert into \"Movie\"(movieid, title, description, poster, duration, releasedate, rating, actors, directors, country, trailer, status, ageRestricted) values ('" + id + "', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, title);
                 stm.setString(2, des);
@@ -242,7 +352,6 @@ public class MovieDAO {
                 stm.setInt(12, ageRestricted);
                 stm.executeUpdate();
 
-               
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,12 +365,12 @@ public class MovieDAO {
         }
         return id;
     }
-    
+
     public void addGenresToMovie(String genid, String movieid) {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Movie_Genre\"(genid, movieid) values ('"+genid +"', '"+movieid +"')";
+                String sql = "insert into \"Movie_Genre\"(genid, movieid) values ('" + genid + "', '" + movieid + "')";
                 stm = con.prepareStatement(sql);
                 stm.executeUpdate();
 
@@ -277,12 +386,12 @@ public class MovieDAO {
             }
         }
     }
-    
-    public void updateMovie( String movieid, String title, String des, String poster, int duration, Date releaseDate, double rating, String actors, String directors, String country, String trailer, String status, int ageRestricted){
+
+    public void updateMovie(String movieid, String title, String des, String poster, int duration, Date releaseDate, double rating, String actors, String directors, String country, String trailer, String status, int ageRestricted) {
         try {
             con = DbContext.getConnection();
-            if(con!=null){
-                String sql = "update \"Movie\" set title = ?, description = ?, poster =?, duration=?, releasedate =?, rating=?, actors=?, directors =?, country=?, trailer=?, status =? ,agerestricted =? where movieid ='"+ movieid +"'";
+            if (con != null) {
+                String sql = "update \"Movie\" set title = ?, description = ?, poster =?, duration=?, releasedate =?, rating=?, actors=?, directors =?, country=?, trailer=?, status =? ,agerestricted =? where movieid ='" + movieid + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, title);
                 stm.setString(2, des);

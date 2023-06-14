@@ -570,6 +570,7 @@ footer {
                     border-bottom: 1px solid var(--border-color);
                     position: sticky;
                     top: 0;
+                    z-index: 10;
                     background-color: var(--white-color);
 
                     &-slide {
@@ -997,5 +998,45 @@ footer {
         background-color: var(--primary-color);
         border: 1px solid var(--primary-color);
         width: 140px;
+    }
+}
+
+
+.stars {
+    font-size: 1em;
+
+    i {
+        color: #f1c40e;
+    }
+
+    &-rate {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: .5em;
+
+        input {
+            appearance: none;
+            user-select: none;
+        }
+
+        label {
+            flex-grow: 1;
+            font-size: 1.5em;
+            color: var(--secondary-dark-color);
+            cursor: pointer;
+        }
+
+        input:checked~label,
+        &:not(:checked)>label:hover,
+        &:not(:checked)>label:hover~label {
+            color: #f1c40e;
+        }
+
+        >input:checked+label:hover,
+        >input:checked~label:hover,
+        >input:checked~label:hover~label,
+        >label:hover~input:checked~label {
+            color: #ffed85;
+        }
     }
 }

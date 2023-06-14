@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import model.Movie;
 import model.Room;
 import model.Showtime;
+import model.Theater;
 
 public class ShowtimeDAO {
 
@@ -141,7 +142,7 @@ public class ShowtimeDAO {
         return list;
     }
 
-    public Map<Movie, List<Showtime>> getShowtimesByTheaterIdAndDate(String id, Date date) {
+    public Map<Movie, List<Showtime>> getShowtimesByMovie(String id, Date date) {
         Map<Movie, List<Showtime>> map = new LinkedHashMap<>();
 
         try {
@@ -199,8 +200,82 @@ public class ShowtimeDAO {
         return map;
     }
 
-    public boolean addShowtime(String movieid, Date date, Time time, int price, String roomid) {
-        boolean check = false;
+    public Map<Theater, List<Showtime>> getShowtimesByTheater(String movieId, String city, String cinema, Date date) {
+        Map<Theater, List<Showtime>> map = new LinkedHashMap<>();
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select st.*, t.theaterid, t.name as thename, t.street, t.ward, t.district, t.city, t.cineid, c.logo from \"ShowtimeDetail\" st \n"
+                        + "join \"Theater\" t on st.theaterid = t.theaterid\n"
+                        + "join \"CinemaSystem\" c on t.cineid = c.cineid\n"
+                        + "where movieid = '" + movieId + "' and showdate = ? \n"
+                        + "and city = ?";
+                if (cinema != null && !cinema.isBlank()) {
+                    sql += " and t.cineid = '" + cinema + "'";
+                }
+                sql += " order by thename";
+                stm = con.prepareStatement(sql);
+                stm.setDate(1, date);
+                stm.setString(2, city);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    Movie movie = new Movie(rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status"));
+                    Room room = new Room(rs.getString("roomid"),
+                            rs.getString("name"),
+                            rs.getString("theaterid"));
+                    Theater theater = new Theater(rs.getString("theaterid"),
+                            rs.getString("thename"),
+                            rs.getString("street"),
+                            rs.getString("ward"),
+                            rs.getString("district"),
+                            rs.getString("city"),
+                            rs.getString("logo"));
+                    List<Showtime> list = null;
+                    if (map.containsKey(theater)) {
+                        list = map.get(theater);
+                    } else {
+                        list = new LinkedList<>();
+                    }
+                    list.add(new Showtime(rs.getString("showid"),
+                            rs.getDate("showdate"),
+                            rs.getTime("starttime"),
+                            rs.getTime("endtime"),
+                            rs.getInt("basePrice"),
+                            movie,
+                            room));
+                    map.put(theater, list);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return map;
+    }
+
+    public String addShowtime(String movieid, Date date, Time time, int price, String roomid) {
+        String error = "Đã có lỗi xảy ra!";
 
         try {
             con = DbContext.getConnection();
@@ -213,10 +288,14 @@ public class ShowtimeDAO {
                 stm.setTime(2, time);
                 stm.setInt(3, price);
                 stm.execute();
-                check = true;
+                error = "none";
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            if (ex.getMessage().contains("check_time_range_constraint()")) {
+                error = "Thời gian và lịch chiếu này đã bị chiếm dụng!";
+            }
         } finally {
             try {
                 con.close();
@@ -225,11 +304,11 @@ public class ShowtimeDAO {
                 Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return check;
+        return error;
     }
 
-    public boolean updateShowtime(String id, String movieid, Date date, Time time, int price, String roomid) {
-        boolean check = false;
+    public String updateShowtime(String id, String movieid, Date date, Time time, int price, String roomid) {
+        String error = "Đã có lỗi xảy ra!";
 
         try {
             con = DbContext.getConnection();
@@ -242,10 +321,14 @@ public class ShowtimeDAO {
                 stm.setTime(2, time);
                 stm.setInt(3, price);
                 stm.execute();
-                check = true;
+                error = "none";
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            if (ex.getMessage().contains("check_time_range_constraint()")) {
+                error = "Thời gian và lịch chiếu này đã bị chiếm dụng!";
+            }
         } finally {
             try {
                 con.close();
@@ -254,7 +337,7 @@ public class ShowtimeDAO {
                 Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return check;
+        return error;
     }
 
     public boolean deleteShowtime(String id) {

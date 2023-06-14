@@ -36,26 +36,6 @@ $('#insertCol').click(function(e) {
     seatSelected();
 })
 
-// function addCol() {
-//     $('.seats-row').each(function () {
-//         var row = $(this);
-//         seat = '<li class="seat"></li>';
-//         row.append(seat);
-//     })
-// }
-
-// function deleteRow() {
-//     var map = $('.seats-map');
-//     map.children(":last-child").remove();
-// }
-
-// function deleteCol() {
-//     $('.seats-row').each(function () {
-//         var row = $(this);
-//         row.children(":last-child").remove();
-//     })
-// }
-
 function seatSelected() {
     $('.seats-map li').click(function (e) {
         e.preventDefault();

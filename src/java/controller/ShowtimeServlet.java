@@ -116,7 +116,7 @@ public class ShowtimeServlet extends HttpServlet {
                     Logger.getLogger(ShowtimeServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 ShowtimeDAO showDao = new ShowtimeDAO();
-                Map<Movie, List<Showtime>> map = showDao.getShowtimesByTheaterIdAndDate(theaterId, date);
+                Map<Movie, List<Showtime>> map = showDao.getShowtimesByMovie(theaterId, date);
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
                 if (!(map == null || map.isEmpty())) {
                     for (Map.Entry<Movie, List<Showtime>> entry : map.entrySet()) {
