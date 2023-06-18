@@ -13,8 +13,8 @@
         <servlet-class>controller.HomeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MovieServlet</servlet-name>
-        <servlet-class>controller.MovieServlet</servlet-class>
+        <servlet-name>MovieDetailServlet</servlet-name>
+        <servlet-class>controller.MovieDetailServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
@@ -96,12 +96,16 @@
         <servlet-name>SeatServlet</servlet-name>
         <servlet-class>controller.cinema.SeatServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MovieServlet</servlet-name>
+        <servlet-class>controller.MovieServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MovieServlet</servlet-name>
+        <servlet-name>MovieDetailServlet</servlet-name>
         <url-pattern>/movie</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>SeatServlet</servlet-name>
         <url-pattern>/cinema/seats</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MovieServlet</servlet-name>
+        <url-pattern>/movies</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

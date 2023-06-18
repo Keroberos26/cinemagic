@@ -25,7 +25,7 @@ import model.Review;
 import model.Showtime;
 import model.Theater;
 
-public class MovieServlet extends HttpServlet {
+public class MovieDetailServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -78,7 +78,7 @@ public class ShowtimeFormServlet extends HttpServlet {
                 String title = req.getParameter("title");
 
                 MovieDAO movDao = new MovieDAO();
-                if (!id.isBlank()) {
+                if (id != null && !id.isBlank()) {
                     st = showDao.getShowtimeById(id);
                 }
 
@@ -111,21 +111,23 @@ public class ShowtimeFormServlet extends HttpServlet {
             default:
                 throw new AssertionError();
         }
-
-        if (!error.equals("none")) {
-            req.setAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">\n"
-                    + "                         <span class=\"icon\"><i class=\"fa-solid fa-circle-exclamation\"></i></span>\n"
-                    + "                          " + error + "\n"
-                    + "                      </div>");
-            RoomDAO roomDao = new RoomDAO();
-            MovieDAO movDao = new MovieDAO();
-            Movie m = movDao.getMovieById(movieid);
-            Room r = roomDao.getRoomById(roomid);
-            st = new Showtime(null, showdate, starttime, null, basePrice, m, r);
-            req.setAttribute("st", st);
-            doGet(req, resp);
-        } else {
-            resp.sendRedirect("showtimes");
+        
+        if (!action.equals("search")) {
+            if (!error.isEmpty()) {
+                req.setAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">\n"
+                        + "                         <span class=\"icon\"><i class=\"fa-solid fa-circle-exclamation\"></i></span>\n"
+                        + "                          " + error + "\n"
+                        + "                      </div>");
+                RoomDAO roomDao = new RoomDAO();
+                MovieDAO movDao = new MovieDAO();
+                Movie m = movDao.getMovieById(movieid);
+                Room r = roomDao.getRoomById(roomid);
+                st = new Showtime(null, showdate, starttime, null, basePrice, m, r);
+                req.setAttribute("st", st);
+                doGet(req, resp);
+            } else {
+                resp.sendRedirect("showtimes");
+            }
         }
     }
 

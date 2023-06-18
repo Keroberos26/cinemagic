@@ -77,7 +77,7 @@
                                                         <div class="age-restricted age-${i.age}"><span class="badge">${i.age}</span></div>
                                                     </a>
                                                 </div>
-                                                <div class="content main-links">
+                                                <div class="content main-links text-white">
                                                     <a href="movie?id=${i.id}">
                                                         <h4 class="title">${i.title}</h4>
                                                         <p class=" genre mini-text">${i.genres}</p>

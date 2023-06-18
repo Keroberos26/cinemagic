@@ -1,176 +1,106 @@
 package controller;
 
-import dao.CinemaDAO;
 import dao.MovieDAO;
-import dao.ShowtimeDAO;
-import dao.TheaterDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Account;
 import model.Movie;
-import model.Review;
-import model.Showtime;
-import model.Theater;
 
 public class MovieServlet extends HttpServlet {
 
+    private final int itemsOfPage = 10;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
         MovieDAO dao = new MovieDAO();
-        Movie movie = dao.getMovieById(id);
 
-        CinemaDAO cineDao = new CinemaDAO();
-        TheaterDAO theDao = new TheaterDAO();
-
-        Account acc = (Account) req.getSession().getAttribute("acc");
-        String city = null;
-        if (acc != null && acc.getCity() != null) {
-            city = acc.getCity();
-        } else {
-            city = "Đà Nẵng";
-        }
-
-        // Lấy ngày hôm nay
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date currentDate = calendar.getTime();
-
-        // Tạo danh sách chứa 7 ngày
-        List<Date> dateList = new ArrayList<>();
-
-        // Thêm 7 ngày kể từ ngày hôm nay vào danh sách
-        for (int i = 0; i < 10; i++) {
-            calendar.setTime(currentDate);
-            calendar.add(calendar.DAY_OF_YEAR, i);
-            java.util.Date date = calendar.getTime();
-            Date sqlDate = new Date(date.getTime());
-            dateList.add(sqlDate);
-        }
-
-        if (acc != null) {
-            req.setAttribute("accReview", dao.getReviewOfAccount(id, acc.getId()));
-            req.setAttribute("bought", dao.boughtTicket(id, acc.getId()));
-        }
-        req.setAttribute("m", movie);
-        req.setAttribute("reviews", dao.getReviewsOfMovie(id, 0));
-        req.setAttribute("theaterList", theDao.getTheatersByCinemaIdAndCity(null, city));
-        req.setAttribute("cinema", cineDao.getAllCinemas());
-        req.setAttribute("dateList", dateList);
-        req.getRequestDispatcher("movie.jsp").forward(req, resp);
+        req.setAttribute("genreList", dao.getAllGenres());
+        req.setAttribute("countries", dao.getAllCountries());
+        req.setAttribute("totalPage", Math.ceil(dao.getNumberOfMovie("", "", 0, "") * 1.0 / itemsOfPage));
+        req.setAttribute("movieList", dao.getMoviesByGenres("", "", 0, "", 0, itemsOfPage));
+        req.getRequestDispatcher("movies.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        String movieId = req.getParameter("movieId");
+        String genre = req.getParameter("genre");
+        String country = req.getParameter("country");
+        String txtYear = req.getParameter("year");
+        String search = req.getParameter("search");
+        String txtPage = req.getParameter("page");
+
+        int year = 0, page = 0;
+        if (txtYear != null && !txtYear.isBlank()) {
+            year = Integer.parseInt(txtYear);
+        }
+        if (txtPage != null && !txtPage.isBlank()) {
+            page = Integer.parseInt(txtPage);
+        }
+        int offset = page * itemsOfPage;
 
         MovieDAO dao = new MovieDAO();
-        TheaterDAO theDao = new TheaterDAO();
-        ShowtimeDAO showDao = new ShowtimeDAO();
         PrintWriter out = resp.getWriter();
-
-        switch (action) {
-            case "getShowtimes":
-                String city = req.getParameter("city");
-                String cinema = req.getParameter("cinema");
-                String dateInput = req.getParameter("date");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                Date date = null;
-                try {
-                    date = new Date(dateFormat.parse(dateInput).getTime());
-                } catch (ParseException ex) {
-                    Logger.getLogger(ShowtimeServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                Map<Theater, List<Showtime>> theaterList = showDao.getShowtimesByTheater(movieId, city, cinema, date);
-                if (theaterList != null && !theaterList.isEmpty()) {
-                    for (Map.Entry<Theater, List<Showtime>> entry : theaterList.entrySet()) {
-                        Theater t = entry.getKey();
-                        List<Showtime> showList = entry.getValue();
-                        if (showList != null && !showList.isEmpty()) {
-                            out.write("<div class=\"accordion-item showtimes-cinema\">\n"
-                                    + "     <h2 class=\"accordion-header\">\n"
-                                    + "         <button class=\"accordion-button collapsed\" type=\"button\"\n"
-                                    + "             data-bs-toggle=\"collapse\" data-bs-target=\"#" + t.getId() + "\"\n"
-                                    + "             aria-expanded=\"false\" aria-controls=\"" + t.getId() + "\">\n"
-                                    + "             <div class=\"address bg-transparent\">\n"
-                                    + "                 <div class=\"left\">\n"
-                                    + "                     <img src=\"" + t.getImage() + "\" alt=\"" + t.getName() + "\">\n"
-                                    + "                 </div>\n"
-                                    + "                 <div class=\"right\">\n"
-                                    + "                     <h4>" + t.getName() + "</h4>\n"
-                                    + "                     <span class=\"mini-text\">" + t.getStreet() + ", " + t.getWard() + ", " + t.getDistrict() + ", " + t.getCity() + "<a href=\"#\">[ Bản đồ ]</a></span>\n"
-                                    + "                 </div>\n"
-                                    + "             </div>\n"
-                                    + "         </button>\n"
-                                    + "     </h2>\n"
-                                    + "     <div id=\"" + t.getId() + "\" class=\"accordion-collapse collapse\" data-bs-parent=\"#showtimes-cinema\">\n"
-                                    + "         <div class=\"accordion-body\">\n"
-                                    + "             <div class=\"row row-cols-md-5 row-cols-sm-3 row-cols-2 g-3\">\n");
-                            for (Showtime st : showList) {
-                                out.write("<div class=\"col\">\n"
-                                        + "     <a href=\"choose-seat?id=" + st.getId() + "\" class=\"btn btn-outline-secondary btn-sm d-block\"><strong>" + timeFormat.format(st.getStarttime()) + "</strong> ~ " + timeFormat.format(st.getEndtime()) + "</a>\n"
-                                        + "</div>");
-                            }
-                            out.write("             </div>\n"
-                                    + "         </div>\n"
-                                    + "     </div>\n"
-                                    + "</div>");
-                        }
-                    }
-                } else {
-                    out.write("<div class=\"text-center\">\n"
-                            + "     <img src=\"/assets/img/not-found.svg\" width=\"120\" height=\"120\">\n"
-                            + "     <h5>Úi, Suất chiếu không tìm thấy.</h5>\n"
-                            + "     <div class=\"mini-text\">Bạn hãy thử tìm ngày khác hoặc rạp khác nhé</div>\n"
-                            + "</div>");
-                }
-
-                break;
-            case "getMoreReviews":
-                int count = Integer.parseInt(req.getParameter("count"));
-                List<Review> reviews = dao.getReviewsOfMovie(movieId, count);
-                if (reviews != null && !reviews.isEmpty()) {
-                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
-                    for (Review r : reviews) {
-                        out.write("<div class=\"d-flex gap-3 review\">\n"
-                                + "     <div class=\"avatar avatar-xl flex-shrink-0\">\n"
-                                + "         <img src=\"" + (r.getAcc().getAvatar() != null ? r.getAcc().getAvatar() : "/assets/img/no-avatar.png") + "\" alt=\"Avatar\"\n"
-                                + "             class=\"avatar-img rounded-circle border border-4 d-block\">\n"
-                                + "     </div>\n"
-                                + "     <div class=\"flex-grow-1\">\n"
-                                + "         <div class=\"fw-bold mb-2\">" + r.getAcc().getName() + " <span class=\"mini-text fw-normal\"> · " + dateFormat2.format(r.getDate()) + "</span></div>\n"
-                                + "             <div class=\"stars mb-2\">\n");
-                        for (int i = 1; i <= 10; i++) {
-                            if (r.getRating() >= i) {
-                                out.write("<i class=\"ri-star-fill\"></i>\n");
-                            } else {
-                                out.write("<i class=\"ri-star-line\"></i>\n");
-                            }
-                        }
-                        out.write("             </div>\n"
-                                + "         <div class=\"comment\">" + r.getComment() + "</div>\n"
-                                + "     </div>\n"
-                                + "</div>");
-                    }
-                }
-                break;
-            default:
-                throw new AssertionError();
+        List<Movie> movies = dao.getMoviesByGenres(genre, country, year, search, offset, itemsOfPage);
+        int totalPage = (int) Math.ceil(dao.getNumberOfMovie(genre, country, year, search) * 1.0 / itemsOfPage);
+        out.write("<div class=\"row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 py-5\">");
+        for (Movie m : movies) {
+            out.write("<div class=\"col\">\n"
+                    + "     <div class=\"movie-card\">\n"
+                    + "         <div class=\"poster\">\n"
+                    + "             <a data-fslightbox=\"" + m.getId() + "\" href=\"" + m.getTrailer() + "\">\n"
+                    + "                 <div class=\"bg-img thumbnail\"\n"
+                    + "                     style=\"background-image: url(" + m.getPoster() + ");\">\n"
+                    + "                 </div>\n"
+                    + "                 <div class=\"play-btn\">\n"
+                    + "                     <svg viewBox=\"0 0 48 48\" xmlns=\"http://www.w3.org/2000/svg\"\n"
+                    + "                         class=\"jsx-314b02cb997a0a18\">\n"
+                    + "                         <g fill=\"none\" fill-rule=\"evenodd\" class=\"jsx-314b02cb997a0a18\">\n"
+                    + "                             <circle stroke=\"#FFF\" stroke-width=\"2\" fill-opacity=\".24\"\n"
+                    + "                                 fill=\"#000\" cx=\"24\" cy=\"24\" r=\"23\"\n"
+                    + "                                 class=\"jsx-314b02cb997a0a18\"></circle>\n"
+                    + "                             <path\n"
+                    + "                                 d=\"M34.667 24.335c0 .515-.529.885-.529.885l-14.84 9.133c-1.08.704-1.965.182-1.965-1.153V15.467c0-1.338.884-1.856 1.968-1.153L34.14 23.45c-.002 0 .527.37.527.885Z\"\n"
+                    + "                                 fill=\"#FFF\" fill-rule=\"nonzero\"\n"
+                    + "                                 class=\"jsx-314b02cb997a0a18\"></path>\n"
+                    + "                         </g>\n"
+                    + "                     </svg>\n"
+                    + "                 </div>\n"
+                    + "                 <div class=\"age-restricted age-" + m.getAge() + "\"><span class=\"badge\">" + m.getAge() + "</span></div>\n"
+                    + "             </a>\n"
+                    + "         </div>\n"
+                    + "         <div class=\"content main-links\">\n"
+                    + "             <a href=\"movie?id=" + m.getId() + "\">\n"
+                    + "                 <h4 class=\"title\">" + m.getTitle() + "</h4>\n"
+                    + "                 <p class=\" genre mini-text\">" + m.getGenres() + "</p>\n"
+                    + "             </a>\n"
+                    + "         </div>\n"
+                    + "     </div>\n"
+                    + "</div>");
         }
+        out.write("</div>"
+                + "<nav aria-label=\"Page navigation example\">\n"
+                + "     <ul class=\"pagination justify-content-center\">\n"
+                + "         <li class=\"page-item " + (page == 0 ? "disabled" : "") + "\">\n"
+                + "             <button type=\"button\" class=\"page-link\" aria-label=\"Previous\" value=\"" + (page - 1) + "\">\n"
+                + "                 <span aria-hidden=\"true\"><i class=\"fa-solid fa-caret-left\"></i></span>\n"
+                + "             </button>\n"
+                + "         </li>");
+        for (int p = 0; p < totalPage;) {
+            out.write("<li class=\"page-item " + (p == page ? "active" : "") + "\">\n"
+                    + "     <button type=\"button\" class=\"page-link\" value=\"" + p++ + "\">" + p + "</button>\n"
+                    + "</li>");
+        }
+        out.write("         <li class=\"page-item " + (page == totalPage - 1 ? "disabled" : "") + "\">\n"
+                + "             <button type=\"button\" class=\"page-link\" aria-label=\"Next\" value=\"" + (page + 1) + "\">\n"
+                + "                 <span aria-hidden=\"true\"><i class=\"fa-solid fa-caret-right\"></i></span>\n"
+                + "             </button>\n"
+                + "         </li>\n"
+                + "     </ul>\n"
+                + "</nav>");
     }
+
 }

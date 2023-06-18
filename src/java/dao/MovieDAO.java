@@ -155,19 +155,18 @@ public class MovieDAO {
             con = DbContext.getConnection();
             if (con != null) {
                 String sql = "select * from \"MovieWithGenres\"";
-                if (!(status.isBlank() && title.isBlank())) {
-                    sql += "where ";
+                if (!status.isBlank() || !title.isBlank()) {
+                    sql += " where ";
 
                     if (!status.isBlank()) {
-                        sql += "status = '" + status + "',";
+                        sql += "status = '" + status + "' and ";
                     }
 
                     if (!title.isBlank()) {
-                        title = "%" + title + "%";
-                        sql += "lower(title) like '" + title + "',";
+                        sql += "lower(title) like '%" + title + "%' and ";
                     }
 
-                    sql = sql.substring(0, sql.length() - 1);
+                    sql = sql.substring(0, sql.length() - 5);
                 }
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
@@ -204,6 +203,120 @@ public class MovieDAO {
         return list;
     }
 
+    public List<Movie> getMoviesByGenres(String genre, String country, int year, String title, int offset, int itemsOfPage) {
+        List<Movie> list = new ArrayList<>();
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"MovieWithGenres\"";
+                if (!genre.isBlank() || !title.isBlank() || !country.isBlank() || year >= 2000) {
+                    sql += " where ";
+
+                    if (!genre.isBlank()) {
+                        sql += "genres like '%" + genre + "%' and ";
+                    }
+
+                    if (!country.isBlank()) {
+                        sql += "country = '" + country + "' and ";
+                    }
+                    
+                    if (year > 2000) {
+                        sql += "extract(year from releasedate) = " + year +" and ";
+                    }
+
+                    if (!title.isBlank()) {
+                        sql += "lower(title) like '%" + title + "%' and ";
+                    }
+
+                    sql = sql.substring(0, sql.length() - 5);
+                }
+                sql += " offset ? limit ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, offset);
+                stm.setInt(2, itemsOfPage);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Movie(
+                            rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status")
+                    ));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    public int getNumberOfMovie(String genre, String country, int year, String title) {
+        int count = 0;
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select count(*) from \"MovieWithGenres\"";
+                if (!genre.isBlank() || !title.isBlank() || !country.isBlank() || year >= 2000) {
+                    sql += " where ";
+
+                    if (!genre.isBlank()) {
+                        sql += "genres like '%" + genre + "%' and ";
+                    }
+
+                    if (!country.isBlank()) {
+                        sql += "country = '" + country + "' and ";
+                    }
+                    
+                    if (year > 2000) {
+                        sql += "extract(year from releasedate) = " + year +" and ";
+                    }
+
+                    if (!title.isBlank()) {
+                        sql += "lower(title) like '%" + title + "%' and ";
+                    }
+
+                    sql = sql.substring(0, sql.length() - 5);
+                }
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return count;
+    }
+    
     public List<Review> getReviewsOfMovie(String movieId, int offset) {
         List<Review> list = new LinkedList<>();
 
@@ -245,6 +358,44 @@ public class MovieDAO {
         return list;
     }
 
+    public List<String> getAllGenres() {
+        List<String> list = new ArrayList<>();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Genre\"";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(rs.getString("name"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public List<String> getAllCountries() {
+        List<String> list = new ArrayList<>();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select distinct country from \"Movie\" order by country";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(rs.getString(1));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public Review getReviewOfAccount(String movieId, String accId) {
         Review review = null;
 
