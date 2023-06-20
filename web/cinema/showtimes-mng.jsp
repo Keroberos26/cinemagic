@@ -59,7 +59,9 @@
                                         <th>Phim</th>
                                         <th>Bắt đầu</th>
                                         <th>Kết thúc</th>
-                                        <th>Giá vé</th>
+                                        <th>Ghế thường</th>
+                                        <th>Ghế VIP</th>
+                                        <th>Giá Sweetbox</th>
                                         <th>Phòng</th>
                                         <th></th>
                                     </tr>

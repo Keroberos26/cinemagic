@@ -85,22 +85,15 @@
                             </div>
 
                             <div class="row g-3 mb-3">
-                                <div class="col">
+                                <div class="col-12 col-md-4">
                                     <label for="date" class="form-label">Ngày chiếu</label>
                                     <input type="date" class="form-control" id="date" name="txtDate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${st.showdate}"/>" required>
                                 </div>
-                                <div class="col">
+                                <div class="col-12 col-md-4">
                                     <label for="time" class="form-label">Giờ bắt đầu</label>
                                     <input type="time" class="form-control" id="time" name="txtTime" value="<fmt:formatDate pattern="HH:mm" value="${st.starttime}"/>" required>
                                 </div>
-                            </div>
-
-                            <div class="row g-3 mb-3">
-                                <div class="col">
-                                    <label for="price" class="form-label">Giá cơ bản</label>
-                                    <input type="number" min="0" class="form-control" id="price" name="txtPrice" value="${st.basePrice}" placeholder="45000" required>
-                                </div>
-                                <div class="col">
+                                <div class="col-12 col-md-4">
                                     <label for="room" class="form-label">Phòng chiếu</label>
                                     <select id="room" class="form-select" name="sltRoom" required>
                                         <option ${param.id==null?"selected":""} disabled value="">Chọn phòng...</option>
@@ -108,6 +101,21 @@
                                             <option value="${r.id}" ${st.room.id==r.id?"selected":""}>${r.name}</option>
                                         </c:forEach>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-12 col-md-4">
+                                    <label for="price" class="form-label">Giá ghế thường</label>
+                                    <input type="number" min="0" class="form-control" id="price" name="txtPriceN" value="${st.priceN}" placeholder="60000" required>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="price" class="form-label">Giá ghế VIP</label>
+                                    <input type="number" min="0" class="form-control" id="price" name="txtPriceV" value="${st.priceV}" placeholder="60000" required>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label for="price" class="form-label">Giá ghế Sweetbox</label>
+                                    <input type="number" min="0" class="form-control" id="price" name="txtPriceC" value="${st.priceC}" placeholder="60000" required>
                                 </div>
                             </div>
 

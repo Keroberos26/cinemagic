@@ -102,13 +102,13 @@ public class Ticket {
             for (Seat s : seats) {
                 switch (s.getType()) {
                     case "N":
-                        price += showtime.getBasePrice();
+                        price += showtime.getPriceN();
                         break;
                     case "V":
-                        price += showtime.getBasePrice() * 1.5;
+                        price += showtime.getPriceV();
                         break;
                     case "C":
-                        price += showtime.getBasePrice() * 2;
+                        price += showtime.getPriceC();
                         break;
                     default:
                         throw new AssertionError();

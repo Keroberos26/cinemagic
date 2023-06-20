@@ -44,7 +44,7 @@
                 <div class="showtimes">
                     <div class="container-lg">
                         <div class="wrapper">
-                            <h1>Lịch chiếu phim</h1>
+                            <h1 class="text-primary">Lịch chiếu phim ${c.name}</h1>
                             <div class="showtimes-box">
                                 <div class="box-header">
                                     <div class="position flexitem">

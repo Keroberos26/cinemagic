@@ -9,19 +9,23 @@ public class Showtime {
     private Date showdate;
     private Time starttime;
     private Time endtime;
-    private int basePrice;
+    private int priceN;
+    private int priceV;
+    private int priceC;
     private Movie movie;
     private Room room;
 
     public Showtime() {
     }
 
-    public Showtime(String id, Date showdate, Time starttime, Time endtime, int basePrice, Movie movie, Room room) {
+    public Showtime(String id, Date showdate, Time starttime, Time endtime, int priceN, int priceV, int priceC, Movie movie, Room room) {
         this.id = id;
         this.showdate = showdate;
         this.starttime = starttime;
         this.endtime = endtime;
-        this.basePrice = basePrice;
+        this.priceN = priceN;
+        this.priceV = priceV;
+        this.priceC = priceC;
         this.movie = movie;
         this.room = room;
     }
@@ -58,12 +62,28 @@ public class Showtime {
         this.endtime = endtime;
     }
 
-    public int getBasePrice() {
-        return basePrice;
+    public int getPriceN() {
+        return priceN;
     }
 
-    public void setBasePrice(int basePrice) {
-        this.basePrice = basePrice;
+    public void setPriceN(int priceN) {
+        this.priceN = priceN;
+    }
+
+    public int getPriceV() {
+        return priceV;
+    }
+
+    public void setPriceV(int priceV) {
+        this.priceV = priceV;
+    }
+
+    public int getPriceC() {
+        return priceC;
+    }
+
+    public void setPriceC(int priceC) {
+        this.priceC = priceC;
     }
 
     public Movie getMovie() {

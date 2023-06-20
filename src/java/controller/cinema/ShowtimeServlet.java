@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,6 +48,8 @@ public class ShowtimeServlet extends HttpServlet {
 
         PrintWriter out = resp.getWriter();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        DecimalFormat priceFormat = new DecimalFormat("#,###");
+
         for (Showtime st : list) {
             out.write("<tr>\n"
                     + "     <td>\n"
@@ -59,7 +62,9 @@ public class ShowtimeServlet extends HttpServlet {
                     + "     </td>\n"
                     + "     <td>" + timeFormat.format(st.getStarttime()) + "</td>\n"
                     + "     <td>" + timeFormat.format(st.getEndtime()) + "</td>\n"
-                    + "     <td><span class=\"price\">" + st.getBasePrice() + "</span></td>\n"
+                    + "     <td><span class=\"price\">" + priceFormat.format(st.getPriceN()) + "</span></td>\n"
+                    + "     <td><span class=\"price\">" + priceFormat.format(st.getPriceV()) + "</span></td>\n"
+                    + "     <td><span class=\"price\">" + priceFormat.format(st.getPriceC()) + "</span></td>\n"
                     + "     <td>" + st.getRoom().getName() + "</td>\n"
                     + "     <td class=\"text-center\">\n"
                     + "         <a href=\"/cinema/showtime-form?id=" + st.getId() + "\" class=\"text-warning\"><i class=\"fa-regular fa-pen-to-square\"></i></a>\n"

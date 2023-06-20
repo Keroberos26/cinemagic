@@ -57,7 +57,7 @@
                                         <div class="content main-links text-white">
                                             <h1 class="title">${m.title}</h1>
                                             <p class="genre mini-text">${m.genres} - <fmt:formatDate value="${m.releaseDate}" pattern="yyyy" /></p>
-                                            <c:if test="${m.rating != null}">
+                                            <c:if test="${m.rating != null && m.rating > 0}">
                                                 <p class="stars fs-3">
                                                     <c:forEach begin="1" end="10" varStatus="s">
                                                         <c:choose>

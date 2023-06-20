@@ -55,7 +55,9 @@ public class ShowtimeDAO {
                             rs.getDate("showdate"),
                             rs.getTime("starttime"),
                             rs.getTime("endtime"),
-                            rs.getInt("basePrice"),
+                            rs.getInt("price_n"),
+                            rs.getInt("price_v"),
+                            rs.getInt("price_c"),
                             movie,
                             room);
                 }
@@ -123,7 +125,9 @@ public class ShowtimeDAO {
                             rs.getDate("showdate"),
                             rs.getTime("starttime"),
                             rs.getTime("endtime"),
-                            rs.getInt("basePrice"),
+                            rs.getInt("price_n"),
+                            rs.getInt("price_v"),
+                            rs.getInt("price_c"),
                             movie,
                             room));
                 }
@@ -180,7 +184,9 @@ public class ShowtimeDAO {
                             rs.getDate("showdate"),
                             rs.getTime("starttime"),
                             rs.getTime("endtime"),
-                            rs.getInt("basePrice"),
+                            rs.getInt("price_n"),
+                            rs.getInt("price_v"),
+                            rs.getInt("price_c"),
                             movie,
                             room));
                     map.put(movie, list);
@@ -254,7 +260,9 @@ public class ShowtimeDAO {
                             rs.getDate("showdate"),
                             rs.getTime("starttime"),
                             rs.getTime("endtime"),
-                            rs.getInt("basePrice"),
+                            rs.getInt("price_n"),
+                            rs.getInt("price_v"),
+                            rs.getInt("price_c"),
                             movie,
                             room));
                     map.put(theater, list);
@@ -274,19 +282,21 @@ public class ShowtimeDAO {
         return map;
     }
 
-    public String addShowtime(String movieid, Date date, Time time, int price, String roomid) {
+    public String addShowtime(String movieid, Date date, Time time, int priceN, int priceV, int priceC, String roomid) {
         String error = "Đã có lỗi xảy ra!";
 
         try {
             con = DbContext.getConnection();
 
             if (con != null) {
-                String sql = "insert into \"Showtime\" (movieid, showdate, starttime, baseprice, roomid) "
-                        + "values('" + movieid + "', ?, ?, ?, '" + roomid + "')";
+                String sql = "insert into \"Showtime\" (movieid, showdate, starttime, price_n, price_v, price_c, roomid) "
+                        + "values('" + movieid + "', ?, ?, ?, ?, ?, '" + roomid + "')";
                 stm = con.prepareStatement(sql);
                 stm.setDate(1, date);
                 stm.setTime(2, time);
-                stm.setInt(3, price);
+                stm.setInt(3, priceN);
+                stm.setInt(4, priceV);
+                stm.setInt(5, priceC);
                 stm.execute();
                 error = "";
             }
@@ -307,7 +317,7 @@ public class ShowtimeDAO {
         return error;
     }
 
-    public String updateShowtime(String id, String movieid, Date date, Time time, int price, String roomid) {
+    public String updateShowtime(String id, String movieid, Date date, Time time, int priceN, int priceV, int priceC, String roomid) {
         String error = "Đã có lỗi xảy ra!";
 
         try {
@@ -315,11 +325,13 @@ public class ShowtimeDAO {
 
             if (con != null) {
                 String sql = "update \"Showtime\" set movieid = '" + movieid + "', roomid = '" + roomid + "',\n"
-                        + "showdate = ?, starttime = ?, baseprice = ? where showid = '" + id + "'";
+                        + "showdate = ?, starttime = ?, price_n = ?, price_v = ?, price_c = ? where showid = '" + id + "'";
                 stm = con.prepareStatement(sql);
                 stm.setDate(1, date);
                 stm.setTime(2, time);
-                stm.setInt(3, price);
+                stm.setInt(3, priceN);
+                stm.setInt(4, priceV);
+                stm.setInt(5, priceC);
                 stm.execute();
                 error = "";
             }

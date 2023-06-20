@@ -48,7 +48,9 @@ public class ShowtimeFormServlet extends HttpServlet {
         String movieid = req.getParameter("sltMovie");
         String date = req.getParameter("txtDate");
         String time = req.getParameter("txtTime");
-        String price = req.getParameter("txtPrice");
+        String txtPriceN = req.getParameter("txtPriceN");
+        String txtPriceV = req.getParameter("txtPriceV");
+        String txtPriceC = req.getParameter("txtPriceC");
         String roomid = req.getParameter("sltRoom");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -56,12 +58,14 @@ public class ShowtimeFormServlet extends HttpServlet {
 
         Date showdate = null;
         Time starttime = null;
-        int basePrice = 0;
+        int priceN = 0, priceV = 0, priceC = 0;
         if (date != null && time != null) {
             try {
                 showdate = new Date(dateFormat.parse(date).getTime());
                 starttime = new Time(timeFormat.parse(time).getTime());
-                basePrice = Integer.parseInt(price);
+                priceN = Integer.parseInt(txtPriceN);
+                priceV = Integer.parseInt(txtPriceV);
+                priceC = Integer.parseInt(txtPriceC);
             } catch (ParseException ex) {
                 System.err.println("-----> Cannot cast! <-----");
             }
@@ -100,10 +104,10 @@ public class ShowtimeFormServlet extends HttpServlet {
                 }
                 break;
             case "add":
-                error = showDao.addShowtime(movieid, showdate, starttime, basePrice, roomid);
+                error = showDao.addShowtime(movieid, showdate, starttime, priceN, priceV, priceC, roomid);
                 break;
             case "update":
-                error = showDao.updateShowtime(id, movieid, showdate, starttime, basePrice, roomid);
+                error = showDao.updateShowtime(id, movieid, showdate, starttime, priceN, priceV, priceC, roomid);
                 break;
             case "delete":
                 showDao.deleteShowtime(id);
@@ -122,7 +126,7 @@ public class ShowtimeFormServlet extends HttpServlet {
                 MovieDAO movDao = new MovieDAO();
                 Movie m = movDao.getMovieById(movieid);
                 Room r = roomDao.getRoomById(roomid);
-                st = new Showtime(null, showdate, starttime, null, basePrice, m, r);
+                st = new Showtime(null, showdate, starttime, null, priceN, priceV, priceC, m, r);
                 req.setAttribute("st", st);
                 doGet(req, resp);
             } else {
