@@ -17,7 +17,7 @@
                             <ol class="breadcrumb main-links">
                                 <li class="breadcrumb-item"><a href="/"><span class="icon"><i
                                                 class="ri-home-4-fill"></i></span></a></li>
-                                <li class="breadcrumb-item"><a href="#">Phim chiếu</a></li>
+                                <li class="breadcrumb-item"><a href="/movies">Phim chiếu</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">${m.title}</li>
                             </ol>
                         </nav>
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md col-sm-7 col-12">
-                                        <div class="content main-links">
+                                        <div class="content main-links text-white">
                                             <h1 class="title">${m.title}</h1>
                                             <p class="genre mini-text">${m.genres} - <fmt:formatDate value="${m.releaseDate}" pattern="yyyy" /></p>
                                             <c:if test="${m.rating != null}">

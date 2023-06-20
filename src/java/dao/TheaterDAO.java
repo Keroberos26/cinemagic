@@ -16,7 +16,7 @@ public class TheaterDAO {
     PreparedStatement stm = null;
     ResultSet rs = null;
     
-    public Theater getTheaterById(String id) {
+    public Theater getTheaterById(String id, boolean image) {
         Theater theater = null;
         
         try {
@@ -32,7 +32,7 @@ public class TheaterDAO {
                                             rs.getString("ward"),
                                             rs.getString("district"),
                                             rs.getString("city"),
-                                            rs.getString("logo"));
+                                            rs.getString((image?"image":"logo")));
                 }
                 
             }

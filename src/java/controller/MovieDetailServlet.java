@@ -34,16 +34,8 @@ public class MovieDetailServlet extends HttpServlet {
         Movie movie = dao.getMovieById(id);
 
         CinemaDAO cineDao = new CinemaDAO();
-        TheaterDAO theDao = new TheaterDAO();
 
         Account acc = (Account) req.getSession().getAttribute("acc");
-        String city = null;
-        if (acc != null && acc.getCity() != null) {
-            city = acc.getCity();
-        } else {
-            city = "Đà Nẵng";
-        }
-
         // Lấy ngày hôm nay
         Calendar calendar = Calendar.getInstance();
         java.util.Date currentDate = calendar.getTime();
@@ -66,7 +58,6 @@ public class MovieDetailServlet extends HttpServlet {
         }
         req.setAttribute("m", movie);
         req.setAttribute("reviews", dao.getReviewsOfMovie(id, 0));
-        req.setAttribute("theaterList", theDao.getTheatersByCinemaIdAndCity(null, city));
         req.setAttribute("cinema", cineDao.getAllCinemas());
         req.setAttribute("dateList", dateList);
         req.getRequestDispatcher("movie.jsp").forward(req, resp);
@@ -93,7 +84,7 @@ public class MovieDetailServlet extends HttpServlet {
                 try {
                     date = new Date(dateFormat.parse(dateInput).getTime());
                 } catch (ParseException ex) {
-                    Logger.getLogger(ShowtimeServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ShowtimesServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 Map<Theater, List<Showtime>> theaterList = showDao.getShowtimesByTheater(movieId, city, cinema, date);

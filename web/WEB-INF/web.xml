@@ -74,7 +74,7 @@
     </servlet>
     <servlet>
         <servlet-name>ShowtimesServlet</servlet-name>
-        <servlet-class>controller.ShowtimeServlet</servlet-class>
+        <servlet-class>controller.ShowtimesServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VNPAYAjaxServlet</servlet-name>
@@ -99,6 +99,14 @@
     <servlet>
         <servlet-name>MovieServlet</servlet-name>
         <servlet-class>controller.MovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CinemasServlet</servlet-name>
+        <servlet-class>controller.CinemasServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TheaterServlet</servlet-name>
+        <servlet-class>controller.TheaterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>MovieServlet</servlet-name>
         <url-pattern>/movies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CinemasServlet</servlet-name>
+        <url-pattern>/cinemas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TheaterServlet</servlet-name>
+        <url-pattern>/theater</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

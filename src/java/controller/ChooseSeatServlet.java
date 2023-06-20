@@ -36,7 +36,7 @@ public class ChooseSeatServlet extends HttpServlet {
         }
         
         TheaterDAO theDao = new TheaterDAO();
-        req.setAttribute("theater", theDao.getTheaterById(st.getRoom().getTheaterid()));
+        req.setAttribute("theater", theDao.getTheaterById(st.getRoom().getTheaterid(), false));
         req.setAttribute("seatMap", roomDao.getSeatsByShowtime(st));
         req.getRequestDispatcher("seats-selection.jsp").forward(req, resp);
     }

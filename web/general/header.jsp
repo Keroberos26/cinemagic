@@ -18,9 +18,9 @@
                 <div class="right">
                     <nav class="d-lg-block d-none">
                         <ul class="main-links flexitem">
-                            <li><a href="#">Rạp chiếu</a></li>
+                            <li><a href="/cinemas">Rạp chiếu</a></li>
                             <li><a href="/showtimes">Lịch chiếu</a></li>
-                            <li><a href="#">Phim chiếu</a></li>
+                            <li><a href="/movies">Phim chiếu</a></li>
                             <li><a href="#">Review phim</a></li>
                             <li>
                                 <div class="dropdown">
@@ -75,9 +75,9 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="main-links flexcol">
-                                <li><a href="#">Rạp chiếu</a></li>
-                                <li><a href="#">Lịch chiếu</a></li>
-                                <li><a href="#">Phim chiếu</a></li>
+                                <li><a href="/cinemas">Rạp chiếu</a></li>
+                                <li><a href="/showtimes">Lịch chiếu</a></li>
+                                <li><a href="/movies">Phim chiếu</a></li>
                                 <c:if test="${acc == null}">
                                     <li><a href="/login">Đăng nhập</a></li>
                                     <li><a href="/register">Đăng ký</a></li>

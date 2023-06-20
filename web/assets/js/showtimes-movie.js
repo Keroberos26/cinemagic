@@ -40,7 +40,7 @@ function getShowtimes() {
     var date = $('.day.active').attr('date');
 
     $.ajax({
-        url: "/movie",
+        url: url.pathname,
         data: {
             action: "getShowtimes",
             movieId: movieid,

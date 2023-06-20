@@ -25,7 +25,7 @@ public class ChooseComboServlet extends HttpServlet {
         ComboDAO comDao = new ComboDAO();
         req.setAttribute("comboList", comDao.getCombosByTheaterId(ticket.getShowtime().getRoom().getTheaterid()));
         TheaterDAO theDao = new TheaterDAO();
-        req.setAttribute("theater", theDao.getTheaterById(ticket.getShowtime().getRoom().getTheaterid()));
+        req.setAttribute("theater", theDao.getTheaterById(ticket.getShowtime().getRoom().getTheaterid(), false));
         req.getRequestDispatcher("combo-selection.jsp").forward(req, resp);
     }
 

@@ -16,7 +16,7 @@ public class PaymentServlet extends HttpServlet {
         Ticket ticket = (Ticket) session.getAttribute("ticket");
         
         TheaterDAO theDao = new TheaterDAO();
-        req.setAttribute("theater", theDao.getTheaterById(ticket.getShowtime().getRoom().getTheaterid()));
+        req.setAttribute("theater", theDao.getTheaterById(ticket.getShowtime().getRoom().getTheaterid(), false));
         req.getRequestDispatcher("payment.jsp").forward(req, resp);
     } 
 

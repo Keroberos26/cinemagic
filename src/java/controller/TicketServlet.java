@@ -39,7 +39,7 @@ public class TicketServlet extends HttpServlet {
             }
         }
         TheaterDAO theDao = new TheaterDAO();
-        req.setAttribute("theater", theDao.getTheaterById(t.getShowtime().getRoom().getTheaterid()));
+        req.setAttribute("theater", theDao.getTheaterById(t.getShowtime().getRoom().getTheaterid(), false));
         
         
         

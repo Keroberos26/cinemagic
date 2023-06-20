@@ -288,7 +288,7 @@ public class ShowtimeDAO {
                 stm.setTime(2, time);
                 stm.setInt(3, price);
                 stm.execute();
-                error = "s";
+                error = "";
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ShowtimeDAO.class.getName()).log(Level.SEVERE, null, ex);

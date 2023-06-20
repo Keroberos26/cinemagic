@@ -23,7 +23,7 @@ import model.Movie;
 import model.Showtime;
 import model.Theater;
 
-public class ShowtimeServlet extends HttpServlet {
+public class ShowtimesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -94,7 +94,7 @@ public class ShowtimeServlet extends HttpServlet {
 
             case "getTheaterInfo":
                 String id = req.getParameter("theater");
-                Theater theater = theDao.getTheaterById(id);
+                Theater theater = theDao.getTheaterById(id, false);
                 out.write("<div class=\"left\">\n"
                         + "     <img src=\"" + theater.getImage() + "\">"
                         + "</div>\n"
@@ -113,7 +113,7 @@ public class ShowtimeServlet extends HttpServlet {
                 try {
                     date = new Date(dateFormat.parse(dateInput).getTime());
                 } catch (ParseException ex) {
-                    Logger.getLogger(ShowtimeServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ShowtimesServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 ShowtimeDAO showDao = new ShowtimeDAO();
                 Map<Movie, List<Showtime>> map = showDao.getShowtimesByMovie(theaterId, date);

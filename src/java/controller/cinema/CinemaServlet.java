@@ -31,7 +31,7 @@ public class CinemaServlet extends HttpServlet {
         String id = req.getParameter("id");
         TheaterDAO theDao = new TheaterDAO();
         HttpSession session = req.getSession();
-        session.setAttribute("theater", theDao.getTheaterById(id));
+        session.setAttribute("theater", theDao.getTheaterById(id, true));
         resp.sendRedirect("/cinema/dashboard");
     }
 
