@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>${m.title} | CineMagic</title>
+        <title>${t.name} | Đặt vé xem phim trên CineMagic</title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -18,7 +18,7 @@
                                 <li class="breadcrumb-item"><a href="/"><span class="icon"><i
                                                 class="ri-home-4-fill"></i></span></a></li>
                                 <li class="breadcrumb-item"><a href="/cinemas">Rạp chiếu</a></li>
-                                <li class="breadcrumb-item"><a href="/cinema-system?id=${c.id}">${c.name}</a></li>
+                                <li class="breadcrumb-item"><a href="/cinema-system?cinema=${c.id}">${c.name}</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">${t.name}</li>
                             </ol>
                         </nav>

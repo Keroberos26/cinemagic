@@ -108,6 +108,10 @@
         <servlet-name>TheaterServlet</servlet-name>
         <servlet-class>controller.TheaterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CinemaSystemServlet</servlet-name>
+        <servlet-class>controller.CinemaSystemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>TheaterServlet</servlet-name>
         <url-pattern>/theater</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CinemaSystemServlet</servlet-name>
+        <url-pattern>/cinema-system</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

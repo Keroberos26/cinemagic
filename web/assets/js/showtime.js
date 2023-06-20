@@ -32,8 +32,11 @@ $('.day').click(function(e) {
 
 // Lấy rạp chiếu phim
 function getTheaters() {
+    var url = new URL(window.location.href);
+    var searchParams = new URLSearchParams(url.search);
+    
     var city = $('#positionModal .modal-body a.active').text();
-    var cinema = $('.cinema.active').attr('cinema-id');
+    var cinema = searchParams.get('cinema') ?? $('.cinema.active').attr('cinema-id');
 
     $.ajax({
         url: "/showtimes",

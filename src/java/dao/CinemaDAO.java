@@ -93,7 +93,7 @@ public class CinemaDAO {
                 String sql = "SELECT c.*, count(t.theaterid) as numOfTheater\n"
                         + "FROM \"CinemaSystem\" AS c \n"
                         + "LEFT JOIN \"Theater\" AS t ON c.cineid = t.cineid\n"
-                        + "WHERE c.cineid = '" + id + "'GROUP BY c.cineid";
+                        + "WHERE c.cineid = '" + id + "' GROUP BY c.cineid";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {

@@ -148,7 +148,7 @@
                             <div class="row g-4">
                                 <c:forEach items="${system}" var="s">
                                     <div class="col-md-6 col-12">
-                                        <a href="#">
+                                        <a href="/cinema-system?cinema=${s.id}">
                                             <div class="cinema">
                                                 <div class="left"><img src="${s.logo}" alt="${s.name}"></div>
                                                 <div class="right">
