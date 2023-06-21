@@ -89,10 +89,6 @@
                                                 <div class="modal-body">
                                                     <ul class="row row-cols-md-4 row-cols-2">
                                                         <li><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Huế</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Đà Nẵng</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -594,5 +590,6 @@
 
         <%@include file="/general/script.jsp" %>
         <script src="/assets/js/showtime.js"></script>
+        <!--<script src="/assets/js/address.js"></script>-->
     </body>
 </html>

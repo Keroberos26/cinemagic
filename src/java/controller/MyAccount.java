@@ -36,6 +36,9 @@ public class MyAccount extends HttpServlet {
         if (action.equals("updateInfo")) {
             String name = req.getParameter("txtName");
             String city = req.getParameter("sltCity");
+            String district = req.getParameter("sltDistrict");
+            System.out.println(district);
+            String ward = req.getParameter("sltWard");
             String phone = req.getParameter("txtPhone");
             Part part = req.getPart("fileAvt");
             String avatar = acc.getAvatar();
@@ -62,10 +65,12 @@ public class MyAccount extends HttpServlet {
                 fos.close();
             }
 
-            if (dao.updateAccount(acc.getId(), name, phone, city, avatar)) {
+            if (dao.updateAccount(acc.getId(), name, phone, ward, district, city, avatar)) {
                 acc.setName(name);
                 acc.setPhone(phone);
                 acc.setCity(city);
+                acc.setDistrict(district);
+                acc.setWard(ward);
                 acc.setAvatar(avatar);
             }
             doGet(req, resp);

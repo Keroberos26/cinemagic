@@ -2,6 +2,7 @@ package controller;
 
 import dao.CinemaDAO;
 import dao.MovieDAO;
+import dao.ReviewDAO;
 import dao.ShowtimeDAO;
 import dao.TheaterDAO;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class MovieDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
+        ReviewDAO reDao = new ReviewDAO();
         MovieDAO dao = new MovieDAO();
         Movie movie = dao.getMovieById(id);
 
@@ -53,11 +55,11 @@ public class MovieDetailServlet extends HttpServlet {
         }
 
         if (acc != null) {
-            req.setAttribute("accReview", dao.getReviewOfAccount(id, acc.getId()));
+            req.setAttribute("accReview", reDao.getReviewOfAccount(id, acc.getId()));
             req.setAttribute("bought", dao.boughtTicket(id, acc.getId()));
         }
         req.setAttribute("m", movie);
-        req.setAttribute("reviews", dao.getReviewsOfMovie(id, 0));
+        req.setAttribute("reviews", reDao.getReviewsOfMovie(id, 0));
         req.setAttribute("cinema", cineDao.getAllCinemas());
         req.setAttribute("dateList", dateList);
         req.getRequestDispatcher("movie.jsp").forward(req, resp);
@@ -67,7 +69,9 @@ public class MovieDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         String movieId = req.getParameter("movieId");
-
+        Account acc = (Account) req.getSession().getAttribute("acc");
+        
+        ReviewDAO reDao = new ReviewDAO();
         MovieDAO dao = new MovieDAO();
         TheaterDAO theDao = new TheaterDAO();
         ShowtimeDAO showDao = new ShowtimeDAO();
@@ -134,7 +138,7 @@ public class MovieDetailServlet extends HttpServlet {
                 break;
             case "getMoreReviews":
                 int count = Integer.parseInt(req.getParameter("count"));
-                List<Review> reviews = dao.getReviewsOfMovie(movieId, count);
+                List<Review> reviews = reDao.getReviewsOfMovie(movieId, count);
                 if (reviews != null && !reviews.isEmpty()) {
                     SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
                     for (Review r : reviews) {
@@ -159,6 +163,18 @@ public class MovieDetailServlet extends HttpServlet {
                                 + "</div>");
                     }
                 }
+                break;
+            case "review":
+                
+                String rating1 = req.getParameter("rating");
+                int rating = Integer.parseInt(rating1);
+                String comment = req.getParameter("review");
+                if(reDao.getReviewOfAccount(movieId, acc.getId())==null){
+                    reDao.addReview(acc.getId(), movieId, rating, comment);
+                }else{
+                    reDao.updateReview(acc.getId(), movieId, rating, comment);
+                }
+                resp.sendRedirect("/movie?id="+ movieId);
                 break;
             default:
                 throw new AssertionError();

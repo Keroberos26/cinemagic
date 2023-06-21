@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +28,9 @@ public class TicketServlet extends HttpServlet {
 
         TicketDAO dao = new TicketDAO();
         dao.addTicket(t.getId(), t.getShowtime().getId(), acc != null ? acc.getId() : null, t.getName(), t.getEmail(), t.getPhone());
-
+        HttpSession session = req.getSession();
+        session.setAttribute("order", session.getAttribute("ticket"));
+        session.removeAttribute("ticket");
         for (Seat s : t.getSeats()) {
             dao.addSeatBooking(t.getId(), s.getId());
         }
