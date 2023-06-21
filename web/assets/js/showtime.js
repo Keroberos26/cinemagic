@@ -1,5 +1,5 @@
 // Click Địa điểm
-$('#positionModal .modal-body a').click(function(e) {
+function cityClick(e) {
     e.preventDefault();
     $('#positionModal .modal-body a').removeClass('active');
     $(this).addClass('active');
@@ -8,7 +8,7 @@ $('#positionModal .modal-body a').click(function(e) {
     $('.btn[data-bs-target="#positionModal"] .city').text(city);
     
     getTheaters();
-});
+}
 
 // Click Cinema
 $('.cinema').click(function(e) {
@@ -112,16 +112,7 @@ function getShowtimes() {
     });
 }
 
-function citySelected() {
-    var city = $('.city').text();
-    $('#positionModal .modal-body a').each(function() {
-        if($(this).text() === city)
-            $(this).addClass('active');
-    })
-}
-
+// Fetch cities when the page is loaded
 $(document).ready(function() {
-    getShowtimes();
-    theaterEvent();
-    citySelected();
+    fetchCities();
 })

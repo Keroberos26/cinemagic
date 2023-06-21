@@ -69,7 +69,7 @@
 
                                         <button type="button" class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal"
                                                 data-bs-target="#positionModal">
-                                            <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">${acc.city != null ? acc.city : "Đà Nẵng"}</span>
+                                            <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">${acc.city != null ? acc.city : "Thành phố Đà Nẵng"}</span>
                                         </button>
 
                                         <a href="#" class="btn btn-outline-primary btn-sm fw-bold"><span class="icon"><i
@@ -87,12 +87,7 @@
                                                             aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <ul class="row row-cols-md-4 row-cols-2">
-                                                        <li><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Huế</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Đà Nẵng</a></li>
-                                                        <li><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
+                                                    <ul class="row row-cols-2">
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -133,29 +128,14 @@
                                     <div class="row g-md-0">
                                         <div class="col-md-3 col-12">
                                             <div class="theater">
-                                                <c:forEach items="${theaterList}" var="t" varStatus="no">
-                                                    <a href="#" theater-id="${t.id}" ${no.count == 1?"class='active'":""}>
-                                                        <div class="theater-avt">
-                                                            <img src="${t.image}">
-                                                        </div>
-                                                        <div class="theater-name">${t.name}</div>
-                                                    </a>
-                                                </c:forEach>
+                                                
                                             </div>
                                         </div>
                                         <div class="col-md-9 col-12">
                                             <div class="showtimes-movie">
-                                                <c:set var="theater" value="${theaterList.get(0)}" />
+                                                
                                                 <div class="address">
-                                                    <div class="left">
-                                                        <img src="${theater.image}">
-                                                    </div>
-
-                                                    <div class="right">
-                                                        <h4>Lịch chiếu phim ${theater.name}</h4>
-                                                        <span class="mini-text">${theater.street}, ${theater.ward}, 
-                                                            ${theater.district}, ${theater.city}<a href="#">[ Bản đồ]</a></span>
-                                                    </div>
+                                                    
                                                 </div>
 
                                                 <div class="swiper">

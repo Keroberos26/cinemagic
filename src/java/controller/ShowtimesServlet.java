@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Account;
 import model.Movie;
 import model.Showtime;
 import model.Theater;
@@ -28,15 +27,6 @@ public class ShowtimesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CinemaDAO cineDao = new CinemaDAO();
-        TheaterDAO theDao = new TheaterDAO();
-
-        Account acc = (Account) req.getSession().getAttribute("acc");
-        String city = null;
-        if (acc != null && acc.getCity() != null) {
-            city = acc.getCity();
-        } else {
-            city = "Đà Nẵng";
-        }
 
         // Lấy ngày hôm nay
         Calendar calendar = Calendar.getInstance();
@@ -54,7 +44,6 @@ public class ShowtimesServlet extends HttpServlet {
             dateList.add(sqlDate);
         }
 
-        req.setAttribute("theaterList", theDao.getTheatersByCinemaIdAndCity(null, city));
         req.setAttribute("cinema", cineDao.getAllCinemas());
         req.setAttribute("dateList", dateList);
         req.getRequestDispatcher("showtime.jsp").forward(req, resp);

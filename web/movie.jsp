@@ -116,7 +116,7 @@
         
                                                 <button type="button" class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal"
                                                         data-bs-target="#positionModal">
-                                                    <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">${acc.city != null ? acc.city : "Đà Nẵng"}</span>
+                                                    <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">${acc.city != null ? acc.city : "Thành phố Đà Nẵng"}</span>
                                                 </button>
         
                                                 <a href="#" class="btn btn-outline-primary btn-sm fw-bold"><span class="icon"><i
@@ -134,12 +134,8 @@
                                                                     aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <ul class="row row-cols-md-4 row-cols-2">
-                                                                <li class="col"><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
-                                                                <li class="col"><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
-                                                                <li class="col"><a href="#" data-bs-dismiss="modal">Huế</a></li>
-                                                                <li class="col"><a href="#" data-bs-dismiss="modal">Đà Nẵng</a></li>
-                                                                <li class="col"><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
+                                                            <ul class="row row-cols-2">
+                                                                
                                                             </ul>
                                                         </div>
                                                         <div class="modal-footer">

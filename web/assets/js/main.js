@@ -117,3 +117,33 @@ if (sidebarBtn != null) {
 // * Enable tooltips
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+// ----------------------------------------
+// Function to fetch cities
+function fetchCities() {
+    fetch("https://provinces.open-api.vn/api/p/")
+        .then(response => response.json())
+        .then(data => {
+            const city = $('.btn[data-bs-target="#positionModal"] .city').text();
+            
+            data.forEach(item => {
+                const li = $('<li>');
+                const link = $('<a>').attr({
+                    'href': '#',
+                    'data-bs-dismiss': 'modal',
+                }).text(item.name).click(cityClick);
+                
+                if (city === item.name) {
+                    link.addClass('active');
+                }
+                
+                li.append(link);
+                $('#positionModal .modal-body ul').append(li);
+            })
+
+            getTheaters();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+}
