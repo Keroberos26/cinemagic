@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import context.DbContext;
@@ -10,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,7 +55,7 @@ public class ReviewDAO {
             if (con != null) {
                 String sql = "select * from \"Review\" r join \"Account\" a on r.accid = a.accid\n"
                         + "where movieid = '" + movieId + "'\n"
-                        + "order by date offset ? limit 3";
+                        + "order by date desc offset ? limit 3";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, offset);
                 rs = stm.executeQuery();

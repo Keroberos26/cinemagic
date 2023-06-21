@@ -16,7 +16,7 @@ public class SeatDAO {
     PreparedStatement stm = null;
     ResultSet rs = null;
 
-    public Seat addSeat(String roomid, int row, int col, String seatNum, String type) throws SQLException {
+    public Seat addSeat(String roomid, int row, int col, String seatNum, String type) {
         Seat seat = null;
         String seatid = UUID.randomUUID().toString();
         
@@ -39,7 +39,7 @@ public class SeatDAO {
                 stm.execute();
                 seat = new Seat(seatid, seatNum, type, false);
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {

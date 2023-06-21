@@ -114,5 +114,5 @@ function getShowtimes() {
 
 // Fetch cities when the page is loaded
 $(document).ready(function() {
-    fetchCities();
+    fetchCitiesShowtimes();
 })

@@ -120,7 +120,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 // ----------------------------------------
 // Function to fetch cities
-function fetchCities() {
+function fetchCitiesShowtimes() {
     fetch("https://provinces.open-api.vn/api/p/")
         .then(response => response.json())
         .then(data => {

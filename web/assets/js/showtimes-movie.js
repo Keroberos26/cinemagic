@@ -89,5 +89,5 @@ $('#moreReviews').click(function(e) {
 })
 
 $(document).ready(function () {
-    fetchCities();
+    fetchCitiesShowtimes();
 })

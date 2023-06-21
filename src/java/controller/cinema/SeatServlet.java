@@ -136,51 +136,5 @@ public class SeatServlet extends HttpServlet {
             } else {
             }
         }
-
-//        RoomDAO roomDao = new RoomDAO();
-//        Seat[][] seatMap = roomDao.getSeatsByRoomId(roomId);
-//        boolean isCouple = false;
-//        for (int i = 0; i < seatMap.length; i++) {
-//            out.write("<ul class=\"seats-row\">");
-//            for (int j = 0; j < seatMap[i].length; j++) {
-//                Seat s = seatMap[i][j];
-//                if (isCouple) {
-//                    isCouple = false;
-//                    continue;
-//                }
-//                String selected = "";
-//                if (row == i + 1 && col == j + 1) {
-//                    selected = " selected";
-//                }
-//                if (s != null) {
-//                    switch (s.getType()) {
-//                        case "N":
-//                            out.write("<li class=\"seat seat-normal" + selected + "\" seat-id=\"" + s.getId() + "\" seat-type=\"N\" seat-row=\"" + (i + 1) + "\" seat-col=\"" + (j + 1) + "\">" + s.getSeatNum() + "</li>");
-//                            break;
-//                        case "V":
-//                            out.write("<li class=\"seat seat-vip" + selected + "\" seat-id=\"" + s.getId() + "\" seat-type=\"V\" seat-row=\"" + (i + 1) + "\" seat-col=\"" + (j + 1) + "\">" + s.getSeatNum() + "</li>");
-//                            break;
-//                        case "C":
-//                            out.write("<li class=\"seat seat-couple" + selected + "\" seat-id=\"" + s.getId() + "\" seat-type=\"C\" seat-row=\"" + (i + 1) + "\" seat-col=\"" + (j + 1) + "\">" + s.getSeatNum() + "</li>");
-//                            isCouple = true;
-//                            break;
-//                        default:
-//                            throw new AssertionError();
-//                    }
-//                } else {
-//                    out.write("<li class=\"space" + selected + "\" seat-row=\"" + (i + 1) + "\" seat-col=\"" + (j + 1) + "\"></li>");
-//                }
-//            }
-//            out.write("</ul>");
-//        }
-//        if (!print) {
-//        out.write("<div class=\"alert alert-danger d-flex align-items-center mt-4 mx-3\" role=\"alert\">\n"
-//                + "     <span class=\"icon\"><i class=\"fa-solid fa-circle-exclamation\"></i></span>\n"
-//                + "     <div>\n"
-//                + "         Đã có lỗi xảy ra!\n"
-//                + "     </div>\n"
-//                + "</div>");
-//        }
     }
-
 }

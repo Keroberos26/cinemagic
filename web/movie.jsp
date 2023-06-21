@@ -239,8 +239,8 @@
                                                     <img src="${acc.avatar != null ? acc.avatar : "/assets/img/no-avatar.png"}" alt="Avatar"
                                                          class="avatar-img rounded-circle border border-4 d-block">
                                                 </div>
-                                                         <form action="/movie?movieId=${param.id}" method="post">
-                                                    <div class="flex-grow-1">
+                                                <div class="flex-grow-1">
+                                                    <form action="/movie?movieId=${param.id}" method="post">
                                                         <div class="stars-rate">
                                                             <input type="radio" name="rating" value="10" id="star10" required ${accReview.rating == 10?"checked":""}>
                                                             <label for="star10"><i class="ri-star-fill"></i></label>
@@ -276,8 +276,8 @@
                                                             <input type="text" name="review" class="form-control rounded-pill" placeholder="Viết đánh giá ..." value="${accReview.comment}">
                                                             <button name="action" value="review" type="submit" class="btn btn-primary rounded-pill position-absolute top-0 bottom-0 end-0"><i class="fa-solid fa-paper-plane"></i></button>
                                                         </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </c:if>
