@@ -8,12 +8,14 @@ public class Account {
     private String name;
     private String phone;
     private String city;
+    private String district;
+    private String ward;
     private String avatar;
 
     public Account() {
     }
 
-    public Account(String id, String email, String password, String role, String name, String phone, String city, String avatar) {
+    public Account(String id, String email, String password, String role, String name, String phone, String city, String district, String ward, String avatar) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -21,9 +23,28 @@ public class Account {
         this.name = name;
         this.phone = phone;
         this.city = city;
+        this.district = district;
+        this.ward = ward;
         this.avatar = avatar;
     }
 
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
+    }
+    
+    
     public String getId() {
         return id;
     }

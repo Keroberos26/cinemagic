@@ -75,7 +75,7 @@ public class AccountDAO {
 
     public boolean addAccount(String email, String password, String role) {
         boolean success = false;
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -100,19 +100,21 @@ public class AccountDAO {
 
         return success;
     }
-    
-    public boolean updateAccount(String id, String name, String phone, String city, String avatar) {
+
+    public boolean updateAccount(String id, String name, String phone, String ward, String district, String city, String avatar) {
         boolean success = false;
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "update \"Account\" set name = ?, phone = ?, city = ?, avatar = ? where accid = '" + id + "'";
+                String sql = "update \"Account\" set name = ?, phone = ?, ward = ?, district =?, city = ?, avatar = ? where accid = '" + id + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, phone);
-                stm.setString(3, city);
-                stm.setString(4, avatar);
+                stm.setString(3, ward);
+                stm.setString(4, district);
+                stm.setString(5, city);
+                stm.setString(6, avatar);
                 stm.execute();
                 success = true;
             }
@@ -129,10 +131,10 @@ public class AccountDAO {
 
         return success;
     }
-    
+
     public boolean changePassword(String id, String password) {
         boolean success = false;
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -203,6 +205,8 @@ public class AccountDAO {
                             rs.getString("name"),
                             rs.getString("phone"),
                             rs.getString("city"),
+                            rs.getString("district"),
+                            rs.getString("ward"),
                             rs.getString("avatar"));
                 }
             }
@@ -244,6 +248,8 @@ public class AccountDAO {
                             rs.getString("name"),
                             rs.getString("phone"),
                             rs.getString("city"),
+                            rs.getString("district"),
+                            rs.getString("ward"),
                             rs.getString("avatar"));
                 }
             }

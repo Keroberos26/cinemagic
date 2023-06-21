@@ -113,15 +113,15 @@
                                         <div class="box-header">
                                             <div class="position flexitem">
                                                 <h4 class="m-0">Vị trí</h4>
-        
+
                                                 <button type="button" class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal"
                                                         data-bs-target="#positionModal">
                                                     <span class="icon"><i class="ri-road-map-line"></i></span><span class="city">${acc.city != null ? acc.city : "Thành phố Đà Nẵng"}</span>
                                                 </button>
-        
+
                                                 <a href="#" class="btn btn-outline-primary btn-sm fw-bold"><span class="icon"><i
                                                             class="ri-map-pin-user-line"></i></span>Gần bạn</a>
-        
+
                                             </div>
                                             <div class="modal fade" id="positionModal" tabindex="-1"
                                                  aria-labelledby="positionModalLabel" aria-hidden="true">
@@ -145,7 +145,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-        
+
                                             <div class="swiper">
                                                 <div class="swiper-wrapper">
                                                     <div class="swiper-slide">
@@ -171,7 +171,7 @@
                                                 <div class="swiper-button-prev"></div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="box-body">
                                             <div class="showtimes-movie">
                                                 <div class="swiper">
@@ -239,49 +239,51 @@
                                                     <img src="${acc.avatar != null ? acc.avatar : "/assets/img/no-avatar.png"}" alt="Avatar"
                                                          class="avatar-img rounded-circle border border-4 d-block">
                                                 </div>
-                                                <div class="flex-grow-1">
-                                                    <div class="stars-rate">
-                                                        <input type="radio" name="rating" value="10" id="star10" required ${accReview.rating == 10?"checked":""}>
-                                                        <label for="star10"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="9" id="star9" ${accReview.rating == 9?"checked":""}>
-                                                        <label for="star9"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="8" id="star8" ${accReview.rating == 8?"checked":""}>
-                                                        <label for="star8"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="7" id="star7" ${accReview.rating == 7?"checked":""}>
-                                                        <label for="star7"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="6" id="star6" ${accReview.rating == 6?"checked":""}>
-                                                        <label for="star6"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="5" id="star5" ${accReview.rating == 5?"checked":""}>
-                                                        <label for="star5"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="4" id="star4" ${accReview.rating == 4?"checked":""}>
-                                                        <label for="star4"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="3" id="star3" ${accReview.rating == 3?"checked":""}>
-                                                        <label for="star3"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="2" id="star2" ${accReview.rating == 2?"checked":""}>
-                                                        <label for="star2"><i class="ri-star-fill"></i></label>
-                                                        
-                                                        <input type="radio" name="rating" value="1" id="star1" ${accReview.rating == 1?"checked":""}>
-                                                        <label for="star1"><i class="ri-star-fill"></i></label>
+                                                         <form action="/movie?movieId=${param.id}" method="post">
+                                                    <div class="flex-grow-1">
+                                                        <div class="stars-rate">
+                                                            <input type="radio" name="rating" value="10" id="star10" required ${accReview.rating == 10?"checked":""}>
+                                                            <label for="star10"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="9" id="star9" ${accReview.rating == 9?"checked":""}>
+                                                            <label for="star9"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="8" id="star8" ${accReview.rating == 8?"checked":""}>
+                                                            <label for="star8"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="7" id="star7" ${accReview.rating == 7?"checked":""}>
+                                                            <label for="star7"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="6" id="star6" ${accReview.rating == 6?"checked":""}>
+                                                            <label for="star6"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="5" id="star5" ${accReview.rating == 5?"checked":""}>
+                                                            <label for="star5"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="4" id="star4" ${accReview.rating == 4?"checked":""}>
+                                                            <label for="star4"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="3" id="star3" ${accReview.rating == 3?"checked":""}>
+                                                            <label for="star3"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="2" id="star2" ${accReview.rating == 2?"checked":""}>
+                                                            <label for="star2"><i class="ri-star-fill"></i></label>
+
+                                                            <input type="radio" name="rating" value="1" id="star1" ${accReview.rating == 1?"checked":""}>
+                                                            <label for="star1"><i class="ri-star-fill"></i></label>
+                                                        </div>
+                                                        <div class="position-relative">
+                                                            <input type="text" name="review" class="form-control rounded-pill" placeholder="Viết đánh giá ..." value="${accReview.comment}">
+                                                            <button name="action" value="review" type="submit" class="btn btn-primary rounded-pill position-absolute top-0 bottom-0 end-0"><i class="fa-solid fa-paper-plane"></i></button>
+                                                        </div>
                                                     </div>
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control rounded-pill" placeholder="Viết đánh giá ..." value="${accReview.comment}">
-                                                        <button type="submit" class="btn btn-primary rounded-pill position-absolute top-0 bottom-0 end-0"><i class="fa-solid fa-paper-plane"></i></button>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </c:if>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
