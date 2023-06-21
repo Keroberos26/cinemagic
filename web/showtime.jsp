@@ -88,11 +88,11 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="row row-cols-md-4 row-cols-2">
-                                                        <li class="col"><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
-                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
-                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Huế</a></li>
-                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Đà Nẵng</a></li>
-                                                        <li class="col"><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
+                                                        <li><a href="#" data-bs-dismiss="modal">TP.HCM</a></li>
+                                                        <li><a href="#" data-bs-dismiss="modal">Hà Nội</a></li>
+                                                        <li><a href="#" data-bs-dismiss="modal">Huế</a></li>
+                                                        <li><a href="#" data-bs-dismiss="modal">Đà Nẵng</a></li>
+                                                        <li><a href="#" data-bs-dismiss="modal">Quảng Nam</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">

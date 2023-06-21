@@ -19,7 +19,7 @@ $('#insertRow').click(function(e) {
     }
     newRow.append(seats);
     $('.seats-map').append(newRow);
-    seatSelected();
+    $('.seats-map li[seat-row="'+ row +'"]').click(seatSelect);
 })
 
 $('#insertCol').click(function(e) {
@@ -33,14 +33,11 @@ $('#insertCol').click(function(e) {
         newCol.append(seat);
     })
     $('.seats-wrapper').scrollLeft($('.seats-map').width());
-    seatSelected();
+    $('.seats-map li[seat-col="'+ col +'"]').click(seatSelect);
 })
 
-function seatSelected() {
-    $('.seats-map li').click(function (e) {
-        e.preventDefault();
-
-        $('.seats-map li').removeClass('selected');
+function seatSelect() {
+    $('.seats-map li').removeClass('selected');
         $(this).addClass('selected');
 
         var url = new URL(window.location.href);
@@ -80,11 +77,10 @@ function seatSelected() {
                 console.log("ERROR Ajax");
             }
         });
-    })
 }
 
 $(document).ready(function () {
-    seatSelected();
+    $('.seats-map li').click(seatSelect);
 
     $('.btn[type="submit"]').click(function (e) {
         e.preventDefault();
@@ -100,6 +96,11 @@ $(document).ready(function () {
         var seatNum = $('#seatNum').val();
         var seatType = $('input[name="type"]:checked').val();
     
+        var next = parseInt(col) + 1;
+        var nextSpace = $('.seats-map li[seat-row="' + row + '"][seat-col="' + next + '"]');
+        var nextSpaceElm = '<li class="space" seat-row="' + row + '" seat-col="' + next + '"></li>';
+
+
         $.ajax({
             url: "/cinema/seats",
             data: {
@@ -113,8 +114,55 @@ $(document).ready(function () {
             },
             type: "post",
             success: function (response) {
-                $('.seats-map').html(response);
-                seatSelected();
+                var seat = JSON.parse(response);
+                var seatBox = $('.seats-map li[seat-row="' + row + '"][seat-col="' + col + '"]');
+                if (seat != null) {
+                    if(seat.id != null) {
+                        $('.seats-map li').removeClass('selected');
+                        var classType = 'selected seat seat-';
+                        
+                        
+                        switch (seat.type) {
+                            case "N":
+                                classType += 'normal';
+                                if (nextSpace.length == 0 && next <= countCol()) {
+                                    seatBox.after(nextSpaceElm);
+                                    $('.seats-map li[seat-row="' + row + '"][seat-col="' + next + '"]').click(seatSelect);
+                                }
+                                break;
+                            case "V":
+                                classType += 'vip';
+                                if (nextSpace.length == 0 && next <= countCol()) {
+                                    seatBox.after(nextSpaceElm);
+                                    $('.seats-map li[seat-row="' + row + '"][seat-col="' + next + '"]').click(seatSelect);
+                                }
+                                break;
+                            case "C":
+                                classType += 'couple';
+                                nextSpace.remove();
+                                break;
+                            default:
+                                break;
+                        }
+                        seatBox.attr({
+                            'seat-id': seat.id,
+                            'seat-type': seat.type,
+                            'class': classType,
+                        });
+                        seatBox.text(seat.seatNum);
+                    } else {
+                        if (seat.action == 'delete') {
+                            seatBox.removeAttr('seat-id seat-type');   
+                            seatBox.attr('class', 'space');
+                            seatBox.text('');
+                            
+                            if (seatType == 'C') {
+                                seatBox.after(nextSpaceElm);
+                                $('.seats-map li[seat-row="' + row + '"][seat-col="' + next + '"]').click(seatSelect);
+                            }
+                        }
+                    }
+                }
             },
             error: function (xhr) {
                 console.log("ERROR Ajax");

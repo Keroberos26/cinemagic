@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Seat;
@@ -15,26 +16,28 @@ public class SeatDAO {
     PreparedStatement stm = null;
     ResultSet rs = null;
 
-    public boolean addSeat(String roomid, int row, int col, String seatNum, String type) {
-        boolean success = false;
+    public Seat addSeat(String roomid, int row, int col, String seatNum, String type) {
+        Seat seat = null;
+        String seatid = UUID.randomUUID().toString();
         
         if (type.equals("C")) {
             Seat s = getSeatByRowCol(roomid, row, col + 1);
-            if (s != null)
-                return false;
+            if (s != null) {
+                return null;
+            }
         }
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Seat\"(roomid, row, col, seatnum, type) values  ('" + roomid + "', ?, ?, ?, ?)";
+                String sql = "insert into \"Seat\"(seatid, roomid, row, col, seatnum, type) values  ('" + seatid + "', '" + roomid + "', ?, ?, ?, ?)";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, row);
                 stm.setInt(2, col);
                 stm.setString(3, seatNum);
                 stm.setString(4, type);
                 stm.execute();
-                success = true;
+                seat = new Seat(seatid, seatNum, type, false);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,7 +49,7 @@ public class SeatDAO {
                 Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return success;
+        return seat;
     }
 
     public boolean deleteSeatById(String seatid) {
@@ -73,15 +76,16 @@ public class SeatDAO {
         return success;
     }
 
-    public boolean updateSeat(String seatid, String roomid, int row, int col, String seatNum, String type) {
-        boolean success = false;
-        
+    public Seat updateSeat(String seatid, String roomid, int row, int col, String seatNum, String type) {
+        Seat seat = null;
+
         if (type.equals("C")) {
             Seat s = getSeatByRowCol(roomid, row, col + 1);
-            if (s != null)
-                return false;
+            if (s != null) {
+                return null;
+            }
         }
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -90,7 +94,7 @@ public class SeatDAO {
                 stm.setString(1, seatNum);
                 stm.setString(2, type);
                 stm.executeUpdate();
-                success = true;
+                seat = new Seat(seatid, seatNum, type, false);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +106,7 @@ public class SeatDAO {
                 Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return success;
+        return seat;
     }
 
     public Seat getSeatById(String id) {

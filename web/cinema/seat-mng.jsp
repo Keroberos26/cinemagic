@@ -17,7 +17,7 @@
 
                 <div class="container-md">
                     <div class="flexitem flexbetween mb-4 py-4">
-                        <h1>Bản đồ ghế phòng ${room.name} </h1>
+                        <h1>Bản đồ ghế ${room.name} </h1>
                     </div>
 
                     <div class="row">
