@@ -21,7 +21,7 @@
         <ul class="main-links">
             <li>
                 <a href="/cinema/dashboard" class="p-3">
-                    <span class="icon pe-4"><i class="fa-solid fa-gauge-high fa-lg"></i></span>Dashboard
+                    <span class="icon pe-4"><i class="fa-solid fa-gauge-high fa-lg"></i></span>Dashboard ${cinema.name}
                 </a>
 
                 <hr>

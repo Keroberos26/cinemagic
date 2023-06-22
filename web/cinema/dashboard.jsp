@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,8 +48,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row g-4 mt-5">
-                            <div class="col-12 col-lg-8">
+                        <div class="row g-3 mt-5">
+                            <div class="col-12 col-lg-7 col-xl-8">
                                 <div class="box-content">
                                     <select class="form-select">
                                         <option selected >Doanh thu theo năm</option>
@@ -58,9 +59,31 @@
                                     <canvas id="revenueChart"></canvas>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-5 col-xl-4">
                                 <div class="box-content">
-                                    
+                                    <h3>Phim được coi nhiều nhất trong tháng</h3>
+                                    <div class="table-responsive">
+                                        <table class="table align-middle">
+                                            <c:forEach items="${movieList}" var="m" varStatus="rank">
+                                                <tr>
+                                                    <td class="fs-1 pe-2">${rank.count}</td>
+                                                    <td>
+                                                        <div class="movie-card showtimes-card">
+                                                            <div class="poster">
+                                                                <div class="bg-img thumbnail" style="background-image: url(${m.poster});">
+                                                                </div>
+                                                                <div class="age-restricted age-${m.age}"><span class="badge">${m.age}</span></div>
+                                                            </div>
+                                                            <div class="content main-links">
+                                                                <h4 class="title">${m.title}</h4>
+                                                                <p class=" genre mini-text">${m.genres}</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>           
+                                            </c:forEach>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

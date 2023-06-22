@@ -1,5 +1,6 @@
 package controller.cinema;
 
+import dao.MovieDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Theater theater =  (Theater)session.getAttribute("theater");
+        MovieDAO movDao = new MovieDAO();
+        req.setAttribute("movieList", movDao.getMoviesByStatus("I"));
         req.getRequestDispatcher("/cinema/dashboard.jsp").forward(req, resp);
     } 
 
