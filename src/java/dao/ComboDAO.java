@@ -96,16 +96,97 @@ public class ComboDAO {
                 success = true;
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
-                rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return success;
     }
+    
+     public boolean updateComboAttachImg(String id, String name, int price, String description, String img, String theaterId) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Combo\" set name = ?, price = ?, description =?, image =? where comboid ='" + id + "' and theaterid ='" + theaterId + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setInt(2, price);
+                stm.setString(3, description);
+                stm.setString(4, img);
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+     
+     public boolean updateCombo(String id, String name, int price, String description, String theaterId) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Combo\" set name = ?, price = ?, description =? where comboid ='" + id + "' and theaterid ='" + theaterId + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setInt(2, price);
+                stm.setString(3, description);
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+    
+    public boolean deleteComboById(String comboid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "delete from \"Combo\" where comboid = '" + comboid + "'";
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+    
+     
+    
 }

@@ -92,15 +92,14 @@ public class ComboServlet extends HttpServlet {
                     is.read(data);
                     fos.write(data);
                     fos.close();
+                    
+                    dao.updateComboAttachImg(id, name, price, description, filename, theater.getId());
+                }else{
+                    dao.updateCombo(id, name, price, description, theater.getId());
                 }
-                System.out.println(id);
-                System.out.println(name);
-                System.out.println(price);
-                System.out.println(description);
-                System.out.println(filename);
                 break;
             case "delete":
-                System.out.println(id);
+                dao.deleteComboById(id);
                 break;
             default:
                 throw new AssertionError();
