@@ -14,17 +14,18 @@ public class TicketDAO {
     PreparedStatement stm = null;
     ResultSet rs = null;
 
-    public boolean addTicket(String id, String showid, String accid, String name, String email, String phone) {
+    public boolean addTicket(String id, String showid, String accid, String name, String email, String phone, int price) {
         boolean check = false;
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Ticket\"(ticketid, showid, accid, name, email, phone) "
-                        + "values ('" + id + "', '" + showid + "', "+(accid == null ? "null" : "'" + accid + "'")+", ?, ?, ?)";
+                String sql = "insert into \"Ticket\"(ticketid, showid, accid, name, email, phone, price) "
+                        + "values ('" + id + "', '" + showid + "', "+(accid == null ? "null" : "'" + accid + "'")+", ?, ?, ?, ?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, email);
                 stm.setString(3, phone);
+                stm.setInt(4, price);
                 stm.execute();
                 check = true;
             }

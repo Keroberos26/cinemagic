@@ -12,6 +12,7 @@ public class Ticket {
     private String name;
     private String email;
     private String phone;
+    private int price;
 
     public Ticket() {
     }
@@ -81,6 +82,14 @@ public class Ticket {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getSeatNum() {
