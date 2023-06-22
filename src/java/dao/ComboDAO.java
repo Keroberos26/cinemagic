@@ -59,10 +59,10 @@ public class ComboDAO {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     combo = new Combo(rs.getString("comboid"),
-                                    rs.getString("name"),
-                                    rs.getString("description"),
-                                    rs.getInt("price"),
-                                    rs.getString("image"));
+                            rs.getString("name"),
+                            rs.getString("description"),
+                            rs.getInt("price"),
+                            rs.getString("image"));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -77,5 +77,35 @@ public class ComboDAO {
             }
         }
         return combo;
+    }
+
+    public boolean addCombo(String id, String name, int price, String description, String img, String theaterId) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "insert into \"Combo\"(comboid, name, price, description, image, theaterid) "
+                        + "values ('" + id + "', ?, ?, ?, ?, '" + theaterId + "')";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setInt(2, price);
+                stm.setString(3, description);
+                stm.setString(4, img);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
     }
 }

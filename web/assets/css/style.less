@@ -1061,3 +1061,32 @@ footer {
     --bs-pagination-focus-color: var(--primary-color);
     --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(141, 72, 245, 0.25);
 }
+
+.imgFile-form {
+    width: 8em;
+    height: 8em;
+    position: relative;
+
+    img {
+        width: 8em;
+        height: 8em;
+        border-radius: 50%;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    label {
+        position: absolute;
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+        cursor: pointer;
+        bottom: 0;
+        right: 0;
+        color: var(--white-color);
+        background-color: rgb(173, 172, 172, 0.8);
+        box-shadow: 2px 4px 4px rgb(0, 0, 0, 0.644);
+    }
+}

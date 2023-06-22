@@ -53,7 +53,7 @@
                                 <div class="tab-pane fade ${accInfo}" id="accInfo" role="tabpanel" tabindex="0">
                                     <div class="card">
                                         <div class="card-body">
-                                            <form action="my-account" method="post" class="row g-4" enctype="multipart/form-data">
+                                            <form action="/my-account" method="post" class="row g-4" enctype="multipart/form-data">
                                                 <div class="col-12">
                                                     <label for="email" class="form-label">Email</label>
                                                     <input type="email" class="form-control" value="${acc.email}" id="email" disabled readonly>
@@ -142,7 +142,6 @@
 
         <%@include file="/general/script.jsp" %>
         <script src="/assets/js/my-account.js"></script>
-        <!--<script src="/assets/js/address.js"></script>-->
     </body>
 
 </html>

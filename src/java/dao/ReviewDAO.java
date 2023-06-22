@@ -13,10 +13,6 @@ import java.util.logging.Logger;
 import model.Account;
 import model.Review;
 
-/**
- *
- * @author nguye
- */
 public class ReviewDAO {
     
     Connection con = null;

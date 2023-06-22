@@ -147,3 +147,19 @@ function fetchCitiesShowtimes() {
             console.error("Error:", error);
         });
 }
+
+//Image
+$('.imgFile-form input[type="file"]').change(function() {
+    const chosenFile = this.files[0];
+    const img = $('.imgFile-form img');
+
+
+    if (chosenFile) {
+        const reader = new FileReader();
+
+        reader.addEventListener('load', function() {
+            img.attr('src', reader.result);
+        })
+        reader.readAsDataURL(chosenFile);
+    }
+})

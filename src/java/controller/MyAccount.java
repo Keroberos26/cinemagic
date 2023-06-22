@@ -37,7 +37,6 @@ public class MyAccount extends HttpServlet {
             String name = req.getParameter("txtName");
             String city = req.getParameter("sltCity");
             String district = req.getParameter("sltDistrict");
-            System.out.println(district);
             String ward = req.getParameter("sltWard");
             String phone = req.getParameter("txtPhone");
             Part part = req.getPart("fileAvt");
