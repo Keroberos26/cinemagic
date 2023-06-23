@@ -34,7 +34,7 @@
                                         <label for="fileImg" class="icon"><i class="fas fa-camera"></i></label>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="trailer" class="form-label">Trailer</label>
+                                        <label for="trailer" class="form-label">Trailer (Youtube URL)</label>
                                         <input type="url" class="form-control" id="trailer" name="txtTrailer" value="${m.trailer}" required>
                                         <div class="trailer-wrapper mt-3">
                                             <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -51,12 +51,12 @@
                                         <input type="text" class="form-control" id="directors" name="txtDirectors" value="${m.directors}" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="genre" class="form-label">Thể loại</label>
-                                        <input type="text" class="form-control" id="genre" value="${m.genres}" data-bs-toggle="modal" data-bs-target="#genresModal" maxlength="0" required>
-                                    </div>
-                                    <div class="form-group mb-3">
                                         <label for="actors" class="form-label">Diễn viên</label>
                                         <input type="text" class="form-control" id="actors" name="txtActors" value="${m.actors}">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="genre" class="form-label">Thể loại</label>
+                                        <input type="text" class="form-control" id="genre" value="${m.genres}" data-bs-toggle="modal" data-bs-target="#genresModal" maxlength="0" required>
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-12 col-lg-6">
@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <div class="form-group mb-3">
-                                                <label for="duration" class="form-label">Thời lượng</label>
+                                                <label for="duration" class="form-label">Thời lượng (phút)</label>
                                                 <input type="number" min="0" class="form-control" id="duration" name="txtDuration" value="${m.duration}" required>
                                             </div>
                                         </div>

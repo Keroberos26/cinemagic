@@ -51,10 +51,9 @@
                         <div class="row g-3 mt-5">
                             <div class="col-12 col-lg-7 col-xl-8">
                                 <div class="box-content">
-                                    <select class="form-select">
-                                        <option selected >Doanh thu theo năm</option>
-                                        <option>Doanh thu theo tháng</option>
-                                        <option value="1">Doanh thu theo tuần</option>
+                                    <select class="form-select" id="chartBy">
+                                        <option value="year" selected >Doanh thu theo năm</option>
+                                        <option value="month">Doanh thu theo tháng</option>
                                     </select>
                                     <canvas id="revenueChart"></canvas>
                                 </div>
@@ -94,30 +93,6 @@
 
 
         <%@include file="/general/script.jsp" %>
-        <script>
-            var revenue = document.getElementById('revenueChart');
-            const labels = ${chart.labels};
-            
-
-            var barChart = new Chart(revenue, {
-            type: 'bar',
-            data: {
-                labels: labels, // Nhãn của các cột
-                datasets: [{
-                label: 'Data',
-                data: ${chart.data}, // Dữ liệu của các cột
-                backgroundColor: 'rgba(75, 192, 192, 0.6)' // Màu nền của các cột
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                y: {
-                    beginAtZero: true
-                }
-                }
-            }
-            });
-        </script>
+        <script src="/assets/js/dashboard.js"></script>
     </body>
 </html>

@@ -35,7 +35,7 @@ function getMovies(page) {
     var genre = $("#sltGenre").val();
     var country = $("#sltCountry").val();
     var year = $("#sltYear").val();
-    var search = $("#txtSearch").val();
+    var search = $("#txtSearch").val().toLowerCase();
 
     var url = new URL(window.location.href);
 

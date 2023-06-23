@@ -52,8 +52,8 @@ public class MovieServlet extends HttpServlet {
         for (Movie m : movies) {
             out.write("<tr>\n"
                     + "     <td><div class=\"bg-img thumbnail\" style=\"width: 5em; background-image: url(" + m.getPoster() + ");\"></div></td>\n"
-                    + "     <td class=\"text-start\">\n"
-                    + "         <h3><a href=\"/admin/movie-form?id=" + m.getId() + "\">" + m.getTitle() + "</a></h3>\n"
+                    + "     <td class=\"text-start\" style=\"min-width: 18em;\">\n"
+                    + "         <h3 class=\"text-primary\"><a href=\"/admin/movie-form?id=" + m.getId() + "\">" + m.getTitle() + "</a></h3>\n"
                     + "         <span class=\"mini-text\">" + m.getGenres() + "</span>\n"
                     + "     </td>\n"
                     + "     <td class=\"text-start\">" + m.getDirectors() + "</td>\n"
