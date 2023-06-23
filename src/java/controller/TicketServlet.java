@@ -25,11 +25,9 @@ public class TicketServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Ticket t = (Ticket) req.getSession().getAttribute("ticket");
         Account acc = (Account) req.getSession().getAttribute("acc");
-        String money = req.getParameter("vnp_Amount");
-        int price = Integer.parseInt(money);
 
         TicketDAO dao = new TicketDAO();
-        dao.addTicket(t.getId(), t.getShowtime().getId(), acc != null ? acc.getId() : null, t.getName(), t.getEmail(), t.getPhone(), price);
+        dao.addTicket(t.getId(), t.getShowtime().getId(), acc != null ? acc.getId() : null, t.getName(), t.getEmail(), t.getPhone(), t.getSeatPrice() + t.getCombosPrice());
         HttpSession session = req.getSession();
         session.setAttribute("order", session.getAttribute("ticket"));
         session.removeAttribute("ticket");

@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="sidebar">
     <div class="container-fluid p-3">
-        <a href="/cinema">
+        <a href="/admin/dashboard">
             <div class="row align-items-center g-2">
                 <div class="col-3">
                     <div class="sidebar-brand-icon">

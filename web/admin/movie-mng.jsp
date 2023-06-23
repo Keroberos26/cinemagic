@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table align-middle text-center">
+                            <table class="table align-middle text-center table-hover">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Ảnh</th>

@@ -105,37 +105,37 @@ public class Ticket {
     }
 
     public int getSeatPrice() {
-        int price = 0;
+        int priceS = 0;
         
         if (seats != null && !seats.isEmpty()) {
             for (Seat s : seats) {
                 switch (s.getType()) {
                     case "N":
-                        price += showtime.getPriceN();
+                        priceS += showtime.getPriceN();
                         break;
                     case "V":
-                        price += showtime.getPriceV();
+                        priceS += showtime.getPriceV();
                         break;
                     case "C":
-                        price += showtime.getPriceC();
+                        priceS += showtime.getPriceC();
                         break;
                     default:
                         throw new AssertionError();
                 }
             }
         }
-        return price;
+        return priceS;
     }
     
     public int getCombosPrice() {
-        int price = 0;
+        int priceC = 0;
         if (combos != null && !combos.isEmpty()) {
             for (Map.Entry<Combo, Integer> entry : combos.entrySet()) {
                 Combo combo = entry.getKey();
                 int quan = entry.getValue();
-                price += combo.getPrice() * quan;
+                priceC += combo.getPrice() * quan;
             }
         }
-        return price;
+        return priceC;
     }
 }
