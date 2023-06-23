@@ -75,6 +75,9 @@ public class AccountFilter implements Filter {
                         case "U":
                             resp.sendRedirect("/");
                             break;
+                        case "A":
+                            resp.sendRedirect("/admin/dashboard");
+                            break;
                         default:
                             throw new AssertionError();
                     }

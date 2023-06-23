@@ -37,8 +37,10 @@ function getMovies(page) {
     var year = $("#sltYear").val();
     var search = $("#txtSearch").val();
 
+    var url = new URL(window.location.href);
+
     $.ajax({
-        url: "/movies",
+        url: url.pathname,
         data: {
             action: "getMovies",
             genre: genre,
@@ -49,7 +51,9 @@ function getMovies(page) {
         },
         type: "post",
         success: function (response) {
-            $(".movie-list").html(response);
+            const resp = response.split('-----');
+            $(".movie-list").html(resp[0]);
+            $(".paging").html(resp[1]);
             pageClick();
             var targetOffset = $(".showtimes").offset().top;
             $("html, body").animate(

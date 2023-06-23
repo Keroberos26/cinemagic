@@ -107,19 +107,26 @@ public class ComboDAO {
         }
         return success;
     }
-    
-     public boolean updateComboAttachImg(String id, String name, int price, String description, String img, String theaterId) {
+
+    public boolean updateComboAttachImg(String id, String name, int price, String description, String img, String theaterId) {
         boolean success = false;
 
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "update \"Combo\" set name = ?, price = ?, description =?, image =? where comboid ='" + id + "' and theaterid ='" + theaterId + "'";
+                String sql = "update \"Combo\" set name = ?, price = ?, description = ?";
+                        
+                if (!img.isBlank()) {
+                    sql += ", img = ?";
+                }
+                sql += " where comboid ='" + id + "' and theaterid ='" + theaterId + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setInt(2, price);
                 stm.setString(3, description);
-                stm.setString(4, img);
+                if (!img.isBlank()) {
+                    stm.setString(4, img);
+                }
                 stm.executeUpdate();
                 success = true;
             }
@@ -135,8 +142,8 @@ public class ComboDAO {
         }
         return success;
     }
-     
-     public boolean updateCombo(String id, String name, int price, String description, String theaterId) {
+
+    public boolean updateCombo(String id, String name, int price, String description, String theaterId) {
         boolean success = false;
 
         try {
@@ -162,7 +169,7 @@ public class ComboDAO {
         }
         return success;
     }
-    
+
     public boolean deleteComboById(String comboid) {
         boolean success = false;
 
@@ -186,7 +193,5 @@ public class ComboDAO {
         }
         return success;
     }
-    
-     
-    
+
 }

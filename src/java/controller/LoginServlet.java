@@ -54,6 +54,8 @@ public class LoginServlet extends HttpServlet {
                         break;
                     case "U":
                         resp.sendRedirect("/");
+                    case "A":
+                        resp.sendRedirect("/admin/dashboard");
                         break;
                     default:
                         throw new AssertionError();

@@ -88,7 +88,7 @@
                                                                 <c:forEach items="${genreList}" var="g">
                                                                     <li>
                                                                         <button type="button"
-                                                                            class="dropdown-item" value="${g}">${g}</button>
+                                                                            class="dropdown-item" value="${g.name}">${g.name}</button>
                                                                     </li>
                                                                 </c:forEach>
                                                             </ul>
@@ -156,6 +156,7 @@
                                         </div>
                                         <div class="movie-list">
                                         </div>
+                                        <div class="paging"></div>
                                     </div>
                                 </div>
                             </div>

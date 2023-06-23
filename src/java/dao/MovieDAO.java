@@ -7,14 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Account;
 import model.Movie;
-import model.Review;
 
 public class MovieDAO {
 
@@ -315,27 +312,6 @@ public class MovieDAO {
             }
         }
         return count;
-    }
-    
-    
-
-    public List<String> getAllGenres() {
-        List<String> list = new ArrayList<>();
-        
-        try {
-            con = DbContext.getConnection();
-            if (con != null) {
-                String sql = "select * from \"Genre\"";
-                stm = con.prepareStatement(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    list.add(rs.getString("name"));
-                }
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
     }
     
     public List<String> getAllCountries() {

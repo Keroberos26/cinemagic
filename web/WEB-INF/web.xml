@@ -42,7 +42,7 @@
     </servlet>
     <servlet>
         <servlet-name>MngMovieServlet</servlet-name>
-        <servlet-class>controller.admin.MngMovieServlet</servlet-class>
+        <servlet-class>controller.admin.MovieServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChooseComboServlet</servlet-name>
@@ -112,6 +112,14 @@
         <servlet-name>CinemaSystemServlet</servlet-name>
         <servlet-class>controller.CinemaSystemServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardAdminServlet</servlet-name>
+        <servlet-class>controller.admin.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieFormServlet</servlet-name>
+        <servlet-class>controller.admin.MovieFormServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -147,10 +155,6 @@
     <servlet-mapping>
         <servlet-name>ChooseComboServlet</servlet-name>
         <url-pattern>/choose-combo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MngMovieServlet</servlet-name>
-        <url-pattern>/admin/mng-movie</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
@@ -215,6 +219,18 @@
     <servlet-mapping>
         <servlet-name>CinemaSystemServlet</servlet-name>
         <url-pattern>/cinema-system</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardAdminServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MngMovieServlet</servlet-name>
+        <url-pattern>/admin/movies</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MovieFormServlet</servlet-name>
+        <url-pattern>/admin/movie-form</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
