@@ -217,9 +217,9 @@ public class MovieDAO {
                     if (!country.isBlank()) {
                         sql += "country = '" + country + "' and ";
                     }
-                    
+
                     if (year > 2000) {
-                        sql += "extract(year from releasedate) = " + year +" and ";
+                        sql += "extract(year from releasedate) = " + year + " and ";
                     }
 
                     if (!title.isBlank()) {
@@ -268,7 +268,7 @@ public class MovieDAO {
 
     public int getNumberOfMovie(String genre, String country, int year, String title) {
         int count = 0;
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -283,9 +283,9 @@ public class MovieDAO {
                     if (!country.isBlank()) {
                         sql += "country = '" + country + "' and ";
                     }
-                    
+
                     if (year > 2000) {
-                        sql += "extract(year from releasedate) = " + year +" and ";
+                        sql += "extract(year from releasedate) = " + year + " and ";
                     }
 
                     if (!title.isBlank()) {
@@ -313,10 +313,10 @@ public class MovieDAO {
         }
         return count;
     }
-    
+
     public List<String> getAllCountries() {
         List<String> list = new ArrayList<>();
-        
+
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -332,8 +332,6 @@ public class MovieDAO {
         }
         return list;
     }
-    
-    
 
     public boolean boughtTicket(String movieId, String accId) {
         boolean check = false;
@@ -382,25 +380,23 @@ public class MovieDAO {
         }
     }
 
-    public String addMovie(String title, String des, String poster, int duration, Date releaseDate, double rating, String actors, String directors, String country, String trailer, String status, int ageRestricted) {
+    public String addMovie(String title, String des, String poster, int duration, Date releaseDate, String actors, String directors, String country, String trailer, int ageRestricted) {
         String id = UUID.randomUUID().toString();
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Movie\"(movieid, title, description, poster, duration, releasedate, rating, actors, directors, country, trailer, status, ageRestricted) values ('" + id + "', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "insert into \"Movie\"(movieid, title, description, poster, duration, releasedate, actors, directors, country, trailer, ageRestricted) values ('" + id + "', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, title);
                 stm.setString(2, des);
                 stm.setString(3, poster);
                 stm.setInt(4, duration);
                 stm.setDate(5, releaseDate);
-                stm.setDouble(6, rating);
-                stm.setString(7, actors);
-                stm.setString(8, directors);
-                stm.setString(9, country);
-                stm.setString(10, trailer);
-                stm.setString(11, status);
-                stm.setInt(12, ageRestricted);
+                stm.setString(6, actors);
+                stm.setString(7, directors);
+                stm.setString(8, country);
+                stm.setString(9, trailer);
+                stm.setInt(10, ageRestricted);
                 stm.executeUpdate();
 
             }
@@ -438,25 +434,31 @@ public class MovieDAO {
         }
     }
 
-    public void updateMovie(String movieid, String title, String des, String poster, int duration, Date releaseDate, double rating, String actors, String directors, String country, String trailer, String status, int ageRestricted) {
+    public boolean updateMovie(String movieid, String title, String des, int duration, Date releaseDate, String actors, String directors, String country, String trailer, int ageRestricted, String poster) {
+        boolean check = false;
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "update \"Movie\" set title = ?, description = ?, poster =?, duration=?, releasedate =?, rating=?, actors=?, directors =?, country=?, trailer=?, status =? ,agerestricted =? where movieid ='" + movieid + "'";
+                String sql = "update \"Movie\" set title = ?, description = ?, duration=?, releasedate = ?, actors=?, directors =?, country=?, trailer=?, agerestricted =?";
+                if (!poster.isBlank()) {
+                    sql += ", poster = ?";
+                }
+                sql += " where movieid ='" + movieid + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, title);
                 stm.setString(2, des);
-                stm.setString(3, poster);
-                stm.setInt(4, duration);
-                stm.setDate(5, releaseDate);
-                stm.setDouble(6, rating);
-                stm.setString(7, actors);
-                stm.setString(8, directors);
-                stm.setString(9, country);
-                stm.setString(10, trailer);
-                stm.setString(11, status);
-                stm.setInt(12, ageRestricted);
+                stm.setInt(3, duration);
+                stm.setDate(4, releaseDate);
+                stm.setString(5, actors);
+                stm.setString(6, directors);
+                stm.setString(7, country);
+                stm.setString(8, trailer);
+                stm.setInt(9, ageRestricted);
+                if (!poster.isBlank()) {
+                    stm.setString(10, poster);
+                }
                 stm.executeUpdate();
+                check = true;
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -468,5 +470,6 @@ public class MovieDAO {
                 Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return check;
     }
 }
