@@ -10,11 +10,12 @@ public class Theater {
     private String district;
     private String city;
     private String image;
+    private String cineid;
 
     public Theater() {
     }
 
-    public Theater(String id, String name, String street, String ward, String district, String city, String image) {
+    public Theater(String id, String name, String street, String ward, String district, String city, String image, String cineid) {
         this.id = id;
         this.name = name;
         this.street = street;
@@ -22,6 +23,15 @@ public class Theater {
         this.district = district;
         this.city = city;
         this.image = image;
+        this.cineid = cineid;
+    }
+
+    public String getCineid() {
+        return cineid;
+    }
+
+    public void setCineid(String cineid) {
+        this.cineid = cineid;
     }
 
     public String getId() {

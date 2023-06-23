@@ -32,7 +32,9 @@ public class TheaterDAO {
                                             rs.getString("ward"),
                                             rs.getString("district"),
                                             rs.getString("city"),
-                                            rs.getString((image?"image":"logo")));
+                                            rs.getString((image?"image":"logo")),
+                                            rs.getString("cineid")
+                    );
                 }
                 
             }
@@ -66,7 +68,9 @@ public class TheaterDAO {
                                             rs.getString("ward"),
                                             rs.getString("district"),
                                             rs.getString("city"),
-                                            rs.getString("image")));
+                                            rs.getString("image"),
+                                            rs.getString("cineid"))
+                    );
                 }
                 
             }
@@ -105,7 +109,9 @@ public class TheaterDAO {
                                             rs.getString("ward"),
                                             rs.getString("district"),
                                             rs.getString("city"),
-                                            rs.getString("logo")));
+                                            rs.getString("logo"),
+                                            rs.getString("cineid"))
+                    );
                 }
                 
             }

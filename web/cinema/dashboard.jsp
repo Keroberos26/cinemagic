@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="right text-end">
                                             <p>Doanh thu</p>
-                                            <h2 class="price"><fmt:formatNumber value="10000000" pattern="#,###" /></h2>
+                                            <h2 class="price"><fmt:formatNumber value="${incomeCine}" pattern="#,###" /></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="right text-end">
                                             <p>Đặt vé</p>
-                                            <h2>123 lượt</h2>
+                                            <h2>${countCine}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
         <%@include file="/general/script.jsp" %>
         <script>
             var revenue = document.getElementById('revenueChart');
-            const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+            const labels = ${chart.labels};
             
 
             var barChart = new Chart(revenue, {
@@ -105,7 +105,7 @@
                 labels: labels, // Nhãn của các cột
                 datasets: [{
                 label: 'Data',
-                data: [10, 20, 15, 21, 32, 12, 43, 54, 21, 43, 21, 64], // Dữ liệu của các cột
+                data: ${chart.data}, // Dữ liệu của các cột
                 backgroundColor: 'rgba(75, 192, 192, 0.6)' // Màu nền của các cột
                 }]
             },

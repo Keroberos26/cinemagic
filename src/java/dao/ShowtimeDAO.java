@@ -249,7 +249,9 @@ public class ShowtimeDAO {
                             rs.getString("ward"),
                             rs.getString("district"),
                             rs.getString("city"),
-                            rs.getString("logo"));
+                            rs.getString("logo"),
+                            rs.getString("cineid")
+                    );
                     List<Showtime> list = null;
                     if (map.containsKey(theater)) {
                         list = map.get(theater);
