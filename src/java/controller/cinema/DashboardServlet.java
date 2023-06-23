@@ -1,12 +1,14 @@
 package controller.cinema;
 
 import dao.MovieDAO;
+import dao.TicketDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Chart;
 import model.Theater;
 
 public class DashboardServlet extends HttpServlet {
@@ -16,6 +18,18 @@ public class DashboardServlet extends HttpServlet {
         Theater theater =  (Theater)session.getAttribute("theater");
         MovieDAO movDao = new MovieDAO();
         req.setAttribute("movieList", movDao.getMoviesByStatus("I"));
+        
+        TicketDAO tDao = new TicketDAO();
+        
+        int incomeCine = tDao.getIncomeByCine(theater.getCineid());
+        req.setAttribute("incomeCine", incomeCine);
+        
+        int countCine = tDao.getNumberTicketByCine(theater.getCineid());
+        req.setAttribute("countCine", countCine);
+        
+        Chart chart = tDao.chartByMonthCine(theater.getCineid());
+        req.setAttribute("chart", chart);
+        
         req.getRequestDispatcher("/cinema/dashboard.jsp").forward(req, resp);
     } 
 
