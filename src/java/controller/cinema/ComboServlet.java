@@ -93,10 +93,8 @@ public class ComboServlet extends HttpServlet {
                     fos.write(data);
                     fos.close();
                     
-                    dao.updateComboAttachImg(id, name, price, description, filename, theater.getId());
-                }else{
-                    dao.updateCombo(id, name, price, description, theater.getId());
                 }
+                    dao.updateCombo(id, name, price, description, filename, theater.getId());
                 break;
             case "delete":
                 dao.deleteComboById(id);

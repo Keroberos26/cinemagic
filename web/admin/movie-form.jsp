@@ -100,7 +100,7 @@
                                                         <c:forEach items="${genreList}" var="g" varStatus="c">
                                                             <div class="form-group">
                                                                 <label class="form-check-label w-100 p-3" for="${g.id}">
-                                                                    <input class="form-check-input" type="checkbox" value="${g.id}" id="${g.id}" ${m.genres.contains(g.name)?"checked":""}>
+                                                                    <input class="form-check-input" type="checkbox" name="chkGenres" value="${g.id}" id="${g.id}" ${m.genres.contains(g.name)?"checked":""}>
                                                                     <span>${g.name}</span>
                                                                 </label>
                                                             </div>
