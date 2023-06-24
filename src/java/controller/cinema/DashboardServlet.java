@@ -31,9 +31,6 @@ public class DashboardServlet extends HttpServlet {
         int countCine = tDao.getNumberTicketByCine(theater.getCineid());
         req.setAttribute("countCine", countCine);
 
-        Chart chart = tDao.chartByMonthCine(theater.getCineid());
-        req.setAttribute("chart", chart);
-
         req.getRequestDispatcher("/cinema/dashboard.jsp").forward(req, resp);
     }
 
@@ -42,7 +39,7 @@ public class DashboardServlet extends HttpServlet {
         String chartBy = req.getParameter("chart");
         CinemaSystem cinema = (CinemaSystem) req.getSession().getAttribute("cinema");
         TicketDAO tDao = new TicketDAO();
-
+        
         Chart chart = null;
 
         if (chartBy != null) {
