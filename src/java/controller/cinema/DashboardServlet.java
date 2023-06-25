@@ -2,6 +2,7 @@ package controller.cinema;
 
 import com.google.gson.Gson;
 import dao.MovieDAO;
+import dao.ReportDAO;
 import dao.TicketDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -23,13 +24,13 @@ public class DashboardServlet extends HttpServlet {
         MovieDAO movDao = new MovieDAO();
         req.setAttribute("movieList", movDao.getMoviesByStatus("I"));
 
-        TicketDAO tDao = new TicketDAO();
+        ReportDAO rDao = new ReportDAO();
 
-        int incomeCine = tDao.getIncomeByCine(theater.getCineid());
-        req.setAttribute("incomeCine", incomeCine);
+        int incomeTheater = rDao.getIncomeByTheater(theater.getId());
+        req.setAttribute("incomeCine", incomeTheater);
 
-        int countCine = tDao.getNumberTicketByCine(theater.getCineid());
-        req.setAttribute("countCine", countCine);
+        int countTheater = rDao.getNumberTicketByTheater(theater.getId());
+        req.setAttribute("countCine", countTheater);
 
         req.getRequestDispatcher("/cinema/dashboard.jsp").forward(req, resp);
     }
@@ -38,17 +39,17 @@ public class DashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String chartBy = req.getParameter("chart");
         CinemaSystem cinema = (CinemaSystem) req.getSession().getAttribute("cinema");
-        TicketDAO tDao = new TicketDAO();
+        ReportDAO rDao = new ReportDAO();
         
         Chart chart = null;
 
         if (chartBy != null) {
             switch (chartBy) {
                 case "year":
-                    chart = tDao.chartByYearCine(cinema.getId());
+                    chart = rDao.chartByYearCine(cinema.getId());
                     break;
                 case "month":
-                    chart = tDao.chartByMonthCine(cinema.getId());
+                    chart = rDao.chartByMonthCine(cinema.getId());
                     break;
                 default:
                     throw new AssertionError();

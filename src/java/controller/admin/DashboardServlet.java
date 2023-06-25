@@ -2,7 +2,7 @@ package controller.admin;
 
 import com.google.gson.Gson;
 import dao.MovieDAO;
-import dao.TicketDAO;
+import dao.ReportDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +14,7 @@ import model.Chart;
 import model.Theater;
 
 public class DashboardServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -21,40 +22,39 @@ public class DashboardServlet extends HttpServlet {
         MovieDAO movDao = new MovieDAO();
         req.setAttribute("movieList", movDao.getMoviesByStatus("I"));
 
-        TicketDAO tDao = new TicketDAO();
+        ReportDAO rDao = new ReportDAO();
 
-        req.setAttribute("incomeCine", tDao.getAllIncome());
+        req.setAttribute("incomeCine", rDao.getAllIncome());
 
-        req.setAttribute("countCine", tDao.getAllNumberTicket());
+        req.setAttribute("countCine", rDao.getAllNumberTicket());
 
         req.getRequestDispatcher("/admin/dashboard.jsp").forward(req, resp);
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String chartBy = req.getParameter("chart");
-        TicketDAO tDao = new TicketDAO();
-
+        ReportDAO rDao = new ReportDAO();
         Chart chart = null;
 
         if (chartBy != null) {
             switch (chartBy) {
                 case "year":
-                    chart = tDao.chartByYear();
+                    chart = rDao.chartByYear();
                     break;
                 case "month":
-                    chart = tDao.chartByMonths();
+                    chart = rDao.chartByMonths();
                     break;
                 default:
                     throw new AssertionError();
             }
         }
-        
+
         if (chart != null) {
             PrintWriter out = resp.getWriter();
             Gson gson = new Gson();
             out.write(gson.toJson(chart));
         }
     }
-    
+
 }
