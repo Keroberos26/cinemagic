@@ -1,13 +1,13 @@
-function chooseMovie() {   
+function chooseMovie() {
     $('.custom-option').click(function(e) {
         e.preventDefault();
 
         $('.custom-option').removeClass('selected');
         $(this).addClass('selected');
-    
+
         var id = $(this).attr('movie-id');
         var title = $(this).find('.title').text();
-    
+
         $('button[data-bs-target="#movieModal"]').text(title);
         $('input[name="sltMovie"]').val(id);
     })
@@ -28,7 +28,7 @@ $('#filStatus').change(function (e) {
 function findMovie() {
     var url = new URL(window.location.href);
     var searchParams = new URLSearchParams(url.search);
-    
+
     var showid = searchParams.get('id');
     var title = $('#searchMovie').val().toLowerCase();
     var status = $('#filStatus').val();
@@ -52,6 +52,6 @@ function findMovie() {
     });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     chooseMovie();
 })

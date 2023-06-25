@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,15 +57,10 @@ public class TheaterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String theaterId = req.getParameter("theater");
-        String dateInput = req.getParameter("date");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = new Date(dateFormat.parse(dateInput).getTime());
-        } catch (ParseException ex) {
-            Logger.getLogger(ShowtimesServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        String date = req.getParameter("date");
+        java.util.Date currentDate = new java.util.Date();
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+
         PrintWriter out = resp.getWriter();
         ShowtimeDAO showDao = new ShowtimeDAO();
         Map<Movie, List<Showtime>> map = showDao.getShowtimesByMovie(theaterId, date);
@@ -89,8 +85,12 @@ public class TheaterServlet extends HttpServlet {
                         + "         </a>\n"
                         + "         <div class=\"row row-cols-lg-4 row-cols-md-3 row-cols-2 g-3\">\n");
                 for (Showtime st : list) {
+                    String disabled = "";
+                    if (currentTimestamp.after(st.getStarttime())) {
+                        disabled = "disabled";
+                    }
                     out.print("<div class=\"col\">\n"
-                            + "     <a href=\"choose-seat?id=" + st.getId() + "\" class=\"btn btn-outline-secondary btn-sm d-block\">"
+                            + "     <a href=\"choose-seat?id=" + st.getId() + "\" class=\"btn btn-outline-secondary btn-sm d-block " + disabled + "\">"
                             + "         <strong>" + timeFormat.format(st.getStarttime()) + "</strong> ~ " + timeFormat.format(st.getEndtime()) + "\n"
                             + "     </a>\n"
                             + "</div>");

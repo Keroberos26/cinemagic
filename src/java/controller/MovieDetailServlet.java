@@ -81,15 +81,8 @@ public class MovieDetailServlet extends HttpServlet {
             case "getShowtimes":
                 String city = req.getParameter("city");
                 String cinema = req.getParameter("cinema");
-                String dateInput = req.getParameter("date");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = req.getParameter("date");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                Date date = null;
-                try {
-                    date = new Date(dateFormat.parse(dateInput).getTime());
-                } catch (ParseException ex) {
-                    Logger.getLogger(ShowtimesServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
 
                 Map<Theater, List<Showtime>> theaterList = showDao.getShowtimesByTheater(movieId, city, cinema, date);
                 if (theaterList != null && !theaterList.isEmpty()) {

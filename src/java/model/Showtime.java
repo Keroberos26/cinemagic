@@ -2,13 +2,13 @@ package model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Showtime {
     private String id;
-    private Date showdate;
-    private Time starttime;
-    private Time endtime;
+    private Timestamp starttime;
+    private Timestamp endtime;
     private int priceN;
     private int priceV;
     private int priceC;
@@ -18,9 +18,8 @@ public class Showtime {
     public Showtime() {
     }
 
-    public Showtime(String id, Date showdate, Time starttime, Time endtime, int priceN, int priceV, int priceC, Movie movie, Room room) {
+    public Showtime(String id, Timestamp starttime, Timestamp endtime, int priceN, int priceV, int priceC, Movie movie, Room room) {
         this.id = id;
-        this.showdate = showdate;
         this.starttime = starttime;
         this.endtime = endtime;
         this.priceN = priceN;
@@ -38,27 +37,21 @@ public class Showtime {
         this.id = id;
     }
 
-    public Date getShowdate() {
-        return showdate;
-    }
 
-    public void setShowdate(Date showdate) {
-        this.showdate = showdate;
-    }
 
-    public Time getStarttime() {
+    public Timestamp getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Time starttime) {
+    public void setStarttime(Timestamp starttime) {
         this.starttime = starttime;
     }
 
-    public Time getEndtime() {
+    public Timestamp getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Time endtime) {
+    public void setEndtime(Timestamp endtime) {
         this.endtime = endtime;
     }
 

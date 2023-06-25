@@ -30,21 +30,14 @@ public class ShowtimeServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Theater theater = (Theater) session.getAttribute("theater");
 
-        String date = req.getParameter("showDate");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String room = req.getParameter("room");
         String time = req.getParameter("time");
         String title = req.getParameter("title");
 
-        Date showDate = null;
-        try {
-            showDate = new Date(dateFormat.parse(date).getTime());
-        } catch (ParseException ex) {
-            Logger.getLogger(ShowtimeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         ShowtimeDAO showDao = new ShowtimeDAO();
-        List<Showtime> list = showDao.getShowtimesByTheaterId(theater.getId(), showDate, room, time, title);
+        List<Showtime> list = showDao.getShowtimesByTheaterId(theater.getId(), room, time, title);
 
         PrintWriter out = resp.getWriter();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");

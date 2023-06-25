@@ -85,15 +85,11 @@
                             </div>
 
                             <div class="row g-3 mb-3">
-                                <div class="col-12 col-md-4">
-                                    <label for="date" class="form-label">Ngày chiếu</label>
-                                    <input type="date" class="form-control" id="date" name="txtDate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${st.showdate}"/>" required>
-                                </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-6">
                                     <label for="time" class="form-label">Giờ bắt đầu</label>
-                                    <input type="time" class="form-control" id="time" name="txtTime" value="<fmt:formatDate pattern="HH:mm" value="${st.starttime}"/>" required>
+                                    <input type="datetime-local" class="form-control" id="time" name="txtTime" value="<fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm" value="${st.starttime}"/>" required>
                                 </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-6">
                                     <label for="room" class="form-label">Phòng chiếu</label>
                                     <select id="room" class="form-select" name="sltRoom" required>
                                         <option ${param.id==null?"selected":""} disabled value="">Chọn phòng...</option>
@@ -139,6 +135,30 @@
 
 
         <%@include file="/general/script.jsp" %>
+
+<!--        <script>
+            // Get the current date and time
+            var currentDate = new Date().toISOString().split('T')[0];
+
+            // Set the minimum value of the date input field to the current date
+            document.getElementById("date").min = currentDate;
+
+            // Add an event listener to the date input field
+            document.getElementById("date").addEventListener("change", function () {
+                // If the selected date is the current date, set the minimum value of the time input field to the current time
+                if (this.value === currentDate) {
+                    var currentTime = new Date().toLocaleTimeString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit'});
+                    console.log(currentTime)
+                    document.getElementById("time").min = currentTime;
+                    document.getElementById("time").value = currentTime;
+                } else {
+                    // If the selected date is not the current date, remove the minimum value and reset the time input field
+                    document.getElementById("time").removeAttribute("min");
+                    document.getElementById("time").value = "";
+                }
+            });
+        </script>-->
+
         <script src="/assets/js/showtime-form.js"></script>
     </body>
 

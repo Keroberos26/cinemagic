@@ -10,11 +10,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Movie;
 import model.Room;
 import model.Showtime;
@@ -46,32 +48,29 @@ public class ShowtimeFormServlet extends HttpServlet {
         String id = req.getParameter("showId");
         String action = req.getParameter("action");
         String movieid = req.getParameter("sltMovie");
-        String date = req.getParameter("txtDate");
         String time = req.getParameter("txtTime");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         String txtPriceN = req.getParameter("txtPriceN");
         String txtPriceV = req.getParameter("txtPriceV");
         String txtPriceC = req.getParameter("txtPriceC");
         String roomid = req.getParameter("sltRoom");
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
-        Date showdate = null;
-        Time starttime = null;
+        Timestamp starttime = null;
         int priceN = 0, priceV = 0, priceC = 0;
-        if (date != null && time != null) {
-            try {
-                showdate = new Date(dateFormat.parse(date).getTime());
-                starttime = new Time(timeFormat.parse(time).getTime());
+
+        try {
+            if (time != null) {
+                Date parsedDate = sdf.parse(time);
+                starttime = new Timestamp(parsedDate.getTime());;
                 priceN = Integer.parseInt(txtPriceN);
                 priceV = Integer.parseInt(txtPriceV);
                 priceC = Integer.parseInt(txtPriceC);
-            } catch (ParseException ex) {
-                System.err.println("-----> Cannot cast! <-----");
+
             }
+        } catch (ParseException ex) {
+            Logger.getLogger(ShowtimeFormServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         Showtime st = null;
         ShowtimeDAO showDao = new ShowtimeDAO();
         String error = "";
@@ -104,10 +103,10 @@ public class ShowtimeFormServlet extends HttpServlet {
                 }
                 break;
             case "add":
-                error = showDao.addShowtime(movieid, showdate, starttime, priceN, priceV, priceC, roomid);
+                error = showDao.addShowtime(movieid, starttime, priceN, priceV, priceC, roomid);
                 break;
             case "update":
-                error = showDao.updateShowtime(id, movieid, showdate, starttime, priceN, priceV, priceC, roomid);
+                error = showDao.updateShowtime(id, movieid, starttime, priceN, priceV, priceC, roomid);
                 break;
             case "delete":
                 showDao.deleteShowtime(id);
@@ -115,7 +114,7 @@ public class ShowtimeFormServlet extends HttpServlet {
             default:
                 throw new AssertionError();
         }
-        
+
         if (!action.equals("search")) {
             if (!error.isEmpty()) {
                 req.setAttribute("error", "<div class=\"alert alert-danger\" role=\"alert\">\n"
@@ -126,7 +125,7 @@ public class ShowtimeFormServlet extends HttpServlet {
                 MovieDAO movDao = new MovieDAO();
                 Movie m = movDao.getMovieById(movieid);
                 Room r = roomDao.getRoomById(roomid);
-                st = new Showtime(null, showdate, starttime, null, priceN, priceV, priceC, m, r);
+                st = new Showtime(null, starttime, null, priceN, priceV, priceC, m, r);
                 req.setAttribute("st", st);
                 doGet(req, resp);
             } else {

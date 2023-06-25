@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,9 +53,8 @@ public class ShowtimeDAO {
                             rs.getString("name"),
                             rs.getString("theaterid"));
                     showtime = new Showtime(rs.getString("showid"),
-                            rs.getDate("showdate"),
-                            rs.getTime("starttime"),
-                            rs.getTime("endtime"),
+                            rs.getTimestamp("starttime"),
+                            rs.getTimestamp("endtime"),
                             rs.getInt("price_n"),
                             rs.getInt("price_v"),
                             rs.getInt("price_c"),
@@ -76,13 +76,13 @@ public class ShowtimeDAO {
         return showtime;
     }
 
-    public List<Showtime> getShowtimesByTheaterId(String id, Date date, String sortRoom, String time, String title) {
+    public List<Showtime> getShowtimesByTheaterId(String id, String sortRoom, String time, String title) {
         List<Showtime> list = new LinkedList<>();
 
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"ShowtimeDetail\" where theaterid = '" + id + "' and showdate = ?";
+                String sql = "select * from \"ShowtimeDetail\" where theaterid = '" + id + "'";
                 if (!(sortRoom.isBlank() && title.isBlank() && time.isBlank())) {
                     sql += " order by ";
 
@@ -101,7 +101,6 @@ public class ShowtimeDAO {
                     sql = sql.substring(0, sql.length() - 1);
                 }
                 stm = con.prepareStatement(sql);
-                stm.setDate(1, date);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Movie movie = new Movie(rs.getString("movieid"),
@@ -122,9 +121,8 @@ public class ShowtimeDAO {
                             rs.getString("name"),
                             rs.getString("theaterid"));
                     list.add(new Showtime(rs.getString("showid"),
-                            rs.getDate("showdate"),
-                            rs.getTime("starttime"),
-                            rs.getTime("endtime"),
+                            rs.getTimestamp("starttime"),
+                            rs.getTimestamp("endtime"),
                             rs.getInt("price_n"),
                             rs.getInt("price_v"),
                             rs.getInt("price_c"),
@@ -146,15 +144,15 @@ public class ShowtimeDAO {
         return list;
     }
 
-    public Map<Movie, List<Showtime>> getShowtimesByMovie(String id, Date date) {
+    public Map<Movie, List<Showtime>> getShowtimesByMovie(String id, String date) {
         Map<Movie, List<Showtime>> map = new LinkedHashMap<>();
 
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"ShowtimeDetail\" where theaterid = '" + id + "' and showdate = ? order by starttime";
+                String sql = "select * from \"ShowtimeDetail\" where theaterid = '" + id + "' and TO_CHAR(starttime, 'YYYY-MM-DD') = ? order by starttime";
                 stm = con.prepareStatement(sql);
-                stm.setDate(1, date);
+                stm.setString(1, date);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Movie movie = new Movie(rs.getString("movieid"),
@@ -181,9 +179,8 @@ public class ShowtimeDAO {
                             rs.getString("name"),
                             rs.getString("theaterid"));
                     list.add(new Showtime(rs.getString("showid"),
-                            rs.getDate("showdate"),
-                            rs.getTime("starttime"),
-                            rs.getTime("endtime"),
+                            rs.getTimestamp("starttime"),
+                            rs.getTimestamp("endtime"),
                             rs.getInt("price_n"),
                             rs.getInt("price_v"),
                             rs.getInt("price_c"),
@@ -206,7 +203,7 @@ public class ShowtimeDAO {
         return map;
     }
 
-    public Map<Theater, List<Showtime>> getShowtimesByTheater(String movieId, String city, String cinema, Date date) {
+    public Map<Theater, List<Showtime>> getShowtimesByTheater(String movieId, String city, String cinema, String date) {
         Map<Theater, List<Showtime>> map = new LinkedHashMap<>();
 
         try {
@@ -215,14 +212,14 @@ public class ShowtimeDAO {
                 String sql = "select st.*, t.theaterid, t.name as thename, t.street, t.ward, t.district, t.city, t.cineid, c.logo from \"ShowtimeDetail\" st \n"
                         + "join \"Theater\" t on st.theaterid = t.theaterid\n"
                         + "join \"CinemaSystem\" c on t.cineid = c.cineid\n"
-                        + "where movieid = '" + movieId + "' and showdate = ? \n"
+                        + "where movieid = '" + movieId + "' and TO_CHAR(starttime, 'YYYY-MM-DD') = ? \n"
                         + "and city = ?";
                 if (cinema != null && !cinema.isBlank()) {
                     sql += " and t.cineid = '" + cinema + "'";
                 }
                 sql += " order by thename";
                 stm = con.prepareStatement(sql);
-                stm.setDate(1, date);
+                stm.setString(1, date);
                 stm.setString(2, city);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -259,9 +256,8 @@ public class ShowtimeDAO {
                         list = new LinkedList<>();
                     }
                     list.add(new Showtime(rs.getString("showid"),
-                            rs.getDate("showdate"),
-                            rs.getTime("starttime"),
-                            rs.getTime("endtime"),
+                            rs.getTimestamp("starttime"),
+                            rs.getTimestamp("endtime"),
                             rs.getInt("price_n"),
                             rs.getInt("price_v"),
                             rs.getInt("price_c"),
@@ -284,21 +280,20 @@ public class ShowtimeDAO {
         return map;
     }
 
-    public String addShowtime(String movieid, Date date, Time time, int priceN, int priceV, int priceC, String roomid) {
+    public String addShowtime(String movieid, Timestamp time, int priceN, int priceV, int priceC, String roomid) {
         String error = "Đã có lỗi xảy ra!";
 
         try {
             con = DbContext.getConnection();
 
             if (con != null) {
-                String sql = "insert into \"Showtime\" (movieid, showdate, starttime, price_n, price_v, price_c, roomid) "
-                        + "values('" + movieid + "', ?, ?, ?, ?, ?, '" + roomid + "')";
+                String sql = "insert into \"Showtime\" (movieid, starttime, price_n, price_v, price_c, roomid) "
+                        + "values('" + movieid + "', ?, ?, ?, ?, '" + roomid + "')";
                 stm = con.prepareStatement(sql);
-                stm.setDate(1, date);
-                stm.setTime(2, time);
-                stm.setInt(3, priceN);
-                stm.setInt(4, priceV);
-                stm.setInt(5, priceC);
+                stm.setTimestamp(1, time);
+                stm.setInt(2, priceN);
+                stm.setInt(3, priceV);
+                stm.setInt(4, priceC);
                 stm.execute();
                 error = "";
             }
@@ -319,7 +314,7 @@ public class ShowtimeDAO {
         return error;
     }
 
-    public String updateShowtime(String id, String movieid, Date date, Time time, int priceN, int priceV, int priceC, String roomid) {
+    public String updateShowtime(String id, String movieid, Timestamp time, int priceN, int priceV, int priceC, String roomid) {
         String error = "Đã có lỗi xảy ra!";
 
         try {
@@ -327,13 +322,12 @@ public class ShowtimeDAO {
 
             if (con != null) {
                 String sql = "update \"Showtime\" set movieid = '" + movieid + "', roomid = '" + roomid + "',\n"
-                        + "showdate = ?, starttime = ?, price_n = ?, price_v = ?, price_c = ? where showid = '" + id + "'";
+                        + "starttime = ?, price_n = ?, price_v = ?, price_c = ? where showid = '" + id + "'";
                 stm = con.prepareStatement(sql);
-                stm.setDate(1, date);
-                stm.setTime(2, time);
-                stm.setInt(3, priceN);
-                stm.setInt(4, priceV);
-                stm.setInt(5, priceC);
+                stm.setTimestamp(1, time);
+                stm.setInt(2, priceN);
+                stm.setInt(3, priceV);
+                stm.setInt(4, priceC);
                 stm.execute();
                 error = "";
             }
