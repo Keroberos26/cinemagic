@@ -1,6 +1,5 @@
 package controller;
 
-import dao.TicketDAO;
 import model.Config;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import model.Account;
-import model.Combo;
-import model.Seat;
 import model.Ticket;
 
 public class VNPAYAjaxServlet extends HttpServlet {

@@ -12,14 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.ParseException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Account;
 import model.Movie;
 import model.Review;
@@ -70,7 +68,7 @@ public class MovieDetailServlet extends HttpServlet {
         String action = req.getParameter("action");
         String movieId = req.getParameter("movieId");
         Account acc = (Account) req.getSession().getAttribute("acc");
-        
+
         ReviewDAO reDao = new ReviewDAO();
         MovieDAO dao = new MovieDAO();
         TheaterDAO theDao = new TheaterDAO();
@@ -82,6 +80,8 @@ public class MovieDetailServlet extends HttpServlet {
                 String city = req.getParameter("city");
                 String cinema = req.getParameter("cinema");
                 String date = req.getParameter("date");
+                java.util.Date currentDate = new java.util.Date();
+                Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
                 Map<Theater, List<Showtime>> theaterList = showDao.getShowtimesByTheater(movieId, city, cinema, date);
@@ -110,8 +110,12 @@ public class MovieDetailServlet extends HttpServlet {
                                     + "         <div class=\"accordion-body\">\n"
                                     + "             <div class=\"row row-cols-md-5 row-cols-sm-3 row-cols-2 g-3\">\n");
                             for (Showtime st : showList) {
+                                String disabled = "";
+                                if (currentTimestamp.after(st.getStarttime())) {
+                                    disabled = "disabled";
+                                }
                                 out.write("<div class=\"col\">\n"
-                                        + "     <a href=\"choose-seat?id=" + st.getId() + "\" class=\"btn btn-outline-secondary btn-sm d-block\"><strong>" + timeFormat.format(st.getStarttime()) + "</strong> ~ " + timeFormat.format(st.getEndtime()) + "</a>\n"
+                                        + "     <a href=\"choose-seat?id=" + st.getId() + "\" class=\"btn btn-outline-secondary btn-sm d-block "+disabled+"\"><strong>" + timeFormat.format(st.getStarttime()) + "</strong> ~ " + timeFormat.format(st.getEndtime()) + "</a>\n"
                                         + "</div>");
                             }
                             out.write("             </div>\n"
@@ -158,16 +162,16 @@ public class MovieDetailServlet extends HttpServlet {
                 }
                 break;
             case "review":
-                
+
                 String rating1 = req.getParameter("rating");
                 int rating = Integer.parseInt(rating1);
                 String comment = req.getParameter("review");
-                if(reDao.getReviewOfAccount(movieId, acc.getId())==null){
+                if (reDao.getReviewOfAccount(movieId, acc.getId()) == null) {
                     reDao.addReview(acc.getId(), movieId, rating, comment);
-                }else{
+                } else {
                     reDao.updateReview(acc.getId(), movieId, rating, comment);
                 }
-                resp.sendRedirect("/movie?id="+ movieId);
+                resp.sendRedirect("/movie?id=" + movieId);
                 break;
             default:
                 throw new AssertionError();
