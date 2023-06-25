@@ -14,6 +14,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,10 +35,18 @@ public class ShowtimeFormServlet extends HttpServlet {
             ShowtimeDAO showDao = new ShowtimeDAO();
             req.setAttribute("st", showDao.getShowtimeById(id));
         }
-
+        
+        Calendar calendar = Calendar.getInstance();
+        
+        calendar.add(Calendar.HOUR_OF_DAY, 2);
+        Date future = calendar.getTime();
+        
+        Timestamp currentTimestamp = new Timestamp(future.getTime());
+        
         RoomDAO roomDao = new RoomDAO();
         MovieDAO movDao = new MovieDAO();
-
+        
+        req.setAttribute("min", currentTimestamp);
         req.setAttribute("movieList", movDao.getAllMovies());
         req.setAttribute("roomList", roomDao.getRoomsByTheaterId(theater.getId()));
         req.getRequestDispatcher("/cinema/showtime-form.jsp").forward(req, resp);
@@ -61,7 +70,7 @@ public class ShowtimeFormServlet extends HttpServlet {
         try {
             if (time != null) {
                 Date parsedDate = sdf.parse(time);
-                starttime = new Timestamp(parsedDate.getTime());;
+                starttime = new Timestamp(parsedDate.getTime());
                 priceN = Integer.parseInt(txtPriceN);
                 priceV = Integer.parseInt(txtPriceV);
                 priceC = Integer.parseInt(txtPriceC);

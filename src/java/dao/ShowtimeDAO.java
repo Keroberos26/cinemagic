@@ -74,13 +74,13 @@ public class ShowtimeDAO {
         return showtime;
     }
 
-    public List<Showtime> getShowtimesByTheaterId(String id, String sortRoom, String time, String title) {
+    public List<Showtime> getShowtimesByTheaterId(String id, String date, String sortRoom, String time, String title) {
         List<Showtime> list = new LinkedList<>();
 
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select * from \"ShowtimeDetail\" where theaterid = '" + id + "'";
+                String sql = "select * from \"ShowtimeDetail\" where theaterid = '" + id + "'  and TO_CHAR(starttime, 'YYYY-MM-DD') = ?";
                 if (!(sortRoom.isBlank() && title.isBlank() && time.isBlank())) {
                     sql += " order by ";
 
@@ -99,6 +99,7 @@ public class ShowtimeDAO {
                     sql = sql.substring(0, sql.length() - 1);
                 }
                 stm = con.prepareStatement(sql);
+                stm.setString(1, date);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     Movie movie = new Movie(rs.getString("movieid"),

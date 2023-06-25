@@ -9,12 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Showtime;
 import model.Theater;
 
@@ -29,7 +25,8 @@ public class ShowtimeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Theater theater = (Theater) session.getAttribute("theater");
-
+        
+        String date = req.getParameter("showDate");
         String room = req.getParameter("room");
         String time = req.getParameter("time");
         String title = req.getParameter("title");
@@ -37,7 +34,7 @@ public class ShowtimeServlet extends HttpServlet {
         
 
         ShowtimeDAO showDao = new ShowtimeDAO();
-        List<Showtime> list = showDao.getShowtimesByTheaterId(theater.getId(), room, time, title);
+        List<Showtime> list = showDao.getShowtimesByTheaterId(theater.getId(), date, room, time, title);
 
         PrintWriter out = resp.getWriter();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
