@@ -228,6 +228,57 @@ public class ReportDAO {
 
         return chart;
     }
+    
+    //Theater - Chart - Month
+    public Chart chartByMonthTheater(String theaterid) {
+        Chart chart = new Chart();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                List<Date> daysOfMonth = new ArrayList<>();
+                LocalDate currentDate = LocalDate.now();
+                int year = currentDate.getYear();
+                int month = currentDate.getMonthValue();
+                
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month - 1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                String formattedMonth = String.format("%02d", month);
+
+                int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+                for (int day = 1; day <= lastDay; day++) {
+                    cal.set(Calendar.DAY_OF_MONTH, day);
+                    daysOfMonth.add(cal.getTime());
+                }
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
+                for (Date day : daysOfMonth) {
+                    String formattedDay = dateFormat.format(day);
+                    chart.getLabels().add(formattedDay);
+                    chart.getData().add(0);
+                }
+                String sql = "select day, sum(income) as income from \"Income\" where theaterid= '"+theaterid+"' and year = '"+year+"' and month='"+formattedMonth+"' group by day";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    chart.getLabels().set(rs.getInt("day") - 1, rs.getString("day"));
+                    chart.getData().set(rs.getInt("day") - 1, rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return chart;
+    }
 
     //Cinema - Chart - Year
     public Chart chartByYearCine(String cineid) {
@@ -272,6 +323,37 @@ public class ReportDAO {
         return chart;
     }
 
+    //Theater - Chart - Year
+    public Chart chartByYearTheater(String theaterid, String year) {
+        Chart chart = new Chart();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                for (int i = 1; i <= 12; i++) {
+                    chart.getLabels().add(Integer.toString(i));
+                    chart.getData().add(0);
+                }
+                String sql = "select  month as month, sum(income) as income from \"Income\" where theaterid= '"+ theaterid+"' and year = '"+year+"' group by month";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    chart.getLabels().set(rs.getInt("month") - 1, rs.getString("month"));
+                    chart.getData().set(rs.getInt("month") - 1, rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return chart;
+    }
     //Cinema - Dashboard IncomeCine
     public int getIncomeByCine(String cineid) {
         int income = 0;
@@ -305,7 +387,7 @@ public class ReportDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select income as total from \"Income\" where theaterid = '"+theaterid+"'";
+                String sql = "select sum(income) as total from \"Income\" where theaterid = '"+theaterid+"'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -359,7 +441,7 @@ public class ReportDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select numofticket as numTicket from \"Income\" where cineid= '"+ theaterid +"'";
+                String sql = "select sum(numofticket) as numTicket from \"Income\" where theaterid= '"+ theaterid +"'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
