@@ -1,4 +1,3 @@
-
 package dao;
 
 import context.DbContext;
@@ -11,21 +10,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Chart;
-import model.Ticket;
-
 
 public class ReportDAO {
-    
+
     Connection con = null;
     PreparedStatement stm = null;
     ResultSet rs = null;
-    
+
     //Admin - Dashboard Income
     public int getAllIncome() {
         int income = 0;
@@ -108,6 +103,7 @@ public class ReportDAO {
             try {
                 con.close();
                 stm.close();
+                rs.close();
             } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -160,6 +156,7 @@ public class ReportDAO {
             try {
                 con.close();
                 stm.close();
+                rs.close();
             } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -206,8 +203,8 @@ public class ReportDAO {
                         + "  \"Theater\" AS th ON r.theaterid = th.theaterid\n"
                         + "  JOIN\n"
                         + "  \"CinemaSystem\" AS m ON th.cineid = m.cineid\n"
-                        + "  where extract(month from timestamp) = extract(month from current_timestamp) AND EXTRACT(YEAR FROM timestamp) = EXTRACT(YEAR FROM CURRENT_DATE)  and m.cineid = '" + cineid +
-                "' group by day, month";
+                        + "  where extract(month from timestamp) = extract(month from current_timestamp) AND EXTRACT(YEAR FROM timestamp) = EXTRACT(YEAR FROM CURRENT_DATE)  and m.cineid = '" + cineid
+                        + "' group by day, month";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -221,6 +218,7 @@ public class ReportDAO {
             try {
                 con.close();
                 stm.close();
+                rs.close();
             } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -228,7 +226,7 @@ public class ReportDAO {
 
         return chart;
     }
-    
+
     //Theater - Chart - Month
     public Chart chartByMonthTheater(String theaterid) {
         Chart chart = new Chart();
@@ -239,7 +237,6 @@ public class ReportDAO {
                 LocalDate currentDate = LocalDate.now();
                 int year = currentDate.getYear();
                 int month = currentDate.getMonthValue();
-                
 
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, year);
@@ -258,7 +255,7 @@ public class ReportDAO {
                     chart.getLabels().add(formattedDay);
                     chart.getData().add(0);
                 }
-                String sql = "select day, sum(income) as income from \"Income\" where theaterid= '"+theaterid+"' and year = '"+year+"' and month='"+formattedMonth+"' group by day";
+                String sql = "select day, sum(income) as income from \"Income\" where theaterid= '" + theaterid + "' and year = '" + year + "' and month='" + formattedMonth + "' group by day";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -272,6 +269,7 @@ public class ReportDAO {
             try {
                 con.close();
                 stm.close();
+                rs.close();
             } catch (SQLException | NullPointerException ex) {
                 Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -333,7 +331,7 @@ public class ReportDAO {
                     chart.getLabels().add(Integer.toString(i));
                     chart.getData().add(0);
                 }
-                String sql = "select  month as month, sum(income) as income from \"Income\" where theaterid= '"+ theaterid+"' and year = '"+year+"' group by month";
+                String sql = "select  month as month, sum(income) as income from \"Income\" where theaterid= '" + theaterid + "' and year = '" + year + "' group by month";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -354,13 +352,14 @@ public class ReportDAO {
 
         return chart;
     }
+
     //Cinema - Dashboard IncomeCine
     public int getIncomeByCine(String cineid) {
         int income = 0;
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select sum(income) as total from \"Income\" where theaterid = '"+cineid+"'";
+                String sql = "select sum(income) as total from \"Income\" where theaterid = '" + cineid + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -380,14 +379,14 @@ public class ReportDAO {
         }
         return income;
     }
-    
+
     //Cinema - Dashboard IncomeTheater
     public int getIncomeByTheater(String theaterid) {
         int income = 0;
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select sum(income) as total from \"Income\" where theaterid = '"+theaterid+"'";
+                String sql = "select sum(income) as total from \"Income\" where theaterid = '" + theaterid + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -414,34 +413,7 @@ public class ReportDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select sum(numofticket) as numTicket from \"Income\" where cineid= '"+ cineid +"'";
-                stm = con.prepareStatement(sql);
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    number = rs.getInt("numTicket");
-                }
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                con.close();
-                stm.close();
-                rs.close();
-            } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return number;
-    }
-    
-    //Cinema - Dashboard NumberTicket Theater
-    public int getNumberTicketByTheater(String theaterid) {
-        int number = 0;
-        try {
-            con = DbContext.getConnection();
-            if (con != null) {
-                String sql = "select sum(numofticket) as numTicket from \"Income\" where theaterid= '"+ theaterid +"'";
+                String sql = "select sum(numofticket) as numTicket from \"Income\" where cineid= '" + cineid + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -462,25 +434,17 @@ public class ReportDAO {
         return number;
     }
 
-    public Map<Integer, Ticket> getTicket7Days() {
-        Map<Integer, Ticket> map = new HashMap<>();
-        int count = 1;
+    //Cinema - Dashboard NumberTicket Theater
+    public int getNumberTicketByTheater(String theaterid) {
+        int number = 0;
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "SELECT *\n"
-                        + "FROM \"Ticket\"\n"
-                        + "WHERE \"timestamp\" >= CURRENT_TIMESTAMP - INTERVAL '7 days';";
+                String sql = "select sum(numofticket) as numTicket from \"Income\" where theaterid= '" + theaterid + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    Ticket ticket = new Ticket();
-                    ticket.setId(rs.getString("ticketid"));
-                    ticket.setPrice(rs.getInt("price"));
-                    ticket.setEmail(rs.getString("email"));
-                    ticket.setName(rs.getString("name"));
-                    map.put(count, ticket);
-                    count = count + 1;
+                    number = rs.getInt("numTicket");
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -494,6 +458,110 @@ public class ReportDAO {
                 Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return map;
+        return number;
+    }
+
+    //Theater - Chart - 7Day
+    public Chart chartBy7DayTheater(String theaterid) {
+        Chart chart = new Chart();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                LocalDate currentDate = LocalDate.now();
+                int year = currentDate.getYear();
+                int month = currentDate.getMonthValue();
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month - 1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                String formattedMonth = String.format("%02d", month);
+                String sql = "SELECT day, SUM(income) AS income\n"
+                        + "FROM \"Income\"\n"
+                        + "WHERE theaterid = '"+theaterid+"' and year='"+year+"' and month ='"+formattedMonth+"' AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
+                        + "GROUP BY day\n"
+                        + "\n"
+                        + "UNION\n"
+                        + "\n"
+                        + "SELECT TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') AS day, 0 AS income\n"
+                        + "FROM generate_series(0, 6) AS n\n"
+                        + "WHERE TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') NOT IN (\n"
+                        + "    SELECT day\n"
+                        + "    FROM \"Income\"\n"
+                        + "    WHERE theaterid = '"+theaterid+"' and year ='"+year+"' and month ='"+formattedMonth+"'  AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
+                        + "    GROUP BY day\n"
+                        + ")\n"
+                        + "ORDER BY day ASC;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    chart.getLabels().add(rs.getString("day"));
+                    chart.getData().add(rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return chart;
+    }
+    
+    //Cinema - Chart - 7Day
+    public Chart chartBy7DayCine(String cineid) {
+        Chart chart = new Chart();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                LocalDate currentDate = LocalDate.now();
+                int year = currentDate.getYear();
+                int month = currentDate.getMonthValue();
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month - 1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                String formattedMonth = String.format("%02d", month);
+                String sql = "SELECT day, SUM(income) AS income\n"
+                        + "FROM \"Income\"\n"
+                        + "WHERE cineid = '"+cineid+"' and year='"+year+"' and month ='"+formattedMonth+"' AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
+                        + "GROUP BY day\n"
+                        + "\n"
+                        + "UNION\n"
+                        + "\n"
+                        + "SELECT TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') AS day, 0 AS income\n"
+                        + "FROM generate_series(0, 6) AS n\n"
+                        + "WHERE TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') NOT IN (\n"
+                        + "    SELECT day\n"
+                        + "    FROM \"Income\"\n"
+                        + "    WHERE cineid = '"+cineid+"' and year='"+year+"' and month ='"+formattedMonth+"' AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
+                        + "    GROUP BY day\n"
+                        + ")\n"
+                        + "ORDER BY day ASC;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    chart.getLabels().add(rs.getString("day"));
+                    chart.getData().add(rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return chart;
     }
 }
