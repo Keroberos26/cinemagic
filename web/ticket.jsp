@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Thông tin - ${theater.name} - ${order.showtime.movie.title} - <fmt:formatDate value="${order.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${order.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
+        <title>Thông tin - ${theater.name} - ${order.showtime.movie.title} - <fmt:formatDate value="${order.showtime.starttime}" pattern="HH:mm dd/MM/yyyy"/></title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="col-4 text-end">
                                             <div class="mini-text text-uppercase fw-medium">Ngày chiếu</div>
-                                            <div class="fw-bold"><fmt:formatDate value="${order.showtime.showdate}" pattern="dd/MM/yyyy"/></div>
+                                            <div class="fw-bold"><fmt:formatDate value="${order.showtime.starttime}" pattern="dd/MM/yyyy"/></div>
                                         </div>
                                         <div class="col-8">
                                             <div class="mini-text text-uppercase fw-medium">Ghế</div>

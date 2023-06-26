@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Chọn ghế - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> <fmt:formatDate value="${ticket.showtime.showdate}" pattern="dd/MM/yyyy" /></title>
+        <title>Chọn ghế - ${theater.name} - ${ticket.showtime.movie.title} - <fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm dd/MM/yyyy"/></title>
         <%@include file="/general/head.jsp" %>
     </head>
     <body>
@@ -130,7 +130,7 @@
                                     <h5 class="card-title">${ticket.showtime.movie.title}</h5>
                                     <p class="card-subtitle subtitle-text"><fmt:formatDate value="${ticket.showtime.starttime}" pattern="HH:mm"/> 
                                         ~ <fmt:formatDate value="${ticket.showtime.endtime}" pattern="HH:mm"/> · 
-                                        <fmt:formatDate value="${ticket.showtime.showdate}" pattern="EEEE, dd/MM" /></p>
+                                        <fmt:formatDate value="${ticket.showtime.starttime}" pattern="EEEE, dd/MM" /></p>
                                     <div class="card-text mt-3">
                                         <p>Chỗ ngồi <span class="fw-semibold">${ticket.getSeatNum()}</span></p>
                                         <hr>

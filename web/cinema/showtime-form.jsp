@@ -88,6 +88,9 @@
                                 <div class="col-12 col-md-6">
                                     <label for="time" class="form-label">Giờ bắt đầu</label>
                                     <input type="datetime-local" class="form-control" min="<fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm" value="${min}"/>" id="time" name="txtTime" value="<fmt:formatDate pattern="yyyy-MM-dd'T'HH:mm" value="${st.starttime}"/>" required>
+                                    <div class="invalid-feedback">
+                                        Giờ chiếu không khả dụng!
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label for="room" class="form-label">Phòng chiếu</label>
