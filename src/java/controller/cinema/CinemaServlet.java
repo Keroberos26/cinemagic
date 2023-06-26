@@ -20,7 +20,7 @@ public class CinemaServlet extends HttpServlet {
         if (doPost == null) {
             TheaterDAO dao = new TheaterDAO();
             req.setAttribute("theaterList", dao.getTheatersByCinemaId(cinema.getId()));
-            req.getRequestDispatcher("cinema.jsp").forward(req, resp);
+            req.getRequestDispatcher("/cinema/cinema.jsp").forward(req, resp);
         } else {
             doPost(req, resp);
         }

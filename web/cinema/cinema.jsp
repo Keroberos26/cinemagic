@@ -8,6 +8,8 @@
     </head>
     <body>
         <div id="page" class="site">
+            <%@include file="/general/cinema-nav.jsp" %>
+
             <div class="container-lg py-3">
                 <h1 class="text-center text-primary">Chọn rạp</h1>
 
