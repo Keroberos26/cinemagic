@@ -14,8 +14,16 @@
                 <h1 class="mb-3">Thêm rạp chiếu</h1>
                 
                 <div class="box-content">
-                    <form action="/cinema/theater-form" method="post" class="needs-validation" novalidate>
+                    <form action="/cinema/theater-form" method="post" class="needs-validation"  enctype="multipart/form-data" novalidate>
                         <div class="row g-3 mb-3">
+                            <div class="col-12">
+                                <label for="fileImg" class="form-label">Ảnh</label>
+                                <div class="imgFile-form mx-auto">
+                                    <img src="/assets/img/no-theater.jpg" onerror="this.src='/assets/img/no-theater.jpg'" class="thumbnail">
+                                    <input type="file" name="fileImg" id="fileImg" accept="image/gif, image/jpeg, image/png">
+                                    <label for="fileImg" class="icon"><i class="fas fa-camera"></i></label>
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <label for="name" class="form-label">Tên</label>
                                 <input type="text" class="form-control" name="txtName" id="name">
@@ -61,6 +69,6 @@
         </div>
 
         <%@include file="/general/script.jsp" %>
-        <script src="/assets/js/theater.js"></script>
+        <script src="/assets/js/my-account.js"></script>
     </body>
 </html>

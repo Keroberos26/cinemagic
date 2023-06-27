@@ -81,7 +81,7 @@ public class ComboServlet extends HttpServlet {
 
                     String appPath = getServletContext().getRealPath("");
                     File rootDir = new File(appPath).getParentFile().getParentFile();
-                    filename = "\\assets\\img\\combo\\" + filename;
+                    filename = "/assets/img/combo/" + filename;
 
                     String uploadPath = rootDir.getAbsolutePath() + "\\web" + filename;
 

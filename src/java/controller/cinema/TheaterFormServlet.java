@@ -50,7 +50,7 @@ public class TheaterFormServlet extends HttpServlet {
 
                     String appPath = getServletContext().getRealPath("");
                     File rootDir = new File(appPath).getParentFile().getParentFile();
-                    filename = "\\assets\\img\\theater\\" + filename;
+                    filename = "/assets/img/theater/" + filename;
 
                     String uploadPath = rootDir.getAbsolutePath() + "\\web" + filename;
 
@@ -64,7 +64,7 @@ public class TheaterFormServlet extends HttpServlet {
                 } else {
                     filename = "/assets/img/theater.jpg";
                 }
-                thDAO.addTheater(id, name, city, district, ward, street, filename, cinema.getId());
+                thDAO.addTheater(id, name, city, district, ward, street, "", cinema.getId());
                 break;
             case "update":
                 break;
