@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Chart;
+import model.Movie;
 
 public class ReportDAO {
 
@@ -35,14 +37,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return income;
@@ -63,14 +65,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return count;
@@ -98,14 +100,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -151,14 +153,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -213,14 +215,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -264,14 +266,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -308,13 +310,13 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -340,13 +342,13 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -367,14 +369,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return income;
@@ -394,14 +396,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return income;
@@ -421,14 +423,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return number;
@@ -448,14 +450,14 @@ public class ReportDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return number;
@@ -466,48 +468,39 @@ public class ReportDAO {
         Chart chart = new Chart();
         try {
             con = DbContext.getConnection();
+            LocalDate currentDate = LocalDate.now();
+
+            // Tạo định dạng cho ngày
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM");
+
+            // Lấy 7 ngày gần nhất
+            for (int i = 6; i >= 0; i--) {
+                LocalDate previousDate = currentDate.minusDays(i);
+                String formattedDate = previousDate.format(dateFormatter);
+                chart.getLabels().add(formattedDate);
+                chart.getData().add(0);
+            }
             if (con != null) {
-                LocalDate currentDate = LocalDate.now();
-                int year = currentDate.getYear();
-                int month = currentDate.getMonthValue();
-                
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, year);
-                cal.set(Calendar.MONTH, month - 1);
-                cal.set(Calendar.DAY_OF_MONTH, 1);
-                String formattedMonth = String.format("%02d", month);
-                String sql = "SELECT day, SUM(income) AS income\n"
-                        + "FROM \"Income\"\n"
-                        + "WHERE theaterid = '"+theaterid+"' and year='"+year+"' and month ='"+formattedMonth+"' AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
-                        + "GROUP BY day\n"
-                        + "\n"
-                        + "UNION\n"
-                        + "\n"
-                        + "SELECT TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') AS day, 0 AS income\n"
-                        + "FROM generate_series(0, 6) AS n\n"
-                        + "WHERE TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') NOT IN (\n"
-                        + "    SELECT day\n"
-                        + "    FROM \"Income\"\n"
-                        + "    WHERE theaterid = '"+theaterid+"' and year ='"+year+"' and month ='"+formattedMonth+"'  AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
-                        + "    GROUP BY day\n"
-                        + ")\n"
-                        + "ORDER BY day ASC;";
+                String sql = "select concat(day, '/', month) as date, income from \"Income\"\n"
+                        + "where concat(year, '/', month, '/', day) >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'yyyy/mm/dd')\n"
+                        + "and theaterid = '" + theaterid + "'\n"
+                        + "order by day, month, year";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    chart.getLabels().add(rs.getString("day"));
-                    chart.getData().add(rs.getInt("income"));
+                    int index = chart.getLabels().indexOf(rs.getString("date"));
+                    chart.getData().set(index, rs.getInt("income"));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return chart;
@@ -519,6 +512,109 @@ public class ReportDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
+                con = DbContext.getConnection();
+                LocalDate currentDate = LocalDate.now();
+
+                // Tạo định dạng cho ngày
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM");
+
+                // Lấy 7 ngày gần nhất
+                for (int i = 6; i >= 0; i--) {
+                    LocalDate previousDate = currentDate.minusDays(i);
+                    String formattedDate = previousDate.format(dateFormatter);
+                    chart.getLabels().add(formattedDate);
+                    chart.getData().add(0);
+                }
+                String sql = "select concat(day, '/', month) as date, sum(income) as income from \"Income\"\n"
+                        + "where concat(year, '/', month, '/', day) >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'yyyy/mm/dd')\n"
+                        + "and cineid = '" + cineid + "'\n"
+                        + "group by day, month, year\n"
+                        + "order by day, month, year";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int index = chart.getLabels().indexOf(rs.getString("date"));
+                    chart.getData().set(index, rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return chart;
+    }
+
+    //Theater - List - Top5Movie
+    public List<Movie> getTop5MovieByTheater(String theaterid) {
+        List list = new ArrayList();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                LocalDate currentDate = LocalDate.now();
+                int year = currentDate.getYear();
+                int month = currentDate.getMonthValue();
+                
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month - 1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                String formattedMonth = String.format("%02d", month);
+                String sql = "SELECT m.*, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"MovieWithGenres\" m on i.movieid = m.movieid\n"
+                        + "where theaterid = '"+theaterid+"' and year='"+year+"' and month='"+formattedMonth+"'\n"
+                        + "GROUP BY m.movieid, m.title, m.description, m.poster, m.duration, m.directors, m.actors, m.rating, m.country, m.status, m.genres, m.releasedate, m.agerestricted, m.maxdate, m.trailer\n"
+                        + "ORDER BY ticket_count DESC\n"
+                        + "LIMIT 5;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Movie(
+                            rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status")
+                    ));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    //Cinema - List - Top5Movie
+    public List<Movie> getTop5MovieByCine(String cineid) {
+        List list = new ArrayList();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
                 LocalDate currentDate = LocalDate.now();
                 int year = currentDate.getYear();
                 int month = currentDate.getMonthValue();
@@ -528,40 +624,44 @@ public class ReportDAO {
                 cal.set(Calendar.MONTH, month - 1);
                 cal.set(Calendar.DAY_OF_MONTH, 1);
                 String formattedMonth = String.format("%02d", month);
-                String sql = "SELECT day, SUM(income) AS income\n"
-                        + "FROM \"Income\"\n"
-                        + "WHERE cineid = '"+cineid+"' and year='"+year+"' and month ='"+formattedMonth+"' AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
-                        + "GROUP BY day\n"
-                        + "\n"
-                        + "UNION\n"
-                        + "\n"
-                        + "SELECT TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') AS day, 0 AS income\n"
-                        + "FROM generate_series(0, 6) AS n\n"
-                        + "WHERE TO_CHAR(date_trunc('day', (CURRENT_DATE - INTERVAL '6 days')::date) + (n || ' days')::interval, 'DD') NOT IN (\n"
-                        + "    SELECT day\n"
-                        + "    FROM \"Income\"\n"
-                        + "    WHERE cineid = '"+cineid+"' and year='"+year+"' and month ='"+formattedMonth+"' AND day >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'DD')\n"
-                        + "    GROUP BY day\n"
-                        + ")\n"
-                        + "ORDER BY day ASC;";
+                String sql = "SELECT m.*, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"MovieWithGenres\" m on i.movieid = m.movieid\n"
+                        + "where cineid = '"+cineid+"' and year='"+year+"' and month='"+formattedMonth+"'\n"
+                        + "GROUP BY m.movieid, m.title, m.description, m.poster, m.duration, m.directors, m.actors, m.rating, m.country, m.status, m.genres, m.releasedate, m.agerestricted, m.maxdate, m.trailer\n"
+                        + "ORDER BY ticket_count DESC\n"
+                        + "LIMIT 5;";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    chart.getLabels().add(rs.getString("day"));
-                    chart.getData().add(rs.getInt("income"));
+                    list.add(new Movie(
+                            rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status")
+                    ));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 con.close();
                 stm.close();
                 rs.close();
             } catch (SQLException | NullPointerException ex) {
-                Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return chart;
+        return list;
     }
 }

@@ -54,6 +54,7 @@
                                     <select class="form-select" id="chartBy">
                                         <option value="year" selected >Doanh thu theo năm</option>
                                         <option value="month">Doanh thu theo tháng</option>
+                                        <option value="day">Doanh thu 7 ngày gần nhất</option>
                                     </select>
                                     <canvas id="revenueChart"></canvas>
                                 </div>

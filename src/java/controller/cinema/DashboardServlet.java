@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.List;
 import model.Chart;
 import model.Theater;
 
@@ -30,7 +31,10 @@ public class DashboardServlet extends HttpServlet {
 
         int countTheater = rDao.getNumberTicketByTheater(theater.getId());
         req.setAttribute("countCine", countTheater);
-
+        
+        List movieList = rDao.getTop5MovieByTheater(theater.getId());
+        req.setAttribute("movieList", movieList);
+        
         req.getRequestDispatcher("/cinema/dashboard.jsp").forward(req, resp);
     }
 
@@ -53,6 +57,9 @@ public class DashboardServlet extends HttpServlet {
                 case "month":
                     chart = rDao.chartByMonthTheater(theater.getId());
                     break;
+                case "day":
+                    chart = rDao.chartBy7DayTheater(theater.getId());
+                    break;
                 default:
                     throw new AssertionError();
             }
@@ -64,5 +71,4 @@ public class DashboardServlet extends HttpServlet {
             out.write(gson.toJson(chart));
         }
     }
-
 }
