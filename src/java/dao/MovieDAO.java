@@ -380,8 +380,7 @@ public class MovieDAO {
         }
     }
 
-    public String addMovie(String title, String des, String poster, int duration, Date releaseDate, String actors, String directors, String country, String trailer, int ageRestricted) {
-        String id = UUID.randomUUID().toString();
+    public String addMovie(String id, String title, String des, String poster, int duration, Date releaseDate, String actors, String directors, String country, String trailer, int ageRestricted) {
         try {
             con = DbContext.getConnection();
             if (con != null) {

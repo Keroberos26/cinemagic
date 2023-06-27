@@ -80,7 +80,7 @@ public class MovieFormServlet extends HttpServlet {
                 } else {
                     filename = "/assets/img/no-poster.jpg";
                 }
-                String movieId = dao.addMovie(title, description, filename, duration, releaseDate, actors, directors, country, trailer, age);
+                String movieId = dao.addMovie(id, title, description, filename, duration, releaseDate, actors, directors, country, trailer, age);
                 for (int i = 0; i < genre.length; i++) {
                     dao.addGenresToMovie(genre[i], movieId);
                 }
