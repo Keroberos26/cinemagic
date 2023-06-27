@@ -120,6 +120,14 @@
         <servlet-name>MovieFormServlet</servlet-name>
         <servlet-class>controller.admin.MovieFormServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StatisticalServlet</servlet-name>
+        <servlet-class>controller.cinema.StatisticalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TheaterFormServlet</servlet-name>
+        <servlet-class>controller.cinema.TheaterFormServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -231,6 +239,14 @@
     <servlet-mapping>
         <servlet-name>MovieFormServlet</servlet-name>
         <url-pattern>/admin/movie-form</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatisticalServlet</servlet-name>
+        <url-pattern>/cinema/statistical</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TheaterFormServlet</servlet-name>
+        <url-pattern>/cinema/theater-form</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

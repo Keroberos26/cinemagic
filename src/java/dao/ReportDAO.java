@@ -470,7 +470,7 @@ public class ReportDAO {
                 LocalDate currentDate = LocalDate.now();
                 int year = currentDate.getYear();
                 int month = currentDate.getMonthValue();
-
+                
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, year);
                 cal.set(Calendar.MONTH, month - 1);
@@ -512,7 +512,7 @@ public class ReportDAO {
         }
         return chart;
     }
-    
+
     //Cinema - Chart - 7Day
     public Chart chartBy7DayCine(String cineid) {
         Chart chart = new Chart();
