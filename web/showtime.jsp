@@ -574,6 +574,5 @@
 
         <%@include file="/general/script.jsp" %>
         <script src="/assets/js/showtime.js"></script>
-        <!--<script src="/assets/js/address.js"></script>-->
     </body>
 </html>

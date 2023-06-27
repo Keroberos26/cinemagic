@@ -128,4 +128,96 @@ public class TheaterDAO {
         }
         return list;
     }
+    
+    public boolean addTheater(String id, String name, String city, String district, String ward, String street, String image, String cineid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "insert into \"Theater\"(theaterid, name, street, ward, district, city, image, cineid) "
+                        + "values ('" + id + "', ?, ?, ?, ?, ?, ? '" + cineid + "')";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, street);
+                stm.setString(3, ward);
+                stm.setString(5, district);
+                stm.setString(6, city);
+                stm.setString(7, image);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+    
+    public boolean updateTheater(String id, String name, String street, String ward, String district, String city, String image, String cineid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Theater\" set name = ?, street = ?, ward = ?, district = ?, city = ?";
+                        
+                if (!image.isBlank()) {
+                    sql += ", image = ?";
+                }
+                sql += " where theaterid ='" + id + "' and cineid ='" + cineid + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, street);
+                stm.setString(4, ward);
+                stm.setString(5, district);
+                stm.setString(6, city);
+                if (!image.isBlank()) {
+                    stm.setString(7, image);
+                }
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+    
+    public boolean deleteTheaterById(String theaterid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "delete from \"Theater\" where theaterid = '" + theaterid+ "'";
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(TheaterDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
 }

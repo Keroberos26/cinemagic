@@ -23,16 +23,19 @@
                             <div class="col-12 col-md-4">
                                 <label for="city" class="form-label">Thành phố / Tỉnh</label>
                                 <select class="form-select" aria-label="Default select example" id="city" name="sltCity">
+                                    <option selected disabled value="">Chọn khu vực</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="district" class="form-label">Quận / Huyện</label>
                                 <select class="form-select" aria-label="Default select example" id="district" name="sltDistrict">
+                                    <option selected disabled value="">Chọn khu vực</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-4">
                                 <label for="ward" class="form-label">Phường / Xã</label>
                                 <select class="form-select" aria-label="Default select example" id="ward" name="sltWard">
+                                    <option selected disabled value="">Chọn khu vực</option>
                                 </select>
                             </div>
                             <div class="col-12">
@@ -58,5 +61,6 @@
         </div>
 
         <%@include file="/general/script.jsp" %>
+        <script src="/assets/js/theater.js"></script>
     </body>
 </html>
