@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Chart;
+import model.Movie;
 
 public class ReportDAO {
 
@@ -526,7 +527,7 @@ public class ReportDAO {
                 }
                 String sql = "select concat(day, '/', month) as date, sum(income) as income from \"Income\"\n"
                         + "where concat(year, '/', month, '/', day) >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'yyyy/mm/dd')\n"
-                        + "and cineid = '"+cineid+"'\n"
+                        + "and cineid = '" + cineid + "'\n"
                         + "group by day, month, year\n"
                         + "order by day, month, year";
                 stm = con.prepareStatement(sql);
@@ -548,5 +549,119 @@ public class ReportDAO {
             }
         }
         return chart;
+    }
+
+    //Theater - List - Top5Movie
+    public List<Movie> getTop5MovieByTheater(String theaterid) {
+        List list = new ArrayList();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                LocalDate currentDate = LocalDate.now();
+                int year = currentDate.getYear();
+                int month = currentDate.getMonthValue();
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month - 1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                String formattedMonth = String.format("%02d", month);
+                String sql = "SELECT m.*, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"MovieWithGenres\" m on i.movieid = m.movieid\n"
+                        + "where theaterid = '"+theaterid+"' and year='"+year+"' and month='"+formattedMonth+"'\n"
+                        + "GROUP BY m.movieid, m.title, m.description, m.poster, m.duration, m.directors, m.actors, m.rating, m.country, m.status, m.genres, m.releasedate, m.agerestricted, m.maxdate, m.trailer\n"
+                        + "ORDER BY ticket_count DESC\n"
+                        + "LIMIT 5;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Movie(
+                            rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status")
+                    ));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    //Cinema - List - Top5Movie
+    public List<Movie> getTop5MovieByCine(String cineid) {
+        List list = new ArrayList();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                LocalDate currentDate = LocalDate.now();
+                int year = currentDate.getYear();
+                int month = currentDate.getMonthValue();
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month - 1);
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                String formattedMonth = String.format("%02d", month);
+                String sql = "SELECT m.*, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"MovieWithGenres\" m on i.movieid = m.movieid\n"
+                        + "where cineid = '"+cineid+"' and year='"+year+"' and month='"+formattedMonth+"'\n"
+                        + "GROUP BY m.movieid, m.title, m.description, m.poster, m.duration, m.directors, m.actors, m.rating, m.country, m.status, m.genres, m.releasedate, m.agerestricted, m.maxdate, m.trailer\n"
+                        + "ORDER BY ticket_count DESC\n"
+                        + "LIMIT 5;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Movie(
+                            rs.getString("movieid"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("poster"),
+                            rs.getInt("duration"),
+                            rs.getDate("releaseDate"),
+                            rs.getDouble("rating"),
+                            rs.getString("genres"),
+                            rs.getString("actors"),
+                            rs.getString("directors"),
+                            rs.getString("country"),
+                            rs.getString("trailer"),
+                            rs.getInt("ageRestricted"),
+                            rs.getString("status")
+                    ));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
     }
 }
