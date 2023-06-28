@@ -3,10 +3,10 @@ const ctx = document.getElementById("revenueChart").getContext('2d');
 var lineChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [],
+            labels: ['1', '2', '3', '4', '5'],
             datasets: [{
                 label: 'Doanh thu (VNĐ)',
-                data: [],
+                data: [1, 2, 4, 2, 3],
             }]
         },
         options: {
