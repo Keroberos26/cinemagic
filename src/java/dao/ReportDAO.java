@@ -11,11 +11,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Chart;
 import model.Movie;
+import model.Theater;
 
 public class ReportDAO {
 
@@ -361,7 +364,7 @@ public class ReportDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select sum(income) as total from \"Income\" where theaterid = '" + cineid + "'";
+                String sql = "select sum(income) as total from \"Income\" where cineid = '" + cineid + "'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
@@ -550,6 +553,50 @@ public class ReportDAO {
         }
         return chart;
     }
+    
+    //Admin - Chart - 7Day
+    public Chart chartBy7Day() {
+        Chart chart = new Chart();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                LocalDate currentDate = LocalDate.now();
+
+                // Tạo định dạng cho ngày
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM");
+
+                // Lấy 7 ngày gần nhất
+                for (int i = 6; i >= 0; i--) {
+                    LocalDate previousDate = currentDate.minusDays(i);
+                    String formattedDate = previousDate.format(dateFormatter);
+                    chart.getLabels().add(formattedDate);
+                    chart.getData().add(0);
+                }
+                String sql = "select concat(day, '/', month) as date, sum(income) as income from \"Income\"\n"
+                        + "where concat(year, '/', month, '/', day) >= TO_CHAR(CURRENT_DATE - INTERVAL '6 days', 'yyyy/mm/dd')\n"
+                        + "group by day, month, year\n"
+                        + "order by day, month, year";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int index = chart.getLabels().indexOf(rs.getString("date"));
+                    chart.getData().set(index, rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return chart;
+    }
 
     //Theater - List - Top5Movie
     public List<Movie> getTop5MovieByTheater(String theaterid) {
@@ -561,7 +608,7 @@ public class ReportDAO {
                 LocalDate currentDate = LocalDate.now();
                 int year = currentDate.getYear();
                 int month = currentDate.getMonthValue();
-                
+
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, year);
                 cal.set(Calendar.MONTH, month - 1);
@@ -569,7 +616,7 @@ public class ReportDAO {
                 String formattedMonth = String.format("%02d", month);
                 String sql = "SELECT m.*, sum(numofticket) as ticket_count\n"
                         + "FROM \"Income\" i join \"MovieWithGenres\" m on i.movieid = m.movieid\n"
-                        + "where theaterid = '"+theaterid+"' and year='"+year+"' and month='"+formattedMonth+"'\n"
+                        + "where theaterid = '" + theaterid + "' and year='" + year + "' and month='" + formattedMonth + "'\n"
                         + "GROUP BY m.movieid, m.title, m.description, m.poster, m.duration, m.directors, m.actors, m.rating, m.country, m.status, m.genres, m.releasedate, m.agerestricted, m.maxdate, m.trailer\n"
                         + "ORDER BY ticket_count DESC\n"
                         + "LIMIT 5;";
@@ -607,7 +654,7 @@ public class ReportDAO {
         }
         return list;
     }
-    
+
     //Cinema - List - Top5Movie
     public List<Movie> getTop5MovieByCine(String cineid) {
         List list = new ArrayList();
@@ -626,7 +673,7 @@ public class ReportDAO {
                 String formattedMonth = String.format("%02d", month);
                 String sql = "SELECT m.*, sum(numofticket) as ticket_count\n"
                         + "FROM \"Income\" i join \"MovieWithGenres\" m on i.movieid = m.movieid\n"
-                        + "where cineid = '"+cineid+"' and year='"+year+"' and month='"+formattedMonth+"'\n"
+                        + "where cineid = '" + cineid + "' and year='" + year + "' and month='" + formattedMonth + "'\n"
                         + "GROUP BY m.movieid, m.title, m.description, m.poster, m.duration, m.directors, m.actors, m.rating, m.country, m.status, m.genres, m.releasedate, m.agerestricted, m.maxdate, m.trailer\n"
                         + "ORDER BY ticket_count DESC\n"
                         + "LIMIT 5;";
@@ -663,5 +710,44 @@ public class ReportDAO {
             }
         }
         return list;
+    }
+
+    //Cinema - List - Top10Theater
+    public Map<Theater, Integer> getTopTheaterByCine(String cineid) {
+        Map<Theater, Integer> map = new LinkedHashMap<>();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                String sql = "SELECT th.*, sum(income) as income, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"Theater\" th on i.theaterid = th.theaterid\n"
+                        + "where i.cineid = '"+cineid+"'\n"
+                        + "GROUP BY th.theaterid, th.name, th.street, th.ward, th.district, th.city, th.cineid, th.image\n"
+                        + "ORDER BY income DESC";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    map.put(new Theater(rs.getString("theaterid"),
+                                        rs.getString("name"),
+                                        rs.getString("street"),
+                                        rs.getString("ward"),
+                                        rs.getString("district"),
+                                        rs.getString("city"),
+                                        rs.getString("image"),
+                                        rs.getString("cineid")), rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return map;
     }
 }

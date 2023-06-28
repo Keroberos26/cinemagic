@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -52,12 +53,13 @@
                             <select class="form-select" id="chartBy">
                                 <option value="year" selected >Doanh thu theo năm</option>
                                 <option value="month">Doanh thu theo tháng</option>
+                                <option value="day">Doanh thu 7 ngày gần nhất</option>
                             </select>
                             <canvas id="revenueChart"></canvas>
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12 ">
                         <div class="box-content"> 
                             <h3>Top rạp phim theo doanh thu</h3>
                             <div class="table-responsive">
@@ -68,19 +70,16 @@
                                             <th scope="col">Rạp</th>
                                             <th scope="col">Địa chỉ</th>
                                             <th scope="col">Tỉnh / Thành phố</th>
-                                            <th scope="col">Số vé bán</th>
                                             <th scope="col">Doanh thu</th>
-                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach begin="0" end="9" var="t" varStatus="rank">
+                                        <c:forEach items="${theaterList}" var="t" varStatus="rank">
                                             <tr>
                                                 <td>${rank.count}</td>
-                                                <td><a href="/cinema?post=true&id=">Đà Nẵng</a></td>
-                                                <td>Chrome OS</td>
-                                                <td>Chrome OS</td>
-                                                <td>10</td>
-                                                <td class="price">1000000</td>
+                                                <td><a href="/cinema?post=true&id=">${t.key.name}</a></td>
+                                                <td>${t.key.street}</td>
+                                                <td>${t.key.city}</td>
+                                                <td class="price">${t.value}</td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
