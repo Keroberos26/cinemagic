@@ -132,6 +132,10 @@
         <servlet-name>PartnerServlet</servlet-name>
         <servlet-class>controller.cinema.PartnerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountServlet</servlet-name>
+        <servlet-class>controller.admin.AccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -255,6 +259,10 @@
     <servlet-mapping>
         <servlet-name>PartnerServlet</servlet-name>
         <url-pattern>/admin/cinema</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountServlet</servlet-name>
+        <url-pattern>/admin/account</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

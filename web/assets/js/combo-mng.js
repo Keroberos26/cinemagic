@@ -30,8 +30,9 @@ $('#addCombo').click(function() {
 });
 
 $('#delete').click(function(e) {
-    e.preventDefault();
     if (confirm('Bạn có chắc chắn xóa combo này không?')) {
         $('#comboModal form').submit();
+    } else {
+        e.preventDefault();
     }
 })

@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/account-mng" class="p-3">
+                <a href="/admin/account" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-user-gear fa-lg"></i></span>Quản lý tài khoản
                 </a>
 

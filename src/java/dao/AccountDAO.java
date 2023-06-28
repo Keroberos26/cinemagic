@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -265,5 +267,41 @@ public class AccountDAO {
             }
         }
         return acc;
+    }
+    
+    public List<Account> getAccounts() {
+        List<Account> list = new ArrayList<>();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select * from \"Account\"";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    list.add(new Account(rs.getString("accid"),
+                            rs.getString("email"),
+                            rs.getString("password"),
+                            rs.getString("role"),
+                            rs.getString("name"),
+                            rs.getString("phone"),
+                            rs.getString("city"),
+                            rs.getString("district"),
+                            rs.getString("ward"),
+                            rs.getString("avatar")));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
     }
 }
