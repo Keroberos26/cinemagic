@@ -28,3 +28,10 @@ $('#addCombo').click(function() {
     if (!modal.find('#delete').hasClass('d-none'))
         modal.find('#delete').addClass('d-none');
 });
+
+$('#delete').click(function(e) {
+    e.preventDefault();
+    if (confirm('Bạn có chắc chắn xóa combo này không?')) {
+        $('#comboModal form').submit();
+    }
+})

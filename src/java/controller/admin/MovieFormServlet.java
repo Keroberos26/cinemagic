@@ -66,7 +66,7 @@ public class MovieFormServlet extends HttpServlet {
 
                     String appPath = getServletContext().getRealPath("");
                     File rootDir = new File(appPath).getParentFile().getParentFile();
-                    filename = "\\assets\\img\\poster\\" + filename;
+                    filename = "/assets/img/poster/" + filename;
 
                     String uploadPath = rootDir.getAbsolutePath() + "\\web" + filename;
 
