@@ -3,6 +3,7 @@ package controller.cinema;
 import dao.TheaterDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,8 +14,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.UUID;
 import model.CinemaSystem;
-import model.Theater;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
 public class TheaterFormServlet extends HttpServlet {
 
     @Override
@@ -35,7 +36,6 @@ public class TheaterFormServlet extends HttpServlet {
         Part part = req.getPart("fileImg");
         String filename = part.getSubmittedFileName();
         CinemaSystem cinema = (CinemaSystem) session.getAttribute("cinema");
-        System.out.println(cinema + "aaaaaaaaaaaaaaaaaa");
 
         TheaterDAO thDAO = new TheaterDAO();
 
@@ -62,9 +62,9 @@ public class TheaterFormServlet extends HttpServlet {
                     fos.write(data);
                     fos.close();
                 } else {
-                    filename = "/assets/img/theater.jpg";
+                    filename = "/assets/img/no-theater.jpg";
                 }
-                thDAO.addTheater(id, name, city, district, ward, street, "", cinema.getId());
+                thDAO.addTheater(id, name, city, district, ward, street, filename, cinema.getId());
                 break;
             case "update":
                 break;
@@ -74,6 +74,7 @@ public class TheaterFormServlet extends HttpServlet {
                 throw new AssertionError();
 
         }
+        resp.sendRedirect("/cinema");
     }
 
 }

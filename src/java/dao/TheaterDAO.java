@@ -135,15 +135,15 @@ public class TheaterDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "insert into \"Theater\"(theaterid, name, street, ward, district, city, image, cineid) "
-                        + "values ('" + id + "', ?, ?, ?, ?, ?, ? '" + cineid + "')";
+                String sql = "insert into \"Theater\"(theaterid, name, street, ward, district, city, image, cineid)"
+                        + "values ('" + id + "', ?, ?, ?, ?, ?, ?, '" + cineid + "')";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, street);
                 stm.setString(3, ward);
-                stm.setString(5, district);
-                stm.setString(6, city);
-                stm.setString(7, image);
+                stm.setString(4, district);
+                stm.setString(5, city);
+                stm.setString(6, image);
                 stm.execute();
                 success = true;
             }
@@ -175,11 +175,11 @@ public class TheaterDAO {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, street);
-                stm.setString(4, ward);
-                stm.setString(5, district);
-                stm.setString(6, city);
+                stm.setString(3, ward);
+                stm.setString(4, district);
+                stm.setString(5, city);
                 if (!image.isBlank()) {
-                    stm.setString(7, image);
+                    stm.setString(6, image);
                 }
                 stm.executeUpdate();
                 success = true;

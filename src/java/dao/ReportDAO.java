@@ -305,7 +305,7 @@ public class ReportDAO {
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    chart.getLabels().set(rs.getInt("month") - 1, rs.getString("month"));
+                    chart.getLabels().set(rs.getInt("month") - 1, Integer.toString(rs.getInt("month")));
                     chart.getData().set(rs.getInt("month") - 1, rs.getInt("income"));
                 }
             }
@@ -337,7 +337,7 @@ public class ReportDAO {
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    chart.getLabels().set(rs.getInt("month") - 1, rs.getString("month"));
+                    chart.getLabels().set(rs.getInt("month") - 1, Integer.toString(rs.getInt("month")));
                     chart.getData().set(rs.getInt("month") - 1, rs.getInt("income"));
                 }
             }
