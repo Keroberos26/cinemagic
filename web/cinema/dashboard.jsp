@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="right text-end">
                                             <p>Doanh thu</p>
-                                            <h2 class="price"><fmt:formatNumber value="${incomeCine}" pattern="#,###" /></h2>
+                                            <h2 class="price"><fmt:formatNumber value="${incomeTheater}" pattern="#,###" /></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="right text-end">
                                             <p>Đặt vé</p>
-                                            <h2>${countCine}</h2>
+                                            <h2>${countTheater}</h2>
                                         </div>
                                     </div>
                                 </div>

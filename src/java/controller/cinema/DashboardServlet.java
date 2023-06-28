@@ -27,10 +27,10 @@ public class DashboardServlet extends HttpServlet {
         ReportDAO rDao = new ReportDAO();
 
         int incomeTheater = rDao.getIncomeByTheater(theater.getId());
-        req.setAttribute("incomeCine", incomeTheater);
+        req.setAttribute("incomeTheater", incomeTheater);
 
         int countTheater = rDao.getNumberTicketByTheater(theater.getId());
-        req.setAttribute("countCine", countTheater);
+        req.setAttribute("countTheater", countTheater);
         
         List movieList = rDao.getTop5MovieByTheater(theater.getId());
         req.setAttribute("movieList", movieList);
