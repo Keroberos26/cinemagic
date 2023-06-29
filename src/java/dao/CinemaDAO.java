@@ -211,12 +211,12 @@ public class CinemaDAO {
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "update \"CinemaSystem\" set name = ?, description = ?";
+                String sql = "update \"CinemaSystem\" set name = ?, description = ?, accid = '"+accid+"'";
 
                 if (!logo.isBlank()) {
                     sql += ", logo = ?";
                 }
-                sql += " where cineid ='" + id + "' and accid ='" + accid + "'";
+                sql += " where cineid ='" + id + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, description);

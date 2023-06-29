@@ -22,7 +22,7 @@ public class PartnerServlet extends HttpServlet {
         CinemaDAO cineDao = new CinemaDAO();
         AccountDAO accDao = new AccountDAO();
 
-        req.setAttribute("listAcc", accDao.getEmailByRoleC());
+        req.setAttribute("listAcc", accDao.getAccountByRole("C"));
         
         req.setAttribute("cinemaList", cineDao.listCinema());
         req.getRequestDispatcher("/admin/partner.jsp").forward(req, resp);
@@ -43,11 +43,11 @@ public class PartnerServlet extends HttpServlet {
 
         switch (action) {
             case "add":
-                String id = UUID.randomUUID().toString();
+                cinemaid = UUID.randomUUID().toString();
                 if (!filename.isBlank()) {
                     int index = filename.lastIndexOf(".");
                     String ext = filename.substring(index + 1);
-                    filename = id + "." + ext;
+                    filename = cinemaid + "." + ext;
 
                     String appPath = getServletContext().getRealPath("");
                     File rootDir = new File(appPath).getParentFile().getParentFile();
@@ -65,7 +65,7 @@ public class PartnerServlet extends HttpServlet {
                 } else {
                     filename = "/assets/img/no-theater.jpg";
                 }
-                cineDao.addCinemaSystem(id, name, filename, des, accid);
+                cineDao.addCinemaSystem(cinemaid, name, filename, des, accid);
                 break;
             case "update":
                 if (!filename.isBlank()) {
@@ -87,7 +87,7 @@ public class PartnerServlet extends HttpServlet {
                     fos.write(data);
                     fos.close();
                 }
-                cineDao.updateCinemaSystem(cinemaid, name, filename, des, accid);
+                System.out.println(cineDao.updateCinemaSystem(cinemaid, name, filename, des, accid));
                 break;
             case "delete":
                 cineDao.deleteCinemaSystemById(cinemaid);

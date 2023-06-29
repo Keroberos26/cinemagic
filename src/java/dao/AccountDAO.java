@@ -304,13 +304,13 @@ public class AccountDAO {
         return list;
     }
         
-    public List<Account> getEmailByRoleC(){
+    public List<Account> getAccountByRole(String role){
         List<Account> account = new ArrayList();
         
         try {
             con = DbContext.getConnection();
             if (con != null) {
-                String sql = "select accid, password, name, email, role, phone, ward, district, city, avatar  from \"Account\" where role ='C'";
+                String sql = "select accid, password, name, email, role, phone, ward, district, city, avatar  from \"Account\" where role ='"+role+"'";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
