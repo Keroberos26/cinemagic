@@ -66,10 +66,6 @@ public class TheaterFormServlet extends HttpServlet {
                 }
                 thDAO.addTheater(id, name, city, district, ward, street, filename, cinema.getId());
                 break;
-            case "update":
-                break;
-            case "delete":
-                break;
             default:
                 throw new AssertionError();
 

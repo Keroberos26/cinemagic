@@ -160,7 +160,7 @@ public class TheaterDAO {
         return success;
     }
     
-    public boolean updateTheater(String id, String name, String street, String ward, String district, String city, String image, String cineid) {
+    public boolean updateTheater(String id, String name, String street, String ward, String district, String city, String image) {
         boolean success = false;
 
         try {
@@ -171,7 +171,7 @@ public class TheaterDAO {
                 if (!image.isBlank()) {
                     sql += ", image = ?";
                 }
-                sql += " where theaterid ='" + id + "' and cineid ='" + cineid + "'";
+                sql += " where theaterid ='" + id + "'";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, name);
                 stm.setString(2, street);
