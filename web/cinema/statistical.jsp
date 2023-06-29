@@ -79,7 +79,7 @@
                                                 <td><a href="/cinema?post=true&id=">${t.key.name}</a></td>
                                                 <td>${t.key.street}</td>
                                                 <td>${t.key.city}</td>
-                                                <td class="price">${t.value}</td>
+                                                <td class="price"><fmt:formatNumber value="${t.value}" pattern="#,###" /></td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>

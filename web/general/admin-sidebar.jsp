@@ -44,17 +44,6 @@
                 <hr>
             </li>
             <li>
-                <a href="#" class="p-3">
-                    <span class="icon pe-4"><i class="fa-solid fa-clock-rotate-left fa-lg"></i></span>Lịch sử đặt vé
-                </a>
-                <hr>
-            </li>
-            <li>
-                <a href="#" class="p-3">
-                    <span class="icon pe-4"><i class="fa-solid fa-building-user fa-lg"></i></span>Thông tin rạp phim
-                </a>
-            </li>
-            <li>
                 <a href="/logout" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span>Đăng xuất
                 </a>

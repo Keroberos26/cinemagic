@@ -52,7 +52,7 @@
                 <hr>
             </li>
             <li>
-                <a href="#" class="p-3">
+                <a href="/cinema/theater-info" class="p-3">
                     <span class="icon pe-4"><i class="fa-solid fa-building-user fa-lg"></i></span>Thông tin rạp phim
                 </a>
             </li>

@@ -136,6 +136,14 @@
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>controller.admin.AccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CinemaInfoServlet</servlet-name>
+        <servlet-class>controller.cinema.CinemaInfoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TheaterInfoServlet</servlet-name>
+        <servlet-class>controller.cinema.TheaterInfoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -263,6 +271,14 @@
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
         <url-pattern>/admin/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CinemaInfoServlet</servlet-name>
+        <url-pattern>/cinema/info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TheaterInfoServlet</servlet-name>
+        <url-pattern>/cinema/theater-info</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
