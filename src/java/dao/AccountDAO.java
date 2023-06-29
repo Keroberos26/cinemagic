@@ -271,7 +271,6 @@ public class AccountDAO {
     
     public List<Account> getAccounts() {
         List<Account> list = new ArrayList<>();
-        
         try {
             con = DbContext.getConnection();
             if (con != null) {
@@ -289,6 +288,42 @@ public class AccountDAO {
                             rs.getString("district"),
                             rs.getString("ward"),
                             rs.getString("avatar")));
+                    }
+                }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+        
+    public List<Account> getEmailByRoleC(){
+        List<Account> account = new ArrayList();
+        
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select accid, password, name, email, role, phone, ward, district, city, avatar  from \"Account\" where role ='C'";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    account.add(new Account(rs.getString("accid"),
+                                            rs.getString("email"),
+                                            rs.getString("password"),
+                                            rs.getString("role"),
+                                            rs.getString("name"),
+                                            rs.getString("phone"),
+                                            rs.getString("city"),
+                                            rs.getString("district"),
+                                            rs.getString("ward"),
+                                            rs.getString("avatar")));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -302,6 +337,6 @@ public class AccountDAO {
                 Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return list;
+        return account;
     }
 }

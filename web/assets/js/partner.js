@@ -34,8 +34,9 @@ $('.update').click(function() {
 })
 
 $('#delete').click(function(e) {
-    e.preventDefault();
     if (confirm('Bạn có chắc chắn xóa đối tác này không?')) {
-        $('#partnerModal form').submit();
+        $('#comboModal form').submit();
+    } else {
+        e.preventDefault();
     }
 })

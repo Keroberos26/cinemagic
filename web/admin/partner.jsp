@@ -44,8 +44,8 @@
                                         <div class="form-floating mb-4">
                                             <div class="form-floating">
                                                 <select class="form-select" id="account" name="sltAccount" required>
-                                                    <c:forEach begin="0" end="5" varStatus="c">
-                                                        <option value="${c.count}">email ${c.count}</option>
+                                                    <c:forEach items= "${listAcc}" var="c">
+                                                        <option value="${c.id}">${c.email}</option>
                                                     </c:forEach>
                                                 </select>
                                                 <label for="account">Tài khoản liên kết</label>
@@ -69,10 +69,10 @@
                         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 row-cols-lg-6">
                             <c:forEach items="${cinemaList}" var="c">
                                 <div class="col">
-                                    <a href="#" class="p-3 update" data-bs-toggle="modal" data-bs-target="#partnerModal" cinema-id="${c.id}" acc-id="5">
-                                        <div class="bg-img" style="padding-bottom: 100%; background-image: url(${c.logo});"></div>
-                                        <h4 class="text-primary text-center mt-2">${c.name}</h4>
-                                        <p class="text-center mini-text text-2-line">${c.description}</p>
+                                    <a href="#" class="p-3 update" data-bs-toggle="modal" data-bs-target="#partnerModal" cinema-id="${c.key.id}" acc-id="5">
+                                        <div class="bg-img" style="padding-bottom: 100%; background-image: url(${c.key.logo});"></div>
+                                        <h4 class="text-primary text-center mt-2">${c.key.name}</h4>
+                                        <p class="text-center mini-text text-2-line">${c.key.description}</p>
                                     </a>
                                 </div>
                             </c:forEach>

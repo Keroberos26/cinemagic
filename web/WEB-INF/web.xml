@@ -130,7 +130,7 @@
     </servlet>
     <servlet>
         <servlet-name>PartnerServlet</servlet-name>
-        <servlet-class>controller.cinema.PartnerServlet</servlet-class>
+        <servlet-class>controller.admin.PartnerServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccountServlet</servlet-name>

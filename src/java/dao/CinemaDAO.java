@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.CinemaSystem;
@@ -148,5 +150,123 @@ public class CinemaDAO {
             }
         }
         return cinema;
+    }
+
+    public boolean addCinemaSystem(String id, String name, String logo, String description, String accid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "insert into \"CinemaSystem\"(cineid, name, logo, description, accid)";
+                
+                sql += "values ('" + id + "', ?, ?, ?, '" + accid + "')";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, logo);
+                stm.setString(3, description);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+
+    public boolean deleteCinemaSystemById(String cineid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "delete from \"CinemaSystem\" where cineid = '" + cineid + "'";
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+
+    public boolean updateCinemaSystem(String id, String name, String logo, String description, String accid) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"CinemaSystem\" set name = ?, description = ?";
+
+                if (!logo.isBlank()) {
+                    sql += ", logo = ?";
+                }
+                sql += " where cineid ='" + id + "' and accid ='" + accid + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, description);
+                if (!logo.isBlank()) {
+                    stm.setString(3, logo);
+                }
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(CinemaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    }
+    
+    public Map<CinemaSystem, String> listCinema(){
+        Map<CinemaSystem, String> map = new LinkedHashMap();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                String sql = "select cineid, name, description, logo, accid  from \"CinemaSystem\"";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    map.put(new CinemaSystem(rs.getString("cineid"),
+                            rs.getString("name"),
+                            rs.getString("logo"),
+                            rs.getString("description"),
+                            0), rs.getString("accid"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return map;
     }
 }
