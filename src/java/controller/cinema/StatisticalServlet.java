@@ -30,8 +30,6 @@ public class StatisticalServlet extends HttpServlet {
 
         Map theaterList = rDao.getTopTheaterByCine(cinema.getId());
         req.setAttribute("theaterList", theaterList);
-        System.out.println(theaterList);
-
         req.getRequestDispatcher("/cinema/statistical.jsp").forward(req, resp);
     }
 
