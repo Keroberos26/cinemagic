@@ -19,14 +19,14 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Theater theater = (Theater) session.getAttribute("theater");
-        MovieDAO movDao = new MovieDAO();
-        req.setAttribute("movieList", movDao.getMoviesByStatus("I"));
 
         ReportDAO rDao = new ReportDAO();
 
-        req.setAttribute("incomeCine", rDao.getAllIncome());
+        req.setAttribute("listTheater", rDao.getTop5TheaterByAdmin());
+        
+        req.setAttribute("income", rDao.getAllIncome());
 
-        req.setAttribute("countCine", rDao.getAllNumberTicket());
+        req.setAttribute("countAcc", rDao.getAllNumberAccount());
 
         req.getRequestDispatcher("/admin/dashboard.jsp").forward(req, resp);
     }
@@ -44,6 +44,9 @@ public class DashboardServlet extends HttpServlet {
                     break;
                 case "month":
                     chart = rDao.chartByMonths();
+                    break;
+                case "day" :
+                    chart = rDao.chartBy7Day();
                     break;
                 default:
                     throw new AssertionError();

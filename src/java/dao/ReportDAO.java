@@ -80,6 +80,33 @@ public class ReportDAO {
         }
         return count;
     }
+    
+    //Admin - Dashboard NumberAccount
+    public int getAllNumberAccount() {
+        int count = 0;
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "select COUNT(*) as number from \"Account\"";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt("number");
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return count;
+    }
 
     //Admin - Chart - Year
     public Chart chartByYear() {
@@ -553,7 +580,7 @@ public class ReportDAO {
         }
         return chart;
     }
-    
+
     //Admin - Chart - 7Day
     public Chart chartBy7Day() {
         Chart chart = new Chart();
@@ -721,20 +748,59 @@ public class ReportDAO {
                 con = DbContext.getConnection();
                 String sql = "SELECT th.*, sum(income) as income, sum(numofticket) as ticket_count\n"
                         + "FROM \"Income\" i join \"Theater\" th on i.theaterid = th.theaterid\n"
-                        + "where i.cineid = '"+cineid+"'\n"
+                        + "where i.cineid = '" + cineid + "'\n"
                         + "GROUP BY th.theaterid, th.name, th.street, th.ward, th.district, th.city, th.cineid, th.image\n"
                         + "ORDER BY income DESC";
                 stm = con.prepareStatement(sql);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     map.put(new Theater(rs.getString("theaterid"),
-                                        rs.getString("name"),
-                                        rs.getString("street"),
-                                        rs.getString("ward"),
-                                        rs.getString("district"),
-                                        rs.getString("city"),
-                                        rs.getString("image"),
-                                        rs.getString("cineid")), rs.getInt("income"));
+                            rs.getString("name"),
+                            rs.getString("street"),
+                            rs.getString("ward"),
+                            rs.getString("district"),
+                            rs.getString("city"),
+                            rs.getString("image"),
+                            rs.getString("cineid")), rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return map;
+    }
+
+    //Admin - List - Top5Theater
+    public Map<Theater, Integer> getTop5TheaterByAdmin() {
+        Map<Theater, Integer> map = new LinkedHashMap<>();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                String sql = "SELECT th.*, sum(income) as income, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"Theater\" th on i.theaterid = th.theaterid\n"
+                        + "GROUP BY th.theaterid, th.name, th.street, th.ward, th.district, th.city, th.cineid, th.image\n"
+                        + "ORDER BY income DESC\n"
+                        + "limit 5;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    map.put(new Theater(rs.getString("theaterid"),
+                            rs.getString("name"),
+                            rs.getString("street"),
+                            rs.getString("ward"),
+                            rs.getString("district"),
+                            rs.getString("city"),
+                            rs.getString("image"),
+                            rs.getString("cineid")), rs.getInt("income"));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {

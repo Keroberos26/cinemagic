@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="right text-end">
                                             <p>Doanh thu</p>
-                                            <h2 class="price"><fmt:formatNumber value="${incomeCine}" pattern="#,###" /></h2>
+                                            <h2 class="price"><fmt:formatNumber value="${income}" pattern="#,###" /></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -41,8 +41,8 @@
                                             </span>
                                         </div>
                                         <div class="right text-end">
-                                            <p>Đặt vé</p>
-                                            <h2>${countCine}</h2>
+                                            <p>Account</p>
+                                            <h2>${countAcc}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -54,28 +54,28 @@
                                     <select class="form-select" id="chartBy">
                                         <option value="year" selected >Doanh thu theo năm</option>
                                         <option value="month">Doanh thu theo tháng</option>
+                                        <option value="day">Doanh thu 7 ngày gần nhất</option>
                                     </select>
                                     <canvas id="revenueChart"></canvas>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-5 col-xl-4">
                                 <div class="box-content">
-                                    <h3>Phim được coi nhiều nhất trong tháng</h3>
+                                    <h3>Top 5 Cinema doanh thu cao nhất</h3>
                                     <div class="table-responsive">
                                         <table class="table align-middle">
-                                            <c:forEach items="${movieList}" var="m" varStatus="rank">
+                                            <c:forEach items="${listTheater}" var="m" varStatus="rank">
                                                 <tr>
                                                     <td class="fs-1 pe-2">${rank.count}</td>
                                                     <td>
                                                         <div class="movie-card showtimes-card">
                                                             <div class="poster">
-                                                                <div class="bg-img thumbnail" style="background-image: url(${m.poster});">
+                                                                <div class="bg-img thumbnail" style="background-image: url(${m.key.image});">
                                                                 </div>
-                                                                <div class="age-restricted age-${m.age}"><span class="badge">${m.age}</span></div>
                                                             </div>
                                                             <div class="content main-links">
-                                                                <h4 class="title">${m.title}</h4>
-                                                                <p class=" genre mini-text">${m.genres}</p>
+                                                                <h4 class="title">${m.key.name}</h4>
+                                                                <p class=" genre mini-text">${m.key.city}</p>
                                                             </div>
                                                         </div>
                                                     </td>
