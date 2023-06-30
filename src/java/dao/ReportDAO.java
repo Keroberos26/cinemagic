@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Chart;
+import model.CinemaSystem;
 import model.Movie;
 import model.Theater;
 
@@ -80,7 +81,7 @@ public class ReportDAO {
         }
         return count;
     }
-    
+
     //Admin - Dashboard NumberAccount
     public int getAllNumberAccount() {
         int count = 0;
@@ -801,6 +802,42 @@ public class ReportDAO {
                             rs.getString("city"),
                             rs.getString("image"),
                             rs.getString("cineid")), rs.getInt("income"));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+                rs.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return map;
+    }
+
+    //Admin - List - Top5Cinema
+    public Map<CinemaSystem, Integer> getTop5CineByAdmin() {
+        Map<CinemaSystem, Integer> map = new LinkedHashMap<>();
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                con = DbContext.getConnection();
+                String sql = "SELECT c.*, sum(income) as income, sum(numofticket) as ticket_count\n"
+                        + "FROM \"Income\" i join \"CinemaSystem\" c on i.cineid = c.cineid\n"
+                        + "GROUP BY c.cineid, c.name, c.logo, c.description, c.accid\n"
+                        + "ORDER BY income DESC\n"
+                        + "limit 5;";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    map.put(new CinemaSystem(rs.getString("cineid"),
+                            rs.getString("name"),
+                            rs.getString("logo"),
+                            rs.getString("description"),
+                            0), rs.getInt("income"));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
