@@ -29,7 +29,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <input type="hidden" name="comboId">
+                                        <input type="hidden" name="accId">
                                         <div class="form-floating mb-4">
                                             <input type="email" class="form-control" id="email" name="txtEmail" placeholder="example@mail.com" autocomplete="off" required>
                                             <label for="email">Email</label>

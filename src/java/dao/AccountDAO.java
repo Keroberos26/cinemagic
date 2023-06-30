@@ -102,6 +102,36 @@ public class AccountDAO {
 
         return success;
     }
+    
+    public boolean addAccount(String email, String password, String role, String name, String phone) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "insert into \"Account\"(email, password, role, name, phone) values (?, ?, ?, ?, ?)";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                stm.setString(2, encrypPassword(password));
+                stm.setString(3, role);
+                stm.setString(4, name);
+                stm.setString(5, phone);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return success;
+    }
 
     public boolean updateAccount(String id, String name, String phone, String ward, String district, String city, String avatar) {
         boolean success = false;
@@ -133,6 +163,58 @@ public class AccountDAO {
 
         return success;
     }
+    
+    public boolean updateAccount(String name, String phone, String role, String id) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Account\" set name = ?, phone = ?, role = ? where accid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, phone);
+                stm.setString(3, role);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return success;
+    }
+     
+    public boolean deleteAccount(String id){
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "delete from \"Account\" where accid = '" + id + "'";
+                stm = con.prepareStatement(sql);
+                stm.executeUpdate();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException | NullPointerException ex) {
+                Logger.getLogger(ComboDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return success;
+    } 
 
     public boolean changePassword(String id, String password) {
         boolean success = false;

@@ -19,6 +19,31 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        
+        String id = req.getParameter("accId");
+        String email = req.getParameter("txtEmail");
+        String password = req.getParameter("txtPassword");
+        String role = req.getParameter("role");
+        String name = req.getParameter("txtName");
+        String phone = req.getParameter("txtPhone");
+        
+        AccountDAO acc = new AccountDAO();
+        
+        switch (action) {
+            case "add":
+                acc.addAccount(email, password, role, name, phone);
+                break;
+            case "update":
+                acc.updateAccount(name, phone, role, id);
+                break;
+            case "delete":
+                acc.deleteAccount(id);
+                break;
+            default:
+                throw new AssertionError();
+
+        }
+        resp.sendRedirect("/admin/account");
     }
     
 }
