@@ -39,6 +39,9 @@ function getMovies(page) {
 
     var url = new URL(window.location.href);
 
+    $(".movie-list").css('position', 'relative');
+    $(".movie-list").append(spinner);
+
     $.ajax({
         url: url.pathname,
         data: {

@@ -163,3 +163,6 @@ $('.imgFile-form input[type="file"]').change(function() {
         reader.readAsDataURL(chosenFile);
     }
 })
+
+const spinner = $('<div class="spinner-wrapper">')
+                 .append('<div class="spinner-border text-primary" role="status">');

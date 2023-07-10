@@ -103,6 +103,9 @@
                 var id = searchParams.get('id');
                 var date = $('.day.active').attr('date');
 
+                $('.showtimes-movie .list').css('position', 'relative');
+                $('.showtimes-movie .list').append(spinner);
+
                 $.ajax({
                     url: url.pathname,
                     data: {

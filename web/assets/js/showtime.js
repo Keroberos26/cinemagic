@@ -38,6 +38,9 @@ function getTheaters() {
     var city = $('#positionModal .modal-body a.active').text();
     var cinema = searchParams.get('cinema') ?? $('.cinema.active').attr('cinema-id');
 
+    $('.box-body .theater').css('position', 'relative');
+    $('.box-body .theater').append(spinner);
+
     $.ajax({
         url: "/showtimes",
         data: {
@@ -73,7 +76,7 @@ function theaterEvent() {
 // Lấy thông tin rạp phim
 function getTheaterInfo() {
     var id = $('.theater a.active').attr('theater-id'); 
-    
+
     $.ajax({
         url: "/showtimes",
         data: {
@@ -94,6 +97,9 @@ function getTheaterInfo() {
 function getShowtimes() {
     var id = $('.theater a.active').attr('theater-id');
     var date = $('.day.active').attr('date');
+
+    $('.showtimes-movie .list').css('position', 'relative');
+    $('.showtimes-movie .list').append(spinner);
 
     $.ajax({
         url: "/showtimes",

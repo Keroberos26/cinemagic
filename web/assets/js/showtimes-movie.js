@@ -43,6 +43,9 @@ function getShowtimes() {
     var cinema = $('.cinema.active').attr('cinema-id');
     var date = $('.day.active').attr('date');
 
+    $('#showtimes-cinema').css('position', 'relative');
+    $('#showtimes-cinema').append(spinner);
+
     $.ajax({
         url: url.pathname,
         data: {
