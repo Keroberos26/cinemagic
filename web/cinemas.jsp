@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md col-12 order-md-1">
                                     <div class="text-content">
-                                        <h1>Rạp chiếu phim MoMo</h1>
+                                        <h1>Rạp chiếu phim CineMagic</h1>
                                         <ul>
                                             <li><span class="circle icon"><i class="ri-check-line"></i></span><strong>Rạp phim đầy đủ</strong>
                                                  từ Bắc tới Nam</li>

@@ -37,7 +37,7 @@
                                             <li><span class="circle icon"><i class="ri-check-line"></i></span><strong>Lịch
                                                     sử đặt vé</strong> được lưu lại ngay</li>
                                         </ul>
-                                        <a href="#" class="btn btn-primary">Đặt vé ngay</a>
+                                        <a href="/showtimes" class="btn btn-primary">Đặt vé ngay</a>
                                     </div>
                                 </div>
                             </div>

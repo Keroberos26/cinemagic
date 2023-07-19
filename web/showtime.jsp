@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md col-12 order-md-1">
                                     <div class="text-content">
-                                        <h1>Lịch chiếu phim tháng 6/2023 trên CineMagic</h1>
+                                        <h1>Lịch chiếu phim tháng 7/2023 trên CineMagic</h1>
                                         <ul>
                                             <li><span class="circle icon"><i class="ri-check-line"></i></span>Lịch chiếu
                                                 luôn

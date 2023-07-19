@@ -20,8 +20,11 @@
                 <a class="nav-link px-5 ${fn:endsWith(url, "statistical.jsp")? "active": ""}" href="/cinema/statistical">
                     <span class="icon"><i class="fa-solid fa-signal fa-lg"></i></span><br/>Thống kê
                 </a>
-                <a class="nav-link px-5 ${fn:endsWith(url, "cinema-info.jsp")? "active": ""}"" href="/cinema/info">
+                <a class="nav-link px-5 ${fn:endsWith(url, "cinema-info.jsp")? "active": ""}" href="/cinema/info">
                     <span class="icon"><i class="fa-solid fa-info fa-lg"></i></span><br/>Thông tin
+                </a>
+                <a class="nav-link px-5" href="/logout">
+                    <span class="icon"><i class="fa-solid fa-right-from-bracket fa-lg"></i></span><br/>Đăng xuất
                 </a>
             </div>
         </div>

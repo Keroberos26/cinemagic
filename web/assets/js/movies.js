@@ -58,13 +58,6 @@ function getMovies(page) {
             $(".movie-list").html(resp[0]);
             $(".paging").html(resp[1]);
             pageClick();
-            var targetOffset = $(".showtimes").offset().top;
-            $("html, body").animate(
-                {
-                    scrollTop: targetOffset,
-                },
-                100
-            );
         },
         error: function (xhr) {
             console.log("ERROR Ajax");

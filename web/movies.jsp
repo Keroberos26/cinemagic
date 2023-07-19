@@ -68,7 +68,7 @@
                             <div class="showtimes">
                                 <div class="container-lg">
                                     <div class="wrapper">
-                                        <div class="row gy-3">
+                                        <div class="row gy-3 mb-4">
                                             <div class="col-12 col-lg-5">
                                                 <h3 class="text-primary text-center text-lg-start">Tìm phim chiếu rạp trên CineMagic</h3>
                                             </div>

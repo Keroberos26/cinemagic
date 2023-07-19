@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
+<c:set var="url" value="${pageContext.request.requestURL}" />
 <div class="preloader"></div>
 
 <header>
@@ -18,10 +20,9 @@
                 <div class="right">
                     <nav class="d-lg-block d-none">
                         <ul class="main-links flexitem">
-                            <li><a href="/cinemas">Rạp chiếu</a></li>
-                            <li><a href="/showtimes">Lịch chiếu</a></li>
-                            <li><a href="/movies">Phim chiếu</a></li>
-                            <li><a href="#">Review phim</a></li>
+                            <li><a href="/cinemas" class="${fn:endsWith(url, "cinemas.jsp")? "active": ""}">Rạp chiếu</a></li>
+                            <li><a href="/showtimes" class="${fn:endsWith(url, "showtime.jsp")? "active": ""}">Lịch chiếu</a></li>
+                            <li><a href="/movies" class="${fn:endsWith(url, "movies.jsp")? "active": ""}">Phim chiếu</a></li>
                             <li>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
