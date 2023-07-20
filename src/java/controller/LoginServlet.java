@@ -54,6 +54,7 @@ public class LoginServlet extends HttpServlet {
                         break;
                     case "U":
                         resp.sendRedirect("/");
+                        break;
                     case "A":
                         resp.sendRedirect("/admin/dashboard");
                         break;
