@@ -83,26 +83,21 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header h5 text-white bg-primary justify-content-center">
-                                    Password Reset
+                                    Quên mật khẩu
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/forgot" method="post">
-                                        <p class="py-2">
-                                            Enter your email address and we'll send you an email
-                                            with instructions to
-                                            reset
-                                            your password.
-                                        </p>
-                                        <div class="form-group mb-3">
-                                            <label class="form-label" for="typeEmail">Email
-                                                input</label>
-                                            <input type="email" id="typeEmail" class="form-control" name="email"
-                                                required />
-                                        </div>
-                                        <button type="submit" name="action" value="sendOTP"
-                                            class="btn btn-primary w-100">Reset
-                                            password</button>
-                                    </form>
+                                    <p class="py-2">
+                                        Nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn một email có hướng
+                                        dẫn để đặt lại mật khẩu của bạn.
+                                    </p>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                        <input type="text" class="form-control" placeholder="Nhập email" name="email"
+                                            id="emailForgot" required>
+                                    </div>
+                                    <div class="feedback"></div>
+                                    <button type="submit" name="action" value="sendMail"
+                                        class="btn btn-primary w-100">Gửi</button>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +111,29 @@
         </div>
 
         <%@include file="/general/script.jsp" %>
+            <script>
+                $("#forgotPassModal .modal-body button").click(function () {
+                    const email = $("#emailForgot").val();
+                    $(this).prop("disabled", true);
+
+                    $.ajax({
+                        url: "/forgot",
+                        data: {
+                            email: email,
+                            action: "send",
+                        },
+                        type: "post",
+                        success: function (response) {
+                            $("#forgotPassModal .modal-body .feedback").html(response);
+                            $("#forgotPassModal .modal-body button").prop("disabled", false);
+                        },
+                        error: function (xhr) {
+                            console.log("ERROR Ajax");
+                            $("#forgotPassModal .modal-body button").prop("disabled", false);
+                        },
+                    });
+                });
+            </script>
     </body>
 
     </html>

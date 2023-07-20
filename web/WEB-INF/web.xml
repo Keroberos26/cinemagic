@@ -144,6 +144,10 @@
         <servlet-name>TheaterInfoServlet</servlet-name>
         <servlet-class>controller.cinema.TheaterInfoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>/HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -279,6 +283,10 @@
     <servlet-mapping>
         <servlet-name>TheaterInfoServlet</servlet-name>
         <url-pattern>/cinema/theater-info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

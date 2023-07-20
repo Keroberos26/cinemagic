@@ -241,6 +241,33 @@ public class AccountDAO {
 
         return success;
     }
+    
+    public boolean resetPassword(String email, String password) {
+        boolean success = false;
+
+        try {
+            con = DbContext.getConnection();
+            if (con != null) {
+                String sql = "update \"Account\" set password = ? where email = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, encrypPassword(password));
+                stm.setString(2, email);
+                stm.execute();
+                success = true;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                con.close();
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return success;
+    }
 
     public boolean addAccountByGoogleId(String googleid, String name, String avatar) {
         boolean success = false;
