@@ -43,12 +43,30 @@ public class ForgotPasswordServlet extends HttpServlet {
                 String password = req.getParameter("password");
                 String confirm = req.getParameter("confirm");
                 String mail = Encryption.AESDecrypt(email);
-                if (dao.validatePassword(password) && password.equals(confirm) && dao.resetPassword(mail, password)) {
-                    resp.sendRedirect("/login");
+                long period = Long.parseLong(req.getParameter("period"));
+
+                String error = null;
+                if (System.currentTimeMillis() - period < 300000) {
+                    if (dao.validatePassword(password)) {
+                        if (password.equals(confirm)) {
+                            if (dao.resetPassword(mail, password)) {
+                                resp.sendRedirect("/login");
+                            } else {
+                                error = "other";
+                            }
+                        } else {
+                            error = "confirm";
+                        }
+                    } else {
+                        error = "password";
+                    }
                 } else {
-                    resp.sendRedirect("/forgot?token=" + email + "&error=true");
+                    error = "period";
                 }
-                System.out.println(Encryption.AESDecrypt(email));
+
+                if (error != null) {
+                    resp.sendRedirect("/forgot?token=" + email + "&period=" + period + "&error=" + error);
+                }
                 break;
             default:
                 throw new AssertionError();

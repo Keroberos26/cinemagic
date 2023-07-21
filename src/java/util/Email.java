@@ -3,12 +3,22 @@ package util;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Email {
+
     public static String resetPassword(String token) {
+        // Encode URL Email
+        String encodedToken = token;
+        try {
+            encodedToken = URLEncoder.encode(token, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
                 + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                 + "\n"
@@ -42,7 +52,7 @@ public class Email {
                 + "                        lòng bỏ qua email này.</p>\n"
                 + "                      <p style=\"padding-bottom: 16px\">Để thay đổi mật khẩu, vui lòng nhấn vào nút bên dưới:</p>\n"
                 + "                      <p style=\"padding-bottom: 16px\">"
-                + "                         <a href=\"http://localhost:8080/forgot?token="+token+"\" target=\"_blank\"\n"
+                + "                         <a href=\"http://localhost:8080/forgot?token=" + encodedToken + "&period=" + System.currentTimeMillis() + "\" target=\"_blank\"\n"
                 + "                          style=\"padding: 12px 0; border-radius: 4px; color: #FFF; background: #8D48F5;display: block;margin: 0.5rem 0; text-align: center; text-decoration: none;\">Thay\n"
                 + "                          đổi mật khẩu</a>"
                 + "                         </p>\n"

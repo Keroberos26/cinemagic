@@ -19,6 +19,7 @@
                             <h1 class="text-center mb-5">Thay đổi mật khẩu</h1>
                             <form action="/forgot" method="post" class="needs-validation" novalidate>
                                 <input type="hidden" name="email" value="${param.token}">
+                                <input type="hidden" name="period" value="${param.period}">
                                 <div class="form-floating mb-3">
                                     <input type="password" class="form-control" id="password" placeholder="Password"
                                         name="password"
@@ -41,11 +42,31 @@
                                         Mật khẩu không khớp!
                                     </div>
                                 </div>
-                                <c:if test="${param.error == true}">
-                                    <div class="alert alert-danger" role="alert">
-                                        Đổi không thành công!
-                                    </div>
-                                </c:if>
+                                <c:choose>
+                                    <c:when test='${param.error == "period"}'>
+                                        <div class="alert alert-danger" role="alert">
+                                            Yêu cầu đổi mật khẩu đã hết hạn!
+                                        </div>
+                                    </c:when>
+                                    <c:when test='${param.error == "password"}'>
+                                        <div class="alert alert-danger" role="alert">
+                                            Mật khẩu phải chứa 8 - 32 ký tự, bao gồm ít nhất 1 chữ hoa [A - Z], 1 chữ
+                                            thường
+                                            [a
+                                            - z], 1 chữ số và 1 ký tự đặc biệt (@ $ ! % * ? &).
+                                        </div>
+                                    </c:when>
+                                    <c:when test='${param.error == "confirm"}'>
+                                        <div class="alert alert-danger" role="alert">
+                                            Mật khẩu xác nhận không khớp!
+                                        </div>
+                                    </c:when>
+                                    <c:when test='{param.error == "other"}'>
+                                        <div class="alert alert-danger" role="alert">
+                                            Đổi mật khẩu không thành công!
+                                        </div>
+                                    </c:when>
+                                </c:choose>
                                 <button class="w-100 btn btn-primary" name="action" value="reset">Xác nhận</button>
                             </form>
                         </div>
