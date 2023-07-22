@@ -17,7 +17,9 @@ import java.util.logging.Logger;
 import model.Account;
 import model.Combo;
 import model.Seat;
+import model.Theater;
 import model.Ticket;
+import util.Email;
 
 public class TicketServlet extends HttpServlet {
 
@@ -42,13 +44,12 @@ public class TicketServlet extends HttpServlet {
             }
         }
         TheaterDAO theDao = new TheaterDAO();
-        req.setAttribute("theater", theDao.getTheaterById(t.getShowtime().getRoom().getTheaterid(), false));
-        
-        
-        
+        Theater th = theDao.getTheaterById(t.getShowtime().getRoom().getTheaterid(), false);
+        req.setAttribute("theater", th);
+
         String orderInfo = req.getParameter("vnp_OrderInfo");
         String vnpPayDate = req.getParameter("vnp_PayDate");
-        
+
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         Date payDate = null;
         try {
@@ -56,6 +57,8 @@ public class TicketServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(TicketServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        Email.send(t.getEmail(), "Thông tin vé đã đặt", Email.ticket(t, th));
         
         req.setAttribute("orderInfo", orderInfo);
         req.setAttribute("payDate", payDate);
@@ -66,5 +69,4 @@ public class TicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
-
 }

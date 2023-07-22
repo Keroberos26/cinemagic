@@ -89,9 +89,9 @@ public class AccountFilter implements Filter {
             }
         }
 
-//        if (url.endsWith("jsp")) {
-//            resp.sendRedirect("/");
-//        }
+        if (url.endsWith("jsp")) {
+            resp.sendRedirect("/");
+        }
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)

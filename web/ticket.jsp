@@ -1,13 +1,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+
     <head>
-        <title>Thông tin - ${theater.name} - ${order.showtime.movie.title} - <fmt:formatDate value="${order.showtime.starttime}" pattern="HH:mm dd/MM/yyyy"/></title>
+        <title>Thông tin - ${theater.name} - ${order.showtime.movie.title} -
+            <fmt:formatDate value="${order.showtime.starttime}" pattern="HH:mm dd/MM/yyyy" />
+        </title>
         <%@include file="/general/head.jsp" %>
     </head>
+
     <body>
         <div id="page" class="site">
             <%@include file="/general/header.jsp" %>
@@ -24,7 +28,8 @@
                             </div>
                             <div class="col">
                                 <div class="text-center">
-                                    <span class="icon"><i class="ri-shopping-bag-3-fill ri-lg"></i></span>
+                                    <span class="icon"><i
+                                            class="ri-shopping-bag-3-fill ri-lg"></i></span>
                                     <div>Bắp nước</div>
                                 </div>
                             </div>
@@ -51,26 +56,38 @@
                                 <div class="ticket-detail p-3 bg-lightpink box-shadow rounded-1">
                                     <div class="flexitem">
                                         <div class="age-restricted age-${order.showtime.movie.age}">
-                                            <span class="badge rounded-pill">${order.showtime.movie.age == "0" ? "P" : order.showtime.movie.age}</span>
+                                            <span class="badge rounded-pill">${order.showtime.movie.age
+                                                                               == "0" ? "P" : order.showtime.movie.age}</span>
                                         </div>
                                         <h5 class="mb-0 ms-2">${order.showtime.movie.title}</h5>
                                     </div>
                                     <div class="row g-3 py-4 mt-4 b-dashed bt-1 b">
                                         <div class="col-8">
-                                            <div class="mini-text text-uppercase fw-medium">Thời gian</div>
-                                            <div class="fw-bold"><fmt:formatDate value="${order.showtime.starttime}" pattern="HH:mm"/> 
-                                                ~ <fmt:formatDate value="${order.showtime.endtime}" pattern="HH:mm"/></div>
+                                            <div class="mini-text text-uppercase fw-medium">Thời gian
+                                            </div>
+                                            <div class="fw-bold">
+                                                <fmt:formatDate value="${order.showtime.starttime}"
+                                                                pattern="HH:mm" />
+                                                ~
+                                                <fmt:formatDate value="${order.showtime.endtime}"
+                                                                pattern="HH:mm" />
+                                            </div>
                                         </div>
                                         <div class="col-4 text-end">
-                                            <div class="mini-text text-uppercase fw-medium">Ngày chiếu</div>
-                                            <div class="fw-bold"><fmt:formatDate value="${order.showtime.starttime}" pattern="dd/MM/yyyy"/></div>
+                                            <div class="mini-text text-uppercase fw-medium">Ngày chiếu
+                                            </div>
+                                            <div class="fw-bold">
+                                                <fmt:formatDate value="${order.showtime.starttime}"
+                                                                pattern="dd/MM/yyyy" />
+                                            </div>
                                         </div>
                                         <div class="col-8">
                                             <div class="mini-text text-uppercase fw-medium">Ghế</div>
                                             <div class="fw-bold">${order.getSeatNum()}</div>
                                         </div>
                                         <div class="col-4 text-end">
-                                            <div class="mini-text text-uppercase fw-medium">Phòng chiếu</div>
+                                            <div class="mini-text text-uppercase fw-medium">Phòng chiếu
+                                            </div>
                                             <div class="fw-bold">${order.showtime.room.name}</div>
                                         </div>
                                     </div>
@@ -80,20 +97,25 @@
                                             <div class="col-5">
                                                 <div class="flexbetween align-items-end">
                                                     <div>
-                                                        <div class="mini-text text-uppercase fw-medium">Rạp</div>
+                                                        <div class="mini-text text-uppercase fw-medium">
+                                                            Rạp</div>
                                                         <div class="fw-bold">${theater.name}</div>
-                                                        <div class="mini-text text-capitalize">${theater.street}, ${theater.ward}, ${theater.district}, ${theater.city}</div>
+                                                        <div class="mini-text text-capitalize">
+                                                            ${theater.street}, ${theater.ward},
+                                                            ${theater.district}, ${theater.city}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-7">
                                                 <div class="text-end">
                                                     <c:if test="${order.combos != null}">
-                                                        <div class="mini-text text-uppercase fw-medium">Bắp nước</div>
+                                                        <div class="mini-text text-uppercase fw-medium">
+                                                            Bắp nước</div>
                                                         <ul>
                                                             <c:forEach items="${order.combos}" var="e">
                                                                 <li class="py-1">
-                                                                    <div class="fw-bold">${e.value} x ${e.key.name}</div>
+                                                                    <div class="fw-bold">${e.value} x
+                                                                        ${e.key.name}</div>
                                                                 </li>
                                                             </c:forEach>
                                                         </ul>
@@ -105,7 +127,11 @@
                                     <div class="py-4 b-dashed bt-1 b">
                                         <div class="flexbetween align-items-end my-1">
                                             <div class="fw-bold">Tổng tiền</div>
-                                            <span class="price fw-bold"><fmt:formatNumber value="${order.getSeatPrice() + order.getCombosPrice()}" pattern="#,###" /></span>
+                                            <span class="price fw-bold">
+                                                <fmt:formatNumber
+                                                    value="${order.getSeatPrice() + order.getCombosPrice()}"
+                                                    pattern="#,###" />
+                                            </span>
                                         </div>
                                         <div class="flexbetween align-items-end my-1">
                                             <div class="mini-text">Mã giao dịch</div>
@@ -113,7 +139,10 @@
                                         </div>
                                         <div class="flexbetween align-items-end my-1">
                                             <div class="mini-text">Thời gian giao dịch</div>
-                                            <span class="mini-text"><fmt:formatDate value="${payDate}" pattern="HH:mm - dd/MM/yyyy" /></span>
+                                            <span class="mini-text">
+                                                <fmt:formatDate value="${payDate}"
+                                                                pattern="HH:mm - dd/MM/yyyy" />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -129,30 +158,7 @@
         </div>
 
         <%@include file="/general/script.jsp" %>
-        <script src="/assets/js/booking.js"></script>
-        $("#frmCreateOrder").submit(function () {
-            var postData = $("#frmCreateOrder").serialize();
-            var submitUrl = $("#frmCreateOrder").attr("action");
-            $.ajax({
-                type: "POST",
-                url: submitUrl,
-                data: postData,
-                dataType: 'JSON',
-                success: function (x) {
-                    if (x.code === '00') {
-                        if (window.vnpay) {
-                            vnpay.open({width: 768, height: 600, url: x.data});
-                        } else {
-                            location.href = x.data;
-                        }
-                        return false;
-                    } else {
-                        alert(x.Message);
-                    }
-                }
-            });
-            return false;
-        });
+        </script>
     </body>
-</html>
 
+</html>
